@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 0; // Speed of the character
+    public float speed = 2; // Speed of the character
     public Animator animator; // Reference to the Animator component
     public Vector3 direction; // Direction vector for movement
     public VectorValue startingPosition; // Reference to the starting position
