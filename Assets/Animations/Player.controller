@@ -82,6 +82,7 @@ BlendTree:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Motion: {fileID: 7400000, guid: 9a66bbf6dd757284ea201ee4bc8bc0d9, type: 2}
 =======
     m_Motion: {fileID: 7400000, guid: e3626b9216a2821489d1332ec719020a, type: 2}
@@ -92,16 +93,19 @@ BlendTree:
 =======
     m_Motion: {fileID: 7400000, guid: 89374954aa5c59d4d9cee1cbc2f9e065, type: 2}
 >>>>>>> parent of 186fa7a (aroon test)
+=======
+    m_Motion: {fileID: 7400000, guid: 9a66bbf6dd757284ea201ee4bc8bc0d9, type: 2}
+>>>>>>> 719f714f81822d3b0e1759f0c1cd6308d191972d
     m_Threshold: 0.6666667
-    m_Position: {x: 0, y: -1}
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Horizontal
+    m_DirectBlendParameter: horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9a66bbf6dd757284ea201ee4bc8bc0d9, type: 2}
+    m_Motion: {fileID: 7400000, guid: 89374954aa5c59d4d9cee1cbc2f9e065, type: 2}
     m_Threshold: 1
-    m_Position: {x: 0, y: 1}
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: horizontal
