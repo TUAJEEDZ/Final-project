@@ -21,5 +21,5 @@ public class Collectable : MonoBehaviour
 
 public enum CollectableType
 {
-	NONE, pumkin , punkin_seed ,carrot
+	NONE, pumkin , punkin_seed ,carrot 
 }
