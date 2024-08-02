@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/HomeandFarm.unity
     guid: 96bfbf009ca9eb94490c537b97d641ce
   - enabled: 1
-    path: Assets/Scenes/v.unity
+    path: Assets/Scenes/villager.unity
     guid: b2efb15e3faab634390fc44b2ec17805
   - enabled: 1
     path: Assets/Scenes/homescene.unity
