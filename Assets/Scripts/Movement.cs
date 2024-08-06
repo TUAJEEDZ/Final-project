@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    walk,
+    attack,
+    interact
+}
+
 public class Movement : MonoBehaviour
 {
     public float speed = 0; // Speed of the character
     public Animator animator; // Reference to the Animator component
     public Vector3 direction; // Direction vector for movement
     public VectorValue startingPosition; // Reference to the starting position
+
+    private PlayerState currentState = PlayerState.walk; // Declare and initialize the currentState variable
 
     private void Start()
     {
@@ -21,6 +30,12 @@ public class Movement : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
+        // Check for attack input and state
+        if (Input.GetButtonDown("attack") && currentState != PlayerState.attack)
+        {
+            StartCoroutine(AttackCo());
+        }
+
         // Create a direction vector from the input
         direction = new Vector3(horizontal, vertical, 0).normalized;
 
@@ -29,6 +44,16 @@ public class Movement : MonoBehaviour
 
         // Update the animator with the movement direction
         AnimatorMovement(direction);
+    }
+
+    private IEnumerator AttackCo()
+    {
+        animator.SetBool("attacking", true);
+        currentState = PlayerState.attack;
+        yield return null; // Wait for one frame
+        animator.SetBool("attacking", false);
+        yield return new WaitForSeconds(.33f);
+        currentState = PlayerState.walk;
     }
 
     void AnimatorMovement(Vector3 direction)
