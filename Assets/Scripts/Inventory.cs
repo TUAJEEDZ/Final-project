@@ -21,7 +21,7 @@ public class Inventory
             maxAllowed = 99;
         }
 
-        public bool CanAddItem()
+        public bool CanAddItem()  //check player item quantity to not exceed maxallowed
         {
             if(count < maxAllowed)
             {

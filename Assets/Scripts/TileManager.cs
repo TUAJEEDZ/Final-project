@@ -15,7 +15,7 @@ public class TileManager : MonoBehaviour
         {
             if (interactableMap.HasTile(position))
             {
-                interactableMap.SetTile(position, hiddenInteractableTile);
+                interactableMap.SetTile(position, hiddenInteractableTile); // set tile to hidden
             }
         }
     }

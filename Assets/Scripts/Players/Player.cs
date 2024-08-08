@@ -12,14 +12,14 @@ public class Player : MonoBehaviour
    }
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.E))
+		if(Input.GetKeyDown(KeyCode.E)) // set plow keybind
 		{
 			Vector3Int position = new Vector3Int((int)transform.position.x, // plow position
 				(int)transform.position.y -1 , 0);
 
-			if (GameManager.instance.tileManager.IsInteractable(position)) 
+			if (GameManager.instance.tileManager.IsInteractable(position)) // check for interactable tile
 			{
-				Debug.Log("Tile is interactable");
+				Debug.Log("Tile is interactable"); //output if selected tile is interactable
 				GameManager.instance.tileManager.SetInteracted(position);
 			}
 		}
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 	{
 		Vector2 spawnLocation = transform.position;
 
-		Vector2 spawnOffset = Random.insideUnitCircle * 1.75f;
+		Vector2 spawnOffset = Random.insideUnitCircle * 1.75f; // random position
 
 		Item droppedItem = Instantiate(item, spawnLocation + spawnOffset, 
 			Quaternion.identity);
