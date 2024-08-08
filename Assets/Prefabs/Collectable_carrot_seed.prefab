@@ -11,10 +11,10 @@ PrefabInstance:
     - target: {fileID: 130391869310877914, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1061701805, guid: 920c1aefa04311b449ade0663cb52047, type: 3}
+      objectReference: {fileID: 2028435981, guid: 920c1aefa04311b449ade0663cb52047, type: 3}
     - target: {fileID: 1182340765560441041, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
       propertyPath: m_Name
-      value: 'Collectable_carrot 1 '
+      value: Collectable_carrot_seed
       objectReference: {fileID: 0}
     - target: {fileID: 1813832371826185605, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
       propertyPath: icon
@@ -27,7 +27,7 @@ PrefabInstance:
     - target: {fileID: 2542357985516962865, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
       propertyPath: data
       value: 
-      objectReference: {fileID: 11400000, guid: 67fed6f3159f790468fefe66e67c74c0, type: 2}
+      objectReference: {fileID: 11400000, guid: 53a8bfb6910b01d46aec7c25cf870812, type: 2}
     - target: {fileID: 4907968613006257695, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2

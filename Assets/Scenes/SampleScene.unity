@@ -2220,10 +2220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449add8dd665aa14598bd1f055bb8a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectableItems:
-  - {fileID: 1813832371826185605, guid: 619a24f90c33d3d4ea42c660bc9de13a, type: 3}
-  - {fileID: 9215002829435388620, guid: 86f29fb8250a3b04aa6316fde8f0cbb1, type: 3}
-  - {fileID: 7742544302916920035, guid: 1118a81eb51b7444daf423f807863a76, type: 3}
+  items:
+  - {fileID: 5843219259299623767, guid: 1118a81eb51b7444daf423f807863a76, type: 3}
 --- !u!114 &573976949
 MonoBehaviour:
   m_ObjectHideFlags: 0
