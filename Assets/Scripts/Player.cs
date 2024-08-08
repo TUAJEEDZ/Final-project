@@ -10,6 +10,20 @@ public class Player : MonoBehaviour
    {
 	   inventory = new Inventory(27);
    }
+	private void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			Vector3Int position = new Vector3Int((int)transform.position.x, // plow position
+				(int)transform.position.y , 0);
+
+			if (GameManager.instance.tileManager.IsInteractable(position)) 
+			{
+				Debug.Log("Tile is interactable");
+				GameManager.instance.tileManager.SetInteracted(position);
+			}
+		}
+	}
 
 	public void DropItem(Collectable item)
 	{
