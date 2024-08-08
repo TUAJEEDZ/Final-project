@@ -6,8 +6,8 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
-    [SerializeField] private Tile hiddenInteractableTile;
-    [SerializeField] private Tile interactedTile;  // Corrected type from TileManager to Tile
+    [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
+    [SerializeField] private Tile interactedTile;  // select tile to replace hiddentile
 
     void Start()
     {

@@ -53,12 +53,12 @@ public class Inventory_UI : MonoBehaviour
             }
         }
     }
-    public void Remove(int slotID)
+    public void Remove(int slotID) //when click remove item in inventory ui. 
     {
         Item itemToDrop = GameManager.instance.itemManager.GetItemByName(
             player.inventory.slots[slotID].itemName);
 
-        if (itemToDrop != null)
+        if (itemToDrop != null) 
         {
             player.DropItem(itemToDrop);
             player.inventory.Remove(slotID);

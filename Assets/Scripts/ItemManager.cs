@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : MonoBehaviour   //adjust new added item by name 
 {
     public Item[] items;
 
     private Dictionary<string, Item> nameToItemDict =
         new Dictionary<string, Item>();
-
+                        
     private void Awake()
     {
         foreach(Item item in items)
