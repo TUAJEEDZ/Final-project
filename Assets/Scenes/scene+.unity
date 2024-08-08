@@ -13622,7 +13622,7 @@ MonoBehaviour:
   maxHealth: 4
   knockBackThrustAmount: 10
   damageRecoveryTime: 1
-  healthSlider: {fileID: 0}
+  healthSlider: {fileID: 584832528}
 --- !u!114 &1684040169 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3052075642432848234, guid: aa93a8cf7c22a30458e5a4bde0e0cf15, type: 3}
