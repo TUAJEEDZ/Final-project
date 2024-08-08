@@ -11,12 +11,30 @@ public enum PlayerState
 
 public class Movement : MonoBehaviour
 {
+    public static Movement instance; // Singleton instance
+
     public float speed = 0; // Speed of the character
     public Animator animator; // Reference to the Animator component
     public Vector3 direction; // Direction vector for movement
     public VectorValue startingPosition; // Reference to the starting position
+    private Knockback knockback;
 
     private PlayerState currentState = PlayerState.walk; // Declare and initialize the currentState variable
+
+    private void Awake()
+    {
+        // Implement the singleton pattern
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        knockback = GetComponent<Knockback>();
+    }
 
     private void Start()
     {
@@ -29,6 +47,8 @@ public class Movement : MonoBehaviour
         // Get input from the horizontal and vertical axes
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        if (knockback.gettingKnockedBack) { return; } // Add semicolon here
 
         // Check for attack input and state
         if (Input.GetButtonDown("attack") && currentState != PlayerState.attack)
