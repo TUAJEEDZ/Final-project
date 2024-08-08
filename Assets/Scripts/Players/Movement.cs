@@ -37,10 +37,14 @@ public class Movement : MonoBehaviour
     }
 
     private void Start()
+{
+    // ตรวจสอบว่า startingPosition ถูกกำหนดค่าหรือไม่
+    if (startingPosition != null)
     {
-        // Set the starting position from the VectorValue
         transform.position = startingPosition.initialValue;
     }
+}
+
 
     private void Update()
     {
@@ -77,19 +81,20 @@ public class Movement : MonoBehaviour
     }
 
     void AnimatorMovement(Vector3 direction)
+{
+    if (animator != null)
     {
-        if (animator != null)
+        if (direction.magnitude > 0)
         {
-            if (direction.magnitude > 0)
-            {
-                animator.SetBool("IsMoving", true);
-                animator.SetFloat("Horizontal", direction.x);
-                animator.SetFloat("Vertical", direction.y);
-            }
-            else
-            {
-                animator.SetBool("IsMoving", false);
-            }
+            animator.SetBool("IsMoving", true);
+            animator.SetFloat("Horizontal", direction.x);
+            animator.SetFloat("Vertical", direction.y);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
         }
     }
+}
+
 }

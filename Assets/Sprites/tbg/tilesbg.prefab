@@ -417,6 +417,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 17, y: -14, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 402
+      m_TileSpriteIndex: 402
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 4, y: -13, z: 0}
     second:
       serializedVersion: 2
@@ -4934,9 +4944,13 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 6e6589f613b87c94d8a1a8933f020f5f, type: 2}
   - m_RefCount: 1
+<<<<<<< Updated upstream
     m_Data: {fileID: 11400000, guid: e326dde0379142f4d8806f194463f3cf, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
+=======
+    m_Data: {fileID: 11400000, guid: e1f6efbc5368c674cb9005e81659b522, type: 2}
+>>>>>>> Stashed changes
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 1981403480, guid: 930297a1598bc4245bdae9e00e32df4a, type: 3}
@@ -5743,11 +5757,17 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -473644490, guid: 4c4e6d8b05f816c4d978ad413531c5db, type: 3}
   - m_RefCount: 1
+<<<<<<< Updated upstream
     m_Data: {fileID: 21300000, guid: 508b8982be783654999799045cfc31f1, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: a62a4e9abf81b644ea9d4abf207f1251, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 404
+=======
+    m_Data: {fileID: 469336690, guid: 3c367b7985c86fe499335efa0d4c9713, type: 3}
+  m_TileMatrixArray:
+  - m_RefCount: 403
+>>>>>>> Stashed changes
     m_Data:
       e00: 1
       e01: 0
@@ -5766,7 +5786,11 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
+<<<<<<< Updated upstream
   - m_RefCount: 404
+=======
+  - m_RefCount: 403
+>>>>>>> Stashed changes
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -5841,7 +5865,11 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+<<<<<<< Updated upstream
 --- !u!114 &2649666709984386680
+=======
+--- !u!114 &8032221402000705654
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
