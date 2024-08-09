@@ -13619,7 +13619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5906fc4147f4ed46ac80e0b980c14fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 3
   knockBackThrustAmount: 10
   damageRecoveryTime: 1
   healthSlider: {fileID: 584832528}
