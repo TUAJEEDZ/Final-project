@@ -21,7 +21,7 @@ public class Inventory
             maxAllowed = 99;
         }
 
-        public bool CanAddItem()
+        public bool CanAddItem()  //check player item quantity to not exceed maxallowed
         {
             if(count < maxAllowed)
             {
@@ -37,7 +37,7 @@ public class Inventory
             this.icon = item.data.icon;
             count++;
         }
-        public void RemoveItem()
+        public void RemoveItem() // remove item form inventory by 1, if item equal 0 change icon to null and item name to empty.
         {
             if(count >0 )
             {

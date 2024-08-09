@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))] //use for select item data that already added in ItemManager 
 public class Item : MonoBehaviour
 {
     public ItemData data;

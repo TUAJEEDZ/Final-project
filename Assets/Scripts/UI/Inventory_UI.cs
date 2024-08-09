@@ -17,7 +17,7 @@ public class Inventory_UI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab)) // keybind for inventory
         {
             ToggleInventory();
         }
@@ -38,7 +38,7 @@ public class Inventory_UI : MonoBehaviour
 
     void Refresh()
     {
-        if (slots.Count == player.inventory.slots.Count)
+        if (slots.Count == player.inventory.slots.Count)   //Update inventory
         {
             for (int i = 0; i < slots.Count; i++)
             {
@@ -53,12 +53,12 @@ public class Inventory_UI : MonoBehaviour
             }
         }
     }
-    public void Remove(int slotID)
+    public void Remove(int slotID) //when click remove item in inventory ui. 
     {
         Item itemToDrop = GameManager.instance.itemManager.GetItemByName(
             player.inventory.slots[slotID].itemName);
 
-        if (itemToDrop != null)
+        if (itemToDrop != null) 
         {
             player.DropItem(itemToDrop);
             player.inventory.Remove(slotID);
