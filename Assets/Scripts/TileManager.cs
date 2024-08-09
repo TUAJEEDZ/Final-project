@@ -20,7 +20,7 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public bool IsInteractable(Vector3Int position)
+    public bool IsInteractable(Vector3Int position)   //when put tile in interactable layer, that tile will be interactable. 
     {
         TileBase tile = interactableMap.GetTile(position);
 
