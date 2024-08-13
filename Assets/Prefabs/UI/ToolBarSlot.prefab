@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 7704171952120303136}
   - component: {fileID: 3052075642432848234}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: ToolBarSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1775480077, guid: 43d7fc5cce6de6441941492c44737ea5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

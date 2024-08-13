@@ -16530,6 +16530,10 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7704171952120303136, guid: aa93a8cf7c22a30458e5a4bde0e0cf15, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1339431894, guid: 43d7fc5cce6de6441941492c44737ea5, type: 3}
     - target: {fileID: 7906792080471929596, guid: aa93a8cf7c22a30458e5a4bde0e0cf15, type: 3}
       propertyPath: m_Enabled
       value: 1
