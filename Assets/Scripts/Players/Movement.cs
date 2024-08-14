@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     public Animator animator; // Reference to the Animator component
     public Vector3 direction; // Direction vector for movement
     public VectorValue startingPosition; // Reference to the starting position
+    private SpriteRenderer spriteRenderer;
     private Knockback knockback;
 
     private PlayerState currentState = PlayerState.walk; // Declare and initialize the currentState variable

@@ -6,8 +6,8 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
-    [SerializeField] private Tile hiddenInteractableTile;
-    [SerializeField] private Tile interactedTile;  // Corrected type from TileManager to Tile
+    [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
+    [SerializeField] private Tile interactedTile;  // select tile to replace hiddentile
 
     void Start()
     {
@@ -15,12 +15,12 @@ public class TileManager : MonoBehaviour
         {
             if (interactableMap.HasTile(position))
             {
-                interactableMap.SetTile(position, hiddenInteractableTile);
+                interactableMap.SetTile(position, hiddenInteractableTile); // set tile to hidden
             }
         }
     }
 
-    public bool IsInteractable(Vector3Int position)
+    public bool IsInteractable(Vector3Int position)   //when put tile in interactable layer, that tile will be interactable. 
     {
         TileBase tile = interactableMap.GetTile(position);
 

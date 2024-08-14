@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2809881711005754847}
   - component: {fileID: 2268636486250376719}
   - component: {fileID: 599604733730892843}
+  - component: {fileID: 5097835789480918556}
   m_Layer: 0
   m_Name: Slime_red
   m_TagString: Untagged
@@ -188,7 +189,7 @@ Animator:
   m_GameObject: {fileID: 6307202642552670421}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e7c5a97e2031bc46893b5c730b8e641, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -225,3 +226,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+--- !u!114 &5097835789480918556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307202642552670421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aaa5ac751fb10f42a6a2148ef9a627f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteFlashMat: {fileID: 2100000, guid: c813a8b7ff3342f4faa064013055f423, type: 2}
+  restoreDefaultmaTime: 0.2

@@ -8,9 +8,11 @@ public class EnemyHealth : MonoBehaviour
 
     private int currentHealth;
     private Knockback knockback;
+    private Flash flash;
 
     private void Awake()
     {
+        flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
     }
 
@@ -23,10 +25,10 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= damage;
         knockback.GetKnockedBack(Movement.instance.transform, 15f); // Fixed the typo here
-        DetectDeath(); // Fixed the typo here
+        StartCoroutine(flash.FlashRoutine());
     }
 
-    private void DetectDeath() // Fixed the typo here
+    public void DetectDeath() // Fixed the typo here
     {
         if (currentHealth <= 0)
         {

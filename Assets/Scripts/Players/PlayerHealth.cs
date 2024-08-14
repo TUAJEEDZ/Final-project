@@ -13,11 +13,15 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private bool canTakeDamage = true;
     private Knockback knockback;
+    private Flash flash;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+
+        flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>(); // Ensure Knockback component is attached
+        currentHealth = maxHealth;
+
 
         if (healthSlider == null)
         {
@@ -36,6 +40,8 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(1);
             knockback.GetKnockedBack(other.gameObject.transform, knockBackThrustAmount);
+            StartCoroutine(flash.FlashRoutine());
+
         }
     }
 
