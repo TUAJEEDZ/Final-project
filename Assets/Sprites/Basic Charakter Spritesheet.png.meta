@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3eb3ec414b8a9e499f39c5303eec335
+guid: 675326be482ff664cb53f972cae8ce6a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,438 +93,341 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk and idle_0
+      name: Basic Charakter Spritesheet_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 49
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19200fad975f5d8408d7b0d571afdd25
-      internalID: -879055149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 50
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b79f15365bb4ebd4dbff82cee2dae258
-      internalID: 1271399581
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_2
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 49
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfae9a6d7b56882499c81fe76e53fd3a
-      internalID: -1308852187
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_3
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 49
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ddd50e7250910842a760953869c6a4e
-      internalID: -2076716594
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_4
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 25
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5ca632ad35244e3498cd07facf8eec6e
-      internalID: 135345339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_5
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 26
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b0aeb3b243b610b4fad5edf6769dfb1a
-      internalID: -1637621257
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_6
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 25
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13ed418de738b0d45ba3f54c7ecae346
-      internalID: 292030861
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_7
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 25
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e77cbe1ba642ff4458a210780addddf5
-      internalID: -1262591643
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_8
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 25
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 040f04b54da6b914697d302a51f6ebce
-      internalID: -2025210881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_9
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 26
+        x: 17
+        y: 160
         width: 14
-        height: 19
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66354ce0a644e284ea348c81b0f4712c
-      internalID: -140780519
+      spriteID: 00ae16d27e3391145a4057e1e80350b9
+      internalID: 206397576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk and idle_10
+      name: Basic Charakter Spritesheet_1
       rect:
         serializedVersion: 2
-        x: 151
-        y: 25
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9891b829ace3135408801611edd22f8d
-      internalID: -744756919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_11
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 25
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2285c2b2d0060d4685aced237963d33
-      internalID: -1566509108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_12
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 1
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 254bc1eff09f17e4bb5187d9288d47e0
-      internalID: -1110032240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_13
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 2
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cac63d00460a79649ae66c3c6920b6b7
-      internalID: -1823300341
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_14
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 1
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 23ac54c2cb7d3df4a8db695895c769e4
-      internalID: -326094083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_15
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 1
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac400c4fc4eab654eb956e27b4c20cb2
-      internalID: -199933661
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_16
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 1
-        width: 13
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e76e599cda63364187cf162a7204118
-      internalID: 559653150
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk and idle_17
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 2
+        x: 65
+        y: 160
         width: 14
-        height: 19
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e36e695d973d8884490fc83442a42559
-      internalID: -1261139265
+      spriteID: 1a324d97adc682d4884c67b10456061b
+      internalID: -787279385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk and idle_18
+      name: Basic Charakter Spritesheet_2
       rect:
         serializedVersion: 2
-        x: 150
-        y: 1
-        width: 13
-        height: 19
+        x: 113
+        y: 160
+        width: 14
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13d1ff02a2850bf448deca589dd6a52b
-      internalID: 600431482
+      spriteID: 175f4a764d66916439ed33502d0a7382
+      internalID: -936449828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk and idle_19
+      name: Basic Charakter Spritesheet_3
       rect:
         serializedVersion: 2
-        x: 174
-        y: 1
-        width: 13
-        height: 18
+        x: 161
+        y: 160
+        width: 14
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 049b1617a13aa4d4890751835bf7fb49
-      internalID: -314151369
+      spriteID: 3309613ab4e8a544095fdf57b2e84071
+      internalID: -604869337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 112
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f37ef6e92dbc4414e90e90329b31ee4f
+      internalID: 533919342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 112
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9a25eedef1bee94dad13d0b7a9135b0
+      internalID: 888718714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 112
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6919f13cc21405042bafe2cb7ff00a33
+      internalID: -969824081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 112
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38e350bda4ac08444b43d08bc44599b9
+      internalID: 1895417173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 64
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b3297843d81f0f4099c2b3281f1a3b3
+      internalID: 510648947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 64
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aabbc4aaf416651478db830a28083589
+      internalID: -1804353484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 64
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53418d5931cef84199a6f615e430bd1
+      internalID: 1115041603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 64
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78089eccbc1e492448403f9233d3c0cb
+      internalID: 1521625847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 16
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fde5bcaaf4261e47967afa9412cb99b
+      internalID: -1667066616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 16
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdfdf24d0e5a81c4680afe9b540d5156
+      internalID: -1530473420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 16
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4206833e78b66847b7f24adf70542a8
+      internalID: 224319593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 16
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98ef1ab7aa1651a49847973a67809807
+      internalID: 1257091044
       vertices: []
       indices: 
       edges: []
@@ -540,26 +443,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      walk and idle_0: -879055149
-      walk and idle_1: 1271399581
-      walk and idle_10: -744756919
-      walk and idle_11: -1566509108
-      walk and idle_12: -1110032240
-      walk and idle_13: -1823300341
-      walk and idle_14: -326094083
-      walk and idle_15: -199933661
-      walk and idle_16: 559653150
-      walk and idle_17: -1261139265
-      walk and idle_18: 600431482
-      walk and idle_19: -314151369
-      walk and idle_2: -1308852187
-      walk and idle_3: -2076716594
-      walk and idle_4: 135345339
-      walk and idle_5: -1637621257
-      walk and idle_6: 292030861
-      walk and idle_7: -1262591643
-      walk and idle_8: -2025210881
-      walk and idle_9: -140780519
+      Basic Charakter Spritesheet_0: 206397576
+      Basic Charakter Spritesheet_1: -787279385
+      Basic Charakter Spritesheet_10: 1115041603
+      Basic Charakter Spritesheet_11: 1521625847
+      Basic Charakter Spritesheet_12: -1667066616
+      Basic Charakter Spritesheet_13: -1530473420
+      Basic Charakter Spritesheet_14: 224319593
+      Basic Charakter Spritesheet_15: 1257091044
+      Basic Charakter Spritesheet_2: -936449828
+      Basic Charakter Spritesheet_3: -604869337
+      Basic Charakter Spritesheet_4: 533919342
+      Basic Charakter Spritesheet_5: 888718714
+      Basic Charakter Spritesheet_6: -969824081
+      Basic Charakter Spritesheet_7: 1895417173
+      Basic Charakter Spritesheet_8: 510648947
+      Basic Charakter Spritesheet_9: -1804353484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

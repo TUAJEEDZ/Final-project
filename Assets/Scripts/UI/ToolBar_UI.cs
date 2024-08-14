@@ -27,7 +27,7 @@ public class ToolBar_UI : MonoBehaviour
             }
             selectedSlot = toolbarSlots[index];
             selectedSlot.SetHighlight(true);
-            Debug.Log("Slected Slot: " + selectedSlot.name);
+            Debug.Log("Selected Slot: " + selectedSlot.name);
 
         }
     }
