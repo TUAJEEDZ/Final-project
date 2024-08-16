@@ -9,22 +9,22 @@ public class DayNightCycle : MonoBehaviour
     public List<Light2D> spotLights2D;
     public Color dayColor = Color.white;
     public Color nightColor = Color.blue;
-    public Color transparentColor = new Color(0, 0, 0, 0); // สีโปร่งใส
+    public Color transparentColor = new Color(0, 0, 0, 0);
     public bool flas = true;
-    public float dayDuration = 1800f; // 30 นาที
+    public float dayDuration = 1800f; 
     public Text timeText;
     private float time;
 
     void Start()
     {
-        time = 0.25f; // ตั้งค่าเริ่มต้นเวลาเป็น 06:00 น.
+        time = 0.25f; // Set initial time to 06:00 AM
 
         if (globalLight2D == null)
         {
             globalLight2D = FindObjectOfType<Light2D>();
             if (globalLight2D == null)
             {
-                Debug.LogWarning("ไม่พบ Global Light 2D ใน Scene กรุณากำหนดไว้ใน Inspector.");
+                Debug.LogWarning("Global Light 2D not found. Please assign it in the Inspector.");
             }
         }
 
@@ -34,13 +34,13 @@ public class DayNightCycle : MonoBehaviour
             spotLights2D.Remove(globalLight2D);
             if (spotLights2D.Count == 0)
             {
-                Debug.LogWarning("ไม่พบ Spot Lights 2D ใน Scene กรุณากำหนดไว้ใน Inspector.");
+                Debug.LogWarning("No Spot Lights 2D found. Please assign them in the Inspector.");
             }
         }
 
         if (timeText == null)
         {
-            Debug.LogWarning("ยังไม่มี UI Text ที่กำหนดเพื่อแสดงเวลา กรุณากำหนดใน Inspector.");
+            Debug.LogWarning("No UI Text assigned for time display. Please assign it in the Inspector.");
         }
     }
 
@@ -48,27 +48,26 @@ public class DayNightCycle : MonoBehaviour
     {
         if (globalLight2D == null || spotLights2D == null || spotLights2D.Count == 0)
         {
-            Debug.LogWarning("Global Light 2D หรือ Spot Lights 2D ยังไม่ได้กำหนด.");
+            Debug.LogWarning("Global Light 2D or Spot Lights 2D not assigned.");
             return;
         }
 
         time += Time.deltaTime / dayDuration;
         time %= 1f;
 
-        // กำหนดสีของ Global Light 2D ด้วยการผสมสีอย่างราบรื่น
-        if (time >= 0.833f || time < 0.208f) // 20:00 น. ถึง 05:00 น.
+        // Smoothly transition the color of Global Light 2D
+        if (time >= 0.833f || time < 0.208f) // Night time
         {
-            // ผสมสีระหว่าง nightColor และ transparentColor
-            if (time >= 0.833f && time < 0.875f) // 20:00 น. ถึง 21:00 น.
+            if (time >= 0.833f && time < 0.875f) // Transition to night
             {
                 float t = Mathf.InverseLerp(0.833f, 0.875f, time);
                 globalLight2D.color = Color.Lerp(nightColor, transparentColor, t);
             }
-            else if (time >= 0.958f || time < 0.042f) // 23:00 น. ถึง 01:00 น.
+            else if (time >= 0.958f || time < 0.042f) // Fully night
             {
                 globalLight2D.color = transparentColor;
             }
-            else if (time >= 0.042f && time < 0.208f) // 01:00 น. ถึง 05:00 น.
+            else if (time >= 0.042f && time < 0.208f) // Transition from night
             {
                 float t = Mathf.InverseLerp(0.042f, 0.208f, time);
                 globalLight2D.color = Color.Lerp(transparentColor, nightColor, t);
@@ -78,14 +77,14 @@ public class DayNightCycle : MonoBehaviour
                 globalLight2D.color = nightColor;
             }
         }
-        else // 05:00 น. ถึง 20:00 น.
+        else // Day time
         {
-            if (time >= 0.208f && time < 0.292f) // 05:00 น. ถึง 07:00 น.
+            if (time >= 0.208f && time < 0.292f) // Transition to day
             {
                 float t = Mathf.InverseLerp(0.208f, 0.292f, time);
                 globalLight2D.color = Color.Lerp(nightColor, dayColor, t);
             }
-            else if (time >= 0.792f && time < 0.833f) // 19:00 น. ถึง 20:00 น.
+            else if (time >= 0.792f && time < 0.833f) // Transition from day
             {
                 float t = Mathf.InverseLerp(0.792f, 0.833f, time);
                 globalLight2D.color = Color.Lerp(dayColor, nightColor, t);
@@ -96,20 +95,20 @@ public class DayNightCycle : MonoBehaviour
             }
         }
 
-        // เปิด/ปิด Spot Lights 2D ตามเวลา
+        // Toggle Spot Lights 2D based on time
         foreach (var spotLight in spotLights2D)
         {
-            if (time >= 0.833f || time < 0.208f) // เปิดตอนกลางคืน
+            if (time >= 0.833f || time < 0.208f) // Night time
             {
                 spotLight.enabled = flas;
             }
-            else // ปิดตอนกลางวัน
+            else // Day time
             {
                 spotLight.enabled = !flas;
             }
         }
 
-        // แสดงเวลาใน UI Text
+        // Display time in UI Text
         if (timeText != null)
         {
             int hours = Mathf.FloorToInt(time * 24f);
