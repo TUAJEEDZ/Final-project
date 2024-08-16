@@ -58,7 +58,7 @@ public class DayNightCycle : MonoBehaviour
 
         foreach (var spotLight in spotLights2D)
         {
-            if (time > 0.25f && time < 0.90f)
+            if (time > 0.25f && time < 0.80f)
             {
                 spotLight.enabled = !flas;
             }
@@ -72,7 +72,7 @@ public class DayNightCycle : MonoBehaviour
         {
             int hours = Mathf.FloorToInt(time * 24f);
             int minutes = Mathf.FloorToInt((time * 24f * 60f) % 60f);
-            timeText.text = $"เวลา: {hours:00}:{minutes:00}";
+            timeText.text = $"time: {hours:00}:{minutes:00}";
         }
     }
 }
