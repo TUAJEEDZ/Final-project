@@ -9,9 +9,9 @@ public class DayNightCycle : MonoBehaviour
     public List<Light2D> spotLights2D;
     public Color dayColor = Color.white;
     public Color nightColor = Color.blue;
-    public Color transparentColor = new Color(0, 0, 0, 0); // สีโปร่งใส
+    public Color transparentColor = new Color(0, 0, 0, 0); 
     public bool flas = true;
-    public float dayDuration = 1800f; // 30 นาที
+    public float dayDuration = 1800f; 
     public Text timeText;
     private float time;
 
@@ -78,7 +78,7 @@ public class DayNightCycle : MonoBehaviour
                 globalLight2D.color = nightColor;
             }
         }
-        else // 05:00 น. ถึง 20:00 น.
+        else .
         {
             if (time >= 0.208f && time < 0.292f) // 05:00 น. ถึง 07:00 น.
             {
