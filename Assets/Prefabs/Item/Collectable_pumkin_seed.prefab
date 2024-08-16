@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2542357985516962865}
   - component: {fileID: -2113639685825267106}
   m_Layer: 0
-  m_Name: Collectable_pumkin_seed Variant 1
+  m_Name: Collectable_pumkin_seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
