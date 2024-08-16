@@ -87,7 +87,7 @@ public class Inventory
         slots[index].RemoveItem();
     }
 
-    public void Remove(int index, int numToRemove)
+    public void Remove(int index, int numToRemove) //loop for slot quantity
     {
         if (slots[index].count >= numToRemove)
         {

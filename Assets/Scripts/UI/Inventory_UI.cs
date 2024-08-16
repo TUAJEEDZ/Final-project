@@ -33,7 +33,7 @@ public class Inventory_UI : MonoBehaviour
             ToggleInventory();
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift)) //keybind for drop single item(Hold)
         {
             dragSingle = true;
         }
@@ -103,9 +103,9 @@ public class Inventory_UI : MonoBehaviour
         draggedIcon = Instantiate(draggedSlot.itemIcon);
         draggedIcon.transform.SetParent(canvas.transform);
         draggedIcon.raycastTarget = false;
-        draggedIcon.rectTransform.sizeDelta = new Vector2(50, 50);
+        draggedIcon.rectTransform.sizeDelta = new Vector2(50, 50); //resize item icon
 
-        MoveToMousePosition(draggedIcon.gameObject);
+        MoveToMousePosition(draggedIcon.gameObject);   // move icon with mouse position
         Debug.Log("Start Drag: " + draggedSlot.name);
 
     }

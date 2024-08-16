@@ -1,25 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Item))]
 public class Collectable : MonoBehaviour
 {
-	private void OnTriggerEnter2D (Collider2D collision)
-	{
+    private Collider2D coll;
 
-		Player player = collision.GetComponent<Player>(); 
+    private void Awake()
+    {
+        coll = GetComponent<Collider2D>();
+        coll.enabled = false; // Disable the collider at the start
+        StartCoroutine(EnableColliderAfterDelay(2f)); // Enable the collider after second
+    }
 
-		if(player)
-		{
-			Item item = GetComponent<Item>();
+    private IEnumerator EnableColliderAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        coll.enabled = true; // Enable the collider after the delay
+    }
 
-			if (item != null)
-			{
-                player.inventory.Add(item); //add item in inventory
-                Destroy(this.gameObject); // destroy when collied with player
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Player player = collision.GetComponent<Player>();
+
+        if (player && coll.enabled)
+        {
+            Item item = GetComponent<Item>();
+
+            if (item != null)
+            {
+                player.inventory.Add(item); // Add item to inventory
+                Destroy(gameObject); // Destroy the collectable
             }
-			
-		}
-	}
+        }
+    }
 }

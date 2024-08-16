@@ -28,7 +28,7 @@ public class Slot_UI : MonoBehaviour
         quantityText.text = "";
     }
 
-    public void SetHighlight(bool isOn)
+    public void SetHighlight(bool isOn)    //set highlight to activate
     {
         highlight.SetActive(isOn);
     }

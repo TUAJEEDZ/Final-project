@@ -10,7 +10,7 @@ public class ToolBar_UI : MonoBehaviour
 
     private void Start()
     {
-        SelectSlot(0);
+        SelectSlot(0);   //already select first slot when start game
     }
     private void Update()
     {
@@ -26,12 +26,12 @@ public class ToolBar_UI : MonoBehaviour
                 selectedSlot.SetHighlight(false);
             }
             selectedSlot = toolbarSlots[index];
-            selectedSlot.SetHighlight(true);
+            selectedSlot.SetHighlight(true);                    //highlight selected slot
             Debug.Log("Selected Slot: " + selectedSlot.name);
 
         }
     }
-    private void CheckAlphaNumericKey()
+    private void CheckAlphaNumericKey()   //setkey
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
