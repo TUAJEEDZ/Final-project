@@ -1842,6 +1842,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7422350104673474451, guid: 558994cfca621844cb8e2e4803e8d6c0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8549738679848607640, guid: 558994cfca621844cb8e2e4803e8d6c0, type: 3}
       propertyPath: m_Name
       value: Collectable_carrot_seed 1
@@ -2228,6 +2232,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2071361769}
     m_Modifications:
+    - target: {fileID: 130391869310877914, guid: e90f0f99ce19f78479dacc751bc75738, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1182340765560441041, guid: e90f0f99ce19f78479dacc751bc75738, type: 3}
       propertyPath: m_Name
       value: Collectable_pumkin_seed Variant 1
@@ -2874,6 +2882,10 @@ PrefabInstance:
     - target: {fileID: 2509307488352581974, guid: d083422b135fef34393950fc85feac86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422350104673474451, guid: d083422b135fef34393950fc85feac86, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8549738679848607640, guid: d083422b135fef34393950fc85feac86, type: 3}
       propertyPath: m_Name
@@ -15944,6 +15956,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7422350104673474451, guid: 7ba652104dd68604aaef35941cae675e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8549738679848607640, guid: 7ba652104dd68604aaef35941cae675e, type: 3}
       propertyPath: m_Name
       value: Collectable_pumkin
@@ -21397,6 +21413,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7422350104673474451, guid: d083422b135fef34393950fc85feac86, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8549738679848607640, guid: d083422b135fef34393950fc85feac86, type: 3}
       propertyPath: m_Name
       value: Collectable_carrot 1 (2)
@@ -22004,6 +22024,10 @@ PrefabInstance:
     - target: {fileID: 2509307488352581974, guid: d083422b135fef34393950fc85feac86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422350104673474451, guid: d083422b135fef34393950fc85feac86, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8549738679848607640, guid: d083422b135fef34393950fc85feac86, type: 3}
       propertyPath: m_Name

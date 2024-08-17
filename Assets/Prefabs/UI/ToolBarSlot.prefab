@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8259641a454f874408912887209f8781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotID: 0
   itemIcon: {fileID: 3778122188557267485}
   quantityText: {fileID: 7906792080471929596}
   highlight: {fileID: 4016775229731456487}

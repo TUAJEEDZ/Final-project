@@ -100,19 +100,19 @@ public class Inventory_UI : MonoBehaviour
     public void SlotBeginDrag(Slot_UI slot)
     {
         draggedSlot = slot;
-        draggedIcon = Instantiate(draggedSlot.itemIcon);
-        draggedIcon.transform.SetParent(canvas.transform);
-        draggedIcon.raycastTarget = false;
+        draggedIcon = Instantiate(draggedSlot.itemIcon); // make it look like icon is being dragged out
+        draggedIcon.transform.SetParent(canvas.transform);  //ensuring that it is rendered in the UI
+        draggedIcon.raycastTarget = false;              //it won't interfere with other UI interactions
         draggedIcon.rectTransform.sizeDelta = new Vector2(50, 50); //resize item icon
 
-        MoveToMousePosition(draggedIcon.gameObject);   // move icon with mouse position
-        Debug.Log("Start Drag: " + draggedSlot.name);
+        //MoveToMousePosition(draggedIcon.gameObject);   // move icon with mouse position
+       // Debug.Log("Start Drag: " + draggedSlot.name);
 
     }
 
     public void SlotDrag()
     {
-        MoveToMousePosition(draggedIcon.gameObject);
+       MoveToMousePosition(draggedIcon.gameObject);
         Debug.Log("Dragging: " + draggedSlot.name);   
     }
 

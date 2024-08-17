@@ -23,7 +23,7 @@ public class ToolBar_UI : MonoBehaviour
         {
             if(selectedSlot != null)
             {
-                selectedSlot.SetHighlight(false);
+                selectedSlot.SetHighlight(false); // if slot isn't selected it will not show highlight
             }
             selectedSlot = toolbarSlots[index];
             selectedSlot.SetHighlight(true);                    //highlight selected slot
