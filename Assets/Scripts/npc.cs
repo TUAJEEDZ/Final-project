@@ -14,8 +14,24 @@ public class npc : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    public Transform[] moveSpots; // จุดที่ NPC จะเดินไป
+    public float speed; // ความเร็วในการเดินของ NPC
+    private int nextSpotIndex;
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        nextSpotIndex = 0;
+    }
+
     void Update()
     {
+        if (!playerIsClose)
+        {
+            Move();
+        }
+
         if (Input.GetKeyDown(KeyCode.F) && playerIsClose)
         {
             if (dialoguePanel.activeInHierarchy)
@@ -28,9 +44,25 @@ public class npc : MonoBehaviour
                 StartCoroutine(Typing());
             }
         }
+
         if(dialogueText.text == dialogue[index])
         {
             contButton.SetActive(true);
+        }
+    }
+
+    void Move()
+    {
+        // NPC จะเดินไปยังจุดถัดไป
+        if (moveSpots.Length > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, moveSpots[nextSpotIndex].position, speed * Time.deltaTime);
+
+            // หากถึงจุดที่กำหนดไว้แล้วให้เปลี่ยนไปยังจุดถัดไป
+            if (Vector2.Distance(transform.position, moveSpots[nextSpotIndex].position) < 0.2f)
+            {
+                nextSpotIndex = (nextSpotIndex + 1) % moveSpots.Length;
+            }
         }
     }
 
@@ -52,7 +84,6 @@ public class npc : MonoBehaviour
 
     public void NextLine()
     {
-
         contButton.SetActive(false);
 
         if (index < dialogue.Length - 1)
@@ -72,6 +103,7 @@ public class npc : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
+            rb.velocity = Vector2.zero; // หยุดการเคลื่อนไหวเมื่อผู้เล่นเข้ามาใกล้
         }
     }
 
