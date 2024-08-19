@@ -34,16 +34,17 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        EnemyAI enemy = other.gameObject.GetComponent<EnemyAI>();
+        var enemy = other.gameObject.GetComponent<EnemyAI>() as MonoBehaviour ??
+                    other.gameObject.GetComponent<SkeletonAi>() as MonoBehaviour;
 
-        if (enemy && canTakeDamage)
+        if (enemy != null && canTakeDamage)
         {
             TakeDamage(1);
             knockback.GetKnockedBack(other.gameObject.transform, knockBackThrustAmount);
             StartCoroutine(flash.FlashRoutine());
-
         }
     }
+
 
     public void HealPlayer()
     {
