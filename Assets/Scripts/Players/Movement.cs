@@ -16,7 +16,6 @@ public class Movement : MonoBehaviour
     public float speed = 0; // Speed of the character
     public Animator animator; // Reference to the Animator component
     public Vector3 direction; // Direction vector for movement
-    public VectorValue startingPosition; // Reference to the starting position
     private SpriteRenderer spriteRenderer;
     private Knockback knockback;
 
@@ -38,14 +37,9 @@ public class Movement : MonoBehaviour
     }
 
     private void Start()
-{
-    // ตรวจสอบว่า startingPosition ถูกกำหนดค่าหรือไม่
-    if (startingPosition != null)
     {
-        transform.position = startingPosition.initialValue;
+        // No need to set the starting position now
     }
-}
-
 
     private void Update()
     {
@@ -82,20 +76,19 @@ public class Movement : MonoBehaviour
     }
 
     void AnimatorMovement(Vector3 direction)
-{
-    if (animator != null)
     {
-        if (direction.magnitude > 0)
+        if (animator != null)
         {
-            animator.SetBool("IsMoving", true);
-            animator.SetFloat("Horizontal", direction.x);
-            animator.SetFloat("Vertical", direction.y);
-        }
-        else
-        {
-            animator.SetBool("IsMoving", false);
+            if (direction.magnitude > 0)
+            {
+                animator.SetBool("IsMoving", true);
+                animator.SetFloat("Horizontal", direction.x);
+                animator.SetFloat("Vertical", direction.y);
+            }
+            else
+            {
+                animator.SetBool("IsMoving", false);
+            }
         }
     }
-}
-
 }

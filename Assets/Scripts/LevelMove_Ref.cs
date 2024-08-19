@@ -4,18 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelMove_Ref : MonoBehaviour
+public class DoorController : MonoBehaviour
 {
-    public int sceneBuildIndex;
-    public Text interactionText; // Drag your UI Text component here in the Inspector
-    public Image interactionImage; // Drag your UI Image component here in the Inspector
+    public int sceneBuildIndex; // Index ของฉากที่ต้องการย้ายไป
+    public Text interactionText; // ลาก UI Text ของคุณมาที่นี่ใน Inspector
+    public Image interactionImage; // ลาก UI Image ของคุณมาที่นี่ใน Inspector
     private bool playerInTrigger = false;
+
+    // กำหนดตำแหน่งใหม่โดยใช้ Vector3
+    public Vector3 doorExitPosition;
 
     private void Start()
     {
-        // Hide the text and image at the start
-        interactionText.gameObject.SetActive(false);
-        interactionImage.gameObject.SetActive(false);
+        // ซ่อนข้อความและภาพเมื่อเริ่มเกม
+        if (interactionText != null)
+        {
+            interactionText.gameObject.SetActive(false);
+        }
+        if (interactionImage != null)
+        {
+            interactionImage.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,10 +32,15 @@ public class LevelMove_Ref : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInTrigger = true;
-            interactionText.gameObject.SetActive(true); // Show the text when player enters trigger area
-            interactionImage.gameObject.SetActive(true); // Show the image when player enters trigger area
 
-          
+            if (interactionText != null)
+            {
+                interactionText.gameObject.SetActive(true); // แสดงข้อความเมื่อผู้เล่นเข้าไปในพื้นที่ประตู
+            }
+            if (interactionImage != null)
+            {
+                interactionImage.gameObject.SetActive(true); // แสดงภาพเมื่อผู้เล่นเข้าไปในพื้นที่ประตู
+            }
         }
     }
 
@@ -35,8 +49,25 @@ public class LevelMove_Ref : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInTrigger = false;
-            interactionText.gameObject.SetActive(false); // Hide the text when player exits trigger area
-            interactionImage.gameObject.SetActive(false); // Hide the image when player exits trigger area
+
+            // ตรวจสอบว่า interactionText และ interactionImage ไม่เป็น null ก่อนที่จะเข้าถึง
+            if (interactionText != null)
+            {
+                interactionText.gameObject.SetActive(false); // ซ่อนข้อความเมื่อผู้เล่นออกจากพื้นที่ประตู
+            }
+            else
+            {
+                Debug.LogWarning("interactionText is null");
+            }
+
+            if (interactionImage != null)
+            {
+                interactionImage.gameObject.SetActive(false); // ซ่อนภาพเมื่อผู้เล่นออกจากพื้นที่ประตู
+            }
+            else
+            {
+                Debug.LogWarning("interactionImage is null");
+            }
         }
     }
 
@@ -44,7 +75,47 @@ public class LevelMove_Ref : MonoBehaviour
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.F))
         {
+            // บันทึกตำแหน่งประตูเมื่อออกจากประตู
+            PlayerPrefs.SetFloat("DoorPositionX", doorExitPosition.x);
+            PlayerPrefs.SetFloat("DoorPositionY", doorExitPosition.y);
+            PlayerPrefs.SetFloat("DoorPositionZ", doorExitPosition.z);
+
+            // โหลดฉากใหม่
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
         }
+    }
+
+    // ฟังก์ชันนี้จะถูกเรียกเมื่อฉากใหม่ถูกโหลด
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // ตรวจสอบว่ามีการบันทึกตำแหน่งของประตูหรือไม่
+        if (PlayerPrefs.HasKey("DoorPositionX"))
+        {
+            // หาตำแหน่งที่บันทึกไว้และย้ายผู้เล่นไปยังตำแหน่งนั้น
+            float x = PlayerPrefs.GetFloat("DoorPositionX");
+            float y = PlayerPrefs.GetFloat("DoorPositionY");
+            float z = PlayerPrefs.GetFloat("DoorPositionZ");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player.transform.position = new Vector3(x, y, z);
+            }
+            else
+            {
+                Debug.LogWarning("Player object not found");
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        // สมัคร event เมื่อฉากถูกโหลด
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // ยกเลิกการสมัคร event เมื่อ script นี้ถูกปิด
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
