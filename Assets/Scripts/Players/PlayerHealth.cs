@@ -1,27 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public bool isdead { get; private set; }
+
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private float knockBackThrustAmount = 10f;
     [SerializeField] private float damageRecoveryTime = 1f;
-    [SerializeField] private Slider healthSlider; // Added [SerializeField] to ensure it can be set in the Inspector
+    [SerializeField] private Slider healthSlider;
 
     private int currentHealth;
     private bool canTakeDamage = true;
     private Knockback knockback;
     private Flash flash;
+    private Movement playerMovement; // เข้าถึงสคริปต์ที่ควบคุมการเคลื่อนไหวของตัวละคร
+
+    const string TOWN_TEXT = "scene+";
+    readonly int DEATH_HASH = Animator.StringToHash("Death");
 
     private void Start()
     {
-
+        isdead = false;
         flash = GetComponent<Flash>();
-        knockback = GetComponent<Knockback>(); // Ensure Knockback component is attached
+        knockback = GetComponent<Knockback>();
+        playerMovement = GetComponent<Movement>(); // เข้าถึงสคริปต์ที่ควบคุมการเคลื่อนไหวของตัวละคร
         currentHealth = maxHealth;
-
 
         if (healthSlider == null)
         {
@@ -29,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        UpdateHealthSlider(); // Corrected method name
+        UpdateHealthSlider();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -45,13 +51,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
     public void HealPlayer()
     {
         if (currentHealth < maxHealth)
         {
             currentHealth += 1;
-            UpdateHealthSlider(); // Corrected method name
+            UpdateHealthSlider();
         }
     }
 
@@ -68,16 +73,29 @@ public class PlayerHealth : MonoBehaviour
         }
 
         StartCoroutine(DamageRecoveryRoutine());
-        UpdateHealthSlider(); // Corrected method name
+        UpdateHealthSlider();
         CheckIfPlayerDeath();
     }
 
     private void CheckIfPlayerDeath()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isdead)
         {
+            isdead = true;
             currentHealth = 0;
-            Debug.Log("Player Death");
+            GetComponent<Animator>().SetTrigger(DEATH_HASH);
+
+            // หยุดการเคลื่อนไหวของตัวละครเมื่อเลือดหมด
+            if (playerMovement != null)
+            {
+                playerMovement.ChangeState(PlayerState.dead); // เปลี่ยนสถานะของตัวละครเป็น 'dead'
+            }
+            else
+            {
+                Debug.LogError("Movement script is not assigned or found.");
+            }
+
+            StartCoroutine(DeathLoadSceneRoutine());
         }
     }
 
@@ -87,12 +105,18 @@ public class PlayerHealth : MonoBehaviour
         canTakeDamage = true;
     }
 
-    private void UpdateHealthSlider() // Corrected method name
+    private void UpdateHealthSlider()
     {
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxHealth;
             healthSlider.value = currentHealth;
         }
+    }
+
+    private IEnumerator DeathLoadSceneRoutine()
+    {
+        yield return new WaitForSeconds(2f); // Adjust the delay as needed
+        SceneManager.LoadScene(TOWN_TEXT);
     }
 }

@@ -6,7 +6,8 @@ public enum PlayerState
 {
     walk,
     attack,
-    interact
+    interact,
+    dead // เพิ่มสถานะ 'dead' เพื่อจัดการเมื่อผู้เล่นตาย
 }
 
 public class Movement : MonoBehaviour
@@ -19,7 +20,7 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Knockback knockback;
 
-    private PlayerState currentState = PlayerState.walk; // Declare and initialize the currentState variable
+    private PlayerState currentState = PlayerState.walk; // ประกาศและกำหนดค่าเริ่มต้นของ currentState
 
     private void Awake()
     {
@@ -43,6 +44,9 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        // ถ้าผู้เล่นอยู่ในสถานะ 'dead' หยุดการอัปเดตการเคลื่อนไหว
+        if (currentState == PlayerState.dead) return;
+
         // Get input from the horizontal and vertical axes
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -90,5 +94,11 @@ public class Movement : MonoBehaviour
                 animator.SetBool("IsMoving", false);
             }
         }
+    }
+
+    // เมธอดนี้ใช้ในการเปลี่ยนสถานะของผู้เล่น
+    public void ChangeState(PlayerState newState)
+    {
+        currentState = newState;
     }
 }
