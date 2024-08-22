@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private int startingHealth = 3; // Fixed the typo here
-
+    [SerializeField] private int startingHealth = 100; // จำนวนเริ่มต้นของสุขภาพของศัตรู
     private int currentHealth;
-    private Knockback knockback;
-    private Flash flash;
 
     private void Awake()
     {
-        flash = GetComponent<Flash>();
-        knockback = GetComponent<Knockback>();
+        currentHealth = startingHealth; // ตั้งค่าปัจจุบันของสุขภาพเป็นค่าที่เริ่มต้น
     }
 
-    private void Start()
+    public void TakeDamage(int damageAmount)
     {
-        currentHealth = startingHealth; // Fixed the typo here
+        currentHealth -= damageAmount; // ลดจำนวนสุขภาพตามความเสียหายที่รับ
+        Debug.Log("Enemy took damage. Current health: " + currentHealth); // แสดงสุขภาพหลังจากรับความเสียหาย
+
+        if (currentHealth <= 0)
+        {
+            DetectDeath(); // เรียกใช้ฟังก์ชันจัดการเมื่อศัตรูตาย
+        }
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        knockback.GetKnockedBack(Movement.instance.transform, 15f); // Fixed the typo here
-        StartCoroutine(flash.FlashRoutine());
-    }
-
-    public void DetectDeath() // Fixed the typo here
+    public void DetectDeath()
     {
         if (currentHealth <= 0)
         {
-            
-            Destroy(gameObject); // Fixed the typo here
+            Debug.Log("Enemy is dead. Preparing to die."); // แสดงข้อความเมื่อศัตรูตาย
+            Die(); // ตรวจสอบสุขภาพและจัดการเมื่อตาย
         }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemy died."); // แสดงข้อความเมื่อศัตรูถูกทำลาย
+        // เพิ่มการจัดการเมื่อตาย เช่น การเล่นแอนิเมชั่นการตาย, การทำลาย GameObject เป็นต้น
+        Destroy(gameObject); // ทำลาย GameObject ของศัตรู
     }
 }

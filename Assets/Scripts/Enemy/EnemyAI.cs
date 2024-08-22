@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -14,8 +13,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        enemyPathfinding = GetComponent<EnemyPathfinding>(); // Assign the pathfinding component
-        state = State.Roaming; // Initialize the state
+        enemyPathfinding = GetComponent<EnemyPathfinding>();
+        state = State.Roaming;
         StartCoroutine(RoamingRoutine());
     }
 

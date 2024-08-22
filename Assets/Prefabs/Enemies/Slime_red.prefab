@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2268636486250376719}
   - component: {fileID: 599604733730892843}
   - component: {fileID: 5097835789480918556}
+  - component: {fileID: -4297106044257542023}
   m_Layer: 0
   m_Name: Slime_red
   m_TagString: Untagged
@@ -240,3 +241,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteFlashMat: {fileID: 2100000, guid: c813a8b7ff3342f4faa064013055f423, type: 2}
   restoreDefaultmaTime: 0.2
+--- !u!114 &-4297106044257542023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307202642552670421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8626958e70222142843468ac7eb1d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 5

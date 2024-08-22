@@ -13,7 +13,6 @@ public class Flash : MonoBehaviour
 
     private void Awake()
     {
-
         enemyHealth = GetComponent<EnemyHealth>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultMat = spriteRenderer.material;
@@ -26,9 +25,10 @@ public class Flash : MonoBehaviour
             spriteRenderer.material = whiteFlashMat;
             yield return new WaitForSeconds(restoreDefaultmaTime);
             spriteRenderer.material = defaultMat;
+
             if (enemyHealth != null)
             {
-                enemyHealth.DetectDeath();
+                enemyHealth.DetectDeath(); // เรียกใช้ DetectDeath
             }
         }
     }

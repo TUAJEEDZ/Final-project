@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private bool canTakeDamage = true;
     private Knockback knockback;
     private Flash flash;
-    private Movement playerMovement; // เข้าถึงสคริปต์ที่ควบคุมการเคลื่อนไหวของตัวละคร
+    private Movement playerMovement;
 
     const string TOWN_TEXT = "scene+";
     readonly int DEATH_HASH = Animator.StringToHash("Death");
@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
         isdead = false;
         flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
-        playerMovement = GetComponent<Movement>(); // เข้าถึงสคริปต์ที่ควบคุมการเคลื่อนไหวของตัวละคร
+        playerMovement = GetComponent<Movement>();
         currentHealth = maxHealth;
 
         if (healthSlider == null)
@@ -45,7 +45,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (enemy != null && canTakeDamage)
         {
-            TakeDamage(1);
+            var damageSource = enemy.GetComponent<DamageSource>();
+            int damageAmount = (damageSource != null) ? damageSource.damageAmount : 1;
+            TakeDamage(damageAmount);
             knockback.GetKnockedBack(other.gameObject.transform, knockBackThrustAmount);
             StartCoroutine(flash.FlashRoutine());
         }
@@ -60,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         if (currentHealth <= 0) return;
 
@@ -85,10 +87,9 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
             GetComponent<Animator>().SetTrigger(DEATH_HASH);
 
-            // หยุดการเคลื่อนไหวของตัวละครเมื่อเลือดหมด
             if (playerMovement != null)
             {
-                playerMovement.ChangeState(PlayerState.dead); // เปลี่ยนสถานะของตัวละครเป็น 'dead'
+                playerMovement.ChangeState(PlayerState.dead);
             }
             else
             {
@@ -116,7 +117,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator DeathLoadSceneRoutine()
     {
-        yield return new WaitForSeconds(2f); // Adjust the delay as needed
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(TOWN_TEXT);
     }
 }
