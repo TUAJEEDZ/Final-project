@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour //use for connect other manager
             instance = this;
         }
 
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
 
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();

@@ -19168,6 +19168,7 @@ GameObject:
   - component: {fileID: 1496944471}
   - component: {fileID: 1496944470}
   - component: {fileID: 1496944480}
+  - component: {fileID: 1496944481}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -19424,6 +19425,24 @@ MonoBehaviour:
   toolbar:
     slots: []
   toolbarSlotCount: 9
+--- !u!114 &1496944481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496944469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2aa0da6529050a40a3d3ebe086037e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 0}
+  knockbackForce: 5
 --- !u!1 &1537314346
 GameObject:
   m_ObjectHideFlags: 0
