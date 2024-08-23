@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 599604733730892843}
   - component: {fileID: 5097835789480918556}
   - component: {fileID: -4297106044257542023}
+  - component: {fileID: 4152567279853650829}
   m_Layer: 0
   m_Name: Slime_red
   m_TagString: Untagged
@@ -254,3 +255,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 5
+--- !u!114 &4152567279853650829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307202642552670421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025c947e8f7c4c1449fcbc33db6d8780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems:
+  - {fileID: 4303536859973759839, guid: 9155c068f29de6246ab55694a59ee53b, type: 3}
+  dropChance: 1
+  minDropCount: 1
+  maxDropCount: 5

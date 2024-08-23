@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5952464006847067515}
   - component: {fileID: 1890357052927155359}
   - component: {fileID: 6287457873108500257}
+  - component: {fileID: 6238027516467709529}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -240,3 +241,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e729221e3f47f3c4f80ee1f15d8be1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6238027516467709529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003045802170818549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025c947e8f7c4c1449fcbc33db6d8780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems:
+  - {fileID: 4303536859973759839, guid: 9155c068f29de6246ab55694a59ee53b, type: 3}
+  dropChance: 1
+  minDropCount: 1
+  maxDropCount: 5
