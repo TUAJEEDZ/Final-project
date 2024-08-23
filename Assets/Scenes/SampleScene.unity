@@ -2086,6 +2086,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7704171952120303136, guid: b34b5dde77f6fdc4abb3d0c40485d3ce, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -259302299, guid: 43d7fc5cce6de6441941492c44737ea5, type: 3}
+    - target: {fileID: 7704171952120303136, guid: b34b5dde77f6fdc4abb3d0c40485d3ce, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8670523901678781486, guid: b34b5dde77f6fdc4abb3d0c40485d3ce, type: 3}
       propertyPath: m_fontStyle
       value: 1
@@ -15368,6 +15376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138719697}
   - component: {fileID: 1138719698}
+  - component: {fileID: 1138719699}
   m_Layer: 5
   m_Name: ToolBar
   m_TagString: Untagged
@@ -15417,6 +15426,31 @@ MonoBehaviour:
   - {fileID: 1393808564}
   - {fileID: 2053592611}
   - {fileID: 1562216184}
+--- !u!114 &1138719699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138719696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d999aa59a53dd94ca9fc63f8a84166b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
+  player: {fileID: 1496944475}
+  slots:
+  - {fileID: 378494139}
+  - {fileID: 156847204}
+  - {fileID: 1743474651}
+  - {fileID: 230630816}
+  - {fileID: 399602596}
+  - {fileID: 1328717578}
+  - {fileID: 1393808564}
+  - {fileID: 2053592611}
+  - {fileID: 1562216184}
+  canvas: {fileID: 0}
 --- !u!1001 &1182872526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18568,6 +18602,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory:
     slots: []
+  toolbar:
+    slots: []
 --- !u!114 &1496944476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18583,7 +18619,6 @@ MonoBehaviour:
   speed: 4
   animator: {fileID: 1496944478}
   direction: {x: 0, y: 0, z: 0}
-  startingPosition: {fileID: 11400000, guid: 2c71a4af68cabb44da05fff6a020dbc7, type: 2}
 --- !u!212 &1496944477
 SpriteRenderer:
   m_ObjectHideFlags: 0

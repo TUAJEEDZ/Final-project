@@ -24,6 +24,7 @@ public class Inventory_UI : MonoBehaviour
     void Start()
     {
         inventoryPanel.SetActive(false);
+        Refresh();
     }
 
     void Update()
@@ -45,20 +46,37 @@ public class Inventory_UI : MonoBehaviour
 
     public void ToggleInventory()
     {
-        if (!inventoryPanel.activeSelf)
+        if (inventoryPanel != null)
         {
-            inventoryPanel.SetActive(true);
-            Refresh();
-        }
-        else
-        {
-            inventoryPanel.SetActive(false);
+            if (!inventoryPanel.activeSelf)
+            {
+                inventoryPanel.SetActive(true);
+                Refresh();
+            }
+            else
+            {
+                inventoryPanel.SetActive(false);
+            }
         }
     }
 
     void Refresh()
     {
-        if (slots.Count == player.inventory.slots.Count)   //Update inventory
+        if (slots.Count == player.toolbar.slots.Count)   //Update inventory
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (player.toolbar.slots[i].itemName != "")
+                {
+                    slots[i].SetItem(player.toolbar.slots[i]);
+                }
+                else
+                {
+                    slots[i].SetEmpty();
+                }
+            }
+        }
+        else if (slots.Count == player.inventory.slots.Count)   //Update inventory
         {
             for (int i = 0; i < slots.Count; i++)
             {
