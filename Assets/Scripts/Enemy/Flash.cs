@@ -24,12 +24,18 @@ public class Flash : MonoBehaviour
         {
             spriteRenderer.material = whiteFlashMat;
             yield return new WaitForSeconds(restoreDefaultmaTime);
-            spriteRenderer.material = defaultMat;
 
-            if (enemyHealth != null)
+            // ตรวจสอบว่า spriteRenderer ยังคงอยู่ก่อนที่จะเปลี่ยน material กลับ
+            if (spriteRenderer != null)
             {
-                enemyHealth.DetectDeath(); // เรียกใช้ DetectDeath
+                spriteRenderer.material = defaultMat;
             }
         }
+
+        if (enemyHealth != null)
+        {
+            enemyHealth.DetectDeath(); // เรียกใช้ DetectDeath
+        }
     }
+
 }

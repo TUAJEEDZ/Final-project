@@ -1,64 +1,87 @@
 using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackRange = 1f;
-    public LayerMask enemyLayer;
-    public Transform attackPoint;
-    public float attackRotationAngle = 0f; // Additional rotation if needed
+    public float attackRange = 1f; // ระยะการโจมตี
+    public LayerMask enemyLayer; // เลเยอร์ของศัตรู
+    public Transform attackPoint; // จุดที่เป็นจุดเริ่มต้นของการโจมตี
+    public float knockbackForce = 5f; // แรงกระแทกของศัตรู
 
-    private Animator animator; // Reference to the Animator
+    private Animator animator; // ตัวแปรอ้างอิงถึง Animator ของตัวละคร
 
     private void Start()
     {
-        animator = GetComponent<Animator>(); // Get the Animator component
+        animator = GetComponent<Animator>(); // รับค่า component Animator
     }
 
     private void Update()
     {
+        // ตรวจสอบการกดปุ่มโจมตี
         if (Input.GetButtonDown("Fire1"))
         {
-            Attack();
+            Attack(); // เรียกฟังก์ชันโจมตี
         }
     }
 
     void Attack()
     {
+        // ตรวจสอบว่าได้ตั้งค่า attackPoint หรือยัง
         if (attackPoint == null)
         {
-            Debug.LogError("Attack Point is not assigned.");
+            Debug.LogError("Attack Point is not assigned."); // แจ้งเตือนในกรณีที่ไม่ได้ตั้งค่า
             return;
         }
 
-        // Get the player's attack direction from the Animator
-        float attackDirection = animator.GetFloat("AttackDirection"); // Use an appropriate parameter for direction
+        // ดึงค่าทิศทางการหันหน้าจาก Animator
+        float horizontal = animator.GetFloat("Horizontal");
+        float vertical = animator.GetFloat("Vertical");
 
-        // Rotate the attackPoint based on the player's attack direction
-        attackPoint.rotation = Quaternion.Euler(0, 0, attackRotationAngle + attackDirection);
+        // ปรับการหมุนของ attackPoint ตามทิศทางการโจมตี
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
+        if (direction != Vector2.zero)
+        {
+            attackPoint.localPosition = direction * attackRange;  // กำหนดตำแหน่งของ attackPoint ตามทิศทางและระยะ
+            attackPoint.right = direction;  // หมุน attackPoint ให้หันหน้าตามทิศทางการโจมตี
+        }
+
+        // ตรวจสอบว่ามีศัตรูในระยะโจมตีหรือไม่
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
         Debug.Log("Attack triggered. Number of enemies hit: " + hitEnemies.Length);
 
+        // จัดการความเสียหายกับศัตรูที่อยู่ในระยะโจมตี
         foreach (Collider2D enemyCollider in hitEnemies)
         {
-            EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>(); // รับ component สุขภาพของศัตรู
+            Knockback knockback = enemyCollider.GetComponent<Knockback>(); // รับ component การกระแทกของศัตรู
+            Flash flash = enemyCollider.GetComponent<Flash>(); // รับ component เอฟเฟกต์ Flash ของศัตรู
+
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(10); // Send damage to the enemy
+                enemyHealth.TakeDamage(1); // ส่งความเสียหายให้ศัตรู
+
+                if (knockback != null)
+                {
+                    knockback.GetKnockedBack(transform, knockbackForce); // ทำให้ศัตรูกระเด็นกลับ
+                }
+
+                if (flash != null)
+                {
+                    StartCoroutine(flash.FlashRoutine()); // เรียกใช้งานเอฟเฟกต์ Flash
+                }
             }
         }
     }
 
+    // ฟังก์ชันสำหรับแสดงการโจมตีใน Editor
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
             return;
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.color = Color.red; // ตั้งค่าสีของ Gizmos
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange); // วาดวงกลมเพื่อแสดงระยะโจมตี
     }
 }

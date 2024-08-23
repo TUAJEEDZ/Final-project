@@ -34,8 +34,16 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Enemy died."); // แสดงข้อความเมื่อศัตรูถูกทำลาย
-        // เพิ่มการจัดการเมื่อตาย เช่น การเล่นแอนิเมชั่นการตาย, การทำลาย GameObject เป็นต้น
+        Debug.Log("Enemy died.");
+
+        // เรียกใช้ฟังก์ชัน DropItem
+        EnemyDrop enemyDrop = GetComponent<EnemyDrop>();
+        if (enemyDrop != null)
+        {
+            enemyDrop.DropItem();
+        }
+
         Destroy(gameObject); // ทำลาย GameObject ของศัตรู
     }
+
 }
