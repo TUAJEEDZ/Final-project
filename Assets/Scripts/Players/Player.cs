@@ -10,24 +10,37 @@ public class Player : MonoBehaviour
     public Transform dropPoint;
 
     private Animator animator;
+    private Movement movement;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = gameObject.GetComponentInChildren<Animator>();
         tileManager = GameManager.instance.tileManager;
     }
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
+        movement = GetComponent<Movement>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // set plow keybind
+        // Get the direction the player is facing
+        float horizontal = animator.GetFloat("Horizontal");
+        float vertical = animator.GetFloat("Vertical");
+
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+
+        if (Input.GetButtonDown("Fire1")) // set plow keybind
         {
-            if (tileManager != null)
+            if (tileManager != null && direction != Vector2.zero)
             {
-                Vector3Int position = new Vector3Int((int)transform.position.x, (int)transform.position.y - 1, 0);
+                // Calculate the position in front of the player based on the direction
+                Vector3Int position = new Vector3Int(
+                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                    Mathf.RoundToInt(transform.position.y -1 + direction.y),
+                    0
+                );
 
                 string tileName = tileManager.GetTileName(position);
 
@@ -35,16 +48,22 @@ public class Player : MonoBehaviour
                 {
                     if (tileName == "Interactable" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
                     {
-                        tileManager.SetInteracted(position);
+                        animator.SetTrigger("isPlowing");
+                        StartCoroutine(DelayedInteraction(position));
                     }
                 }
-        
             }
         }
     }
 
+    private IEnumerator DelayedInteraction(Vector3Int position)
+    {
+        yield return new WaitForSeconds(0.5f); // Delay for 1 second
+        tileManager.SetInteracted(position);
+    }
 
-public void DropItem(Item item)
+
+    public void DropItem(Item item)
     {
         float horizontal = animator.GetFloat("Horizontal");
         float vertical = animator.GetFloat("Vertical");
@@ -53,8 +72,8 @@ public void DropItem(Item item)
 
             if (direction != Vector2.zero)
             {
-                dropPoint.localPosition = direction * dropRange;  // ��˹����˹觢ͧ attackPoint �����ȷҧ�������
-                dropPoint.right = direction;  // ��ع attackPoint ����ѹ˹�ҵ����ȷҧ�������
+                dropPoint.localPosition = direction * dropRange; 
+                dropPoint.right = direction;  
             }
         Vector2 spawnLocation = (Vector2)transform.position + direction; // Spawn item in front of player
 

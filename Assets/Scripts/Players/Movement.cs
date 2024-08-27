@@ -19,7 +19,8 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Knockback knockback;
 
-    private PlayerState currentState = PlayerState.walk;
+    public PlayerState currentState { get; private set; } = PlayerState.walk;
+
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        if (currentState == PlayerState.dead) return;
+        if (currentState == PlayerState.dead || currentState == PlayerState.interact) return;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -50,7 +51,6 @@ public class Movement : MonoBehaviour
         }
 
         direction = new Vector3(horizontal, vertical, 0).normalized;
-
         transform.position += direction * speed * Time.deltaTime;
 
         AnimatorMovement(direction);
