@@ -7,7 +7,7 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
-    [SerializeField] private Tile interactedTile;  // select tile to replace hiddentile
+    [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
 
     void Start()
     {
@@ -20,20 +20,25 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public bool IsInteractable(Vector3Int position)   //when put tile in interactable layer, that tile will be interactable. 
-    {
-        TileBase tile = interactableMap.GetTile(position);
-
-        if (tile != null && tile.name == "Interactable")
-        {
-            return true;
-        }
-
-        return false;
-    }
+ 
 
     public void SetInteracted(Vector3Int position)
     {
-        interactableMap.SetTile(position, interactedTile);  // Setting the interacted tile
+        interactableMap.SetTile(position, plowedTile);  // Setting the interacted tile
+    }
+
+    public string GetTileName(Vector3Int position)
+    {
+        if (interactableMap != null)
+        {
+            TileBase tile = interactableMap.GetTile(position);
+
+            if (tile != null)
+            {
+                return tile.name;
+            }
+        }
+
+        return "";
     }
 }

@@ -29,7 +29,7 @@ public class Collectable : MonoBehaviour
 
             if (item != null)
             {
-                player.inventory.Add("Backpack", item); // Add item to inventory
+                player.inventoryManager.Add("Backpack", item); // Add item to inventory
                 Destroy(gameObject); // Destroy the collectable
             }
         }
