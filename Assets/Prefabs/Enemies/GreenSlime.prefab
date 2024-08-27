@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 2968476214382709128}
   - component: {fileID: 270386207963232727}
   - component: {fileID: 2559159006678781}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GreenSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}

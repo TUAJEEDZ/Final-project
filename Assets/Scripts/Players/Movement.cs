@@ -45,25 +45,11 @@ public class Movement : MonoBehaviour
 
         if (knockback.gettingKnockedBack) { return; }
 
-        if (Input.GetButtonDown("attack") && currentState != PlayerState.attack)
-        {
-            StartCoroutine(AttackCo());
-        }
 
         direction = new Vector3(horizontal, vertical, 0).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
         AnimatorMovement(direction);
-    }
-
-    private IEnumerator AttackCo()
-    {
-        animator.SetBool("attacking", true);
-        currentState = PlayerState.attack;
-        yield return null;
-        animator.SetBool("attacking", false);
-        yield return new WaitForSeconds(.33f);
-        currentState = PlayerState.walk;
     }
 
     void AnimatorMovement(Vector3 direction)

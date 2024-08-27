@@ -3948,7 +3948,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 6a7fd203afe245640937e93c8397dffc, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 0b43a456e8e649e4594a08506d2bd874, type: 2}
+    m_Data: {fileID: 11400000, guid: e326dde0379142f4d8806f194463f3cf, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: f7883d479213fbf47982838ed0875aed, type: 2}
   - m_RefCount: 1
@@ -3961,7 +3961,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 1234216668, guid: 4c4e6d8b05f816c4d978ad413531c5db, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 918028359, guid: 4c4e6d8b05f816c4d978ad413531c5db, type: 3}
+    m_Data: {fileID: 21300000, guid: 508b8982be783654999799045cfc31f1, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1177839866, guid: 4c4e6d8b05f816c4d978ad413531c5db, type: 3}
   - m_RefCount: 1
@@ -6923,6 +6923,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1471697395}
     m_Modifications:
+    - target: {fileID: 330607281247521959, guid: 559e66f343a527f47bef421f24aaf9c3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 330607281247521959, guid: 559e66f343a527f47bef421f24aaf9c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 330607281247521959, guid: 559e66f343a527f47bef421f24aaf9c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.120856
@@ -16303,7 +16311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc96fbeca38094fbcf792779247841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  dropRange: 1
+  inventoryManager: {fileID: 0}
+  dropPoint: {fileID: 1609184580}
 --- !u!114 &1229142769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16420,10 +16430,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2aa0da6529050a40a3d3ebe086037e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.5
+  attackRange: 1
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   attackPoint: {fileID: 1609184580}
   knockbackForce: 5
 --- !u!114 &1229142774
@@ -16440,9 +16450,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backpack:
     slots: []
+    selectedSlot:
+      itemName: 
+      count: 0
+      maxAllowed: 99
+      icon: {fileID: 0}
   backpackSlotCount: 27
   toolbar:
     slots: []
+    selectedSlot:
+      itemName: 
+      count: 0
+      maxAllowed: 99
+      icon: {fileID: 0}
   toolbarSlotCount: 9
 --- !u!1 &1261667785
 GameObject:
@@ -20312,7 +20332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableMap: {fileID: 0}
   hiddenInteractableTile: {fileID: 11400000, guid: 62c662bbe9cc46c47bb15f7b3c2a29dd, type: 2}
-  interactedTile: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
+  plowedTile: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
 --- !u!114 &1834668325
 MonoBehaviour:
   m_ObjectHideFlags: 0
