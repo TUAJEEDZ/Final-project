@@ -45,7 +45,6 @@ public class Movement : MonoBehaviour
 
         if (knockback.gettingKnockedBack) { return; }
 
-
         direction = new Vector3(horizontal, vertical, 0).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
