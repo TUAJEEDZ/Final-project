@@ -52,6 +52,11 @@ public class Player : MonoBehaviour
                         StartCoroutine(DelayedInteraction(position));
                     }
                 }
+                if (inventoryManager.toolbar.selectedSlot.itemName == "Ironsword")
+                {
+                    animator.SetTrigger("IsAttacking");
+
+                }
             }
         }
     }
