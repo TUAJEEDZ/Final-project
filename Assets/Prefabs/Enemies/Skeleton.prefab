@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1890357052927155359}
   - component: {fileID: 6287457873108500257}
   - component: {fileID: 6238027516467709529}
+  - component: {fileID: 1586344696529244260}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -125,8 +126,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009931684, y: -0.1389736}
-  m_Size: {x: 0.71571565, y: 1.8080599}
+  m_Offset: {x: 0.00062701147, y: -0.17592351}
+  m_Size: {x: 0.5575397, y: 1.5124614}
   m_Direction: 0
 --- !u!50 &6266779745673532293
 Rigidbody2D:
@@ -258,3 +259,20 @@ MonoBehaviour:
   dropChance: 1
   minDropCount: 1
   maxDropCount: 5
+--- !u!114 &1586344696529244260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003045802170818549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26dade66b446e094299d2b65d176835c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackCooldown: 0.5

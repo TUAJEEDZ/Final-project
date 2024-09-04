@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 2968476214382709128}
   - component: {fileID: 270386207963232727}
   - component: {fileID: 2559159006678781}
+  - component: {fileID: 4603339468050152567}
   m_Layer: 6
   m_Name: GreenSlime
   m_TagString: Untagged
@@ -272,3 +273,20 @@ MonoBehaviour:
   dropChance: 1
   minDropCount: 1
   maxDropCount: 5
+--- !u!114 &4603339468050152567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513627279191283105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26dade66b446e094299d2b65d176835c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackCooldown: 0.5
