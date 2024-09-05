@@ -8,6 +8,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
+    [SerializeField] private Tile wetTile;
+
 
     void Start()
     {
@@ -25,6 +27,11 @@ public class TileManager : MonoBehaviour
     public void SetInteracted(Vector3Int position)
     {
         interactableMap.SetTile(position, plowedTile);  // Setting the interacted tile
+    }
+
+    public void SetWatered(Vector3Int position)
+    {
+        interactableMap.SetTile(position, wetTile);  // Set plowedTile to wateredTile
     }
 
     public string GetTileName(Vector3Int position)

@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        if (Input.GetKeyDown(KeyCode.E)) // set plow keybind
+        if (Input.GetKeyDown(KeyCode.E)) // set keybind
         {
             if (inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
             {
@@ -49,24 +49,54 @@ public class Player : MonoBehaviour
 
                     if (!string.IsNullOrWhiteSpace(tileName))
                     {
-                        if (tileName == "Interactable" )
+                        if (tileName == "Interactable")
                         {
                             StartCoroutine(DelayedInteraction(position));
                         }
-                         IEnumerator DelayedInteraction(Vector3Int position)
+                        IEnumerator DelayedInteraction(Vector3Int position)
                         {
                             yield return new WaitForSeconds(0.5f); // Delay for 1 second
                             tileManager.SetInteracted(position);
                         }
                     }
-           
+
                 }
+            }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Watering Can")
+            {
+                animator.SetTrigger("isWatering");
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+
+                    string tileName = tileManager.GetTileName(position);
+
+                    if (!string.IsNullOrWhiteSpace(tileName))
+                    {
+                        if (tileName == "Summer_Plowed")
+                        {
+                            StartCoroutine(DelayedInteraction(position));
+                        }
+                        IEnumerator DelayedInteraction(Vector3Int position)
+                        {
+                            yield return new WaitForSeconds(0.5f); // Delay for 1 second
+                            tileManager.SetWatered(position);
+                        }
+                    }
+
+                }
+            }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Ironsword")
             {
-                    animator.SetTrigger("IsAttacking");
+            animator.SetTrigger("IsAttacking");
 
             }
-            }
+            
         }
     }
 
