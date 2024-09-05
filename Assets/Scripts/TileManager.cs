@@ -6,9 +6,11 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
+    [SerializeField] private Tilemap plantMap;
     [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
     [SerializeField] private Tile wetTile;
+    [SerializeField] private Tile wheat;
 
 
     void Start()
@@ -33,6 +35,11 @@ public class TileManager : MonoBehaviour
     {
         interactableMap.SetTile(position, wetTile);  // Set plowedTile to wateredTile
     }
+            
+            public void SetPlantWheat(Vector3Int position)
+            {
+                plantMap.SetTile(position, wheat);  //plantwheat
+            }
 
     public string GetTileName(Vector3Int position)
     {

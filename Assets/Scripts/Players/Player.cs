@@ -9,8 +9,12 @@ public class Player : MonoBehaviour
     private TileManager tileManager;
     public Transform dropPoint;
 
+
     private Animator animator;
     private Movement movement;
+
+    private UI_Manager ui_manager;
+
 
     private void Start()
     {
@@ -86,6 +90,38 @@ public class Player : MonoBehaviour
                         {
                             yield return new WaitForSeconds(0.5f); // Delay for 1 second
                             tileManager.SetWatered(position);
+                        }
+                    }
+
+                }
+            }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+            {
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+
+                    string tileName = tileManager.GetTileName(position);
+
+                    if (!string.IsNullOrWhiteSpace(tileName))
+                    {
+                        if (tileName == "Summer_Plowed" || tileName == "wetplowed 1")
+                        {
+                            tileManager.SetPlantWheat(position);
+
+                            // Check and remove the Wheat Seed from the selected slot
+                            if (inventoryManager.toolbar.selectedSlot != null &&
+                               inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                            {
+                                inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                GameManager.instance.uiManager.RefreshAll();
+                            }
                         }
                     }
 
