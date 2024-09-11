@@ -5,53 +5,84 @@ public class PlayerAttack : MonoBehaviour
 {
     public float attackRange = 1f; // ระยะการโจมตี
     public LayerMask enemyLayer; // เลเยอร์ของศัตรู
-    public Transform attackPoint; // จุดที่เป็นจุดเริ่มต้นของการโจมตี
+    public InventoryManager inventoryManager; // ระบบ Inventory ของผู้เล่น
     public float knockbackForce = 5f; // แรงกระแทกของศัตรู
 
     private Animator animator; // ตัวแปรอ้างอิงถึง Animator ของตัวละคร
+    private Vector2 attackDirection; // ทิศทางการโจมตี
+    private DamageSword equippedSword; // ดาบที่ผู้เล่นใช้งาน
 
     private void Start()
     {
         animator = GetComponent<Animator>(); // รับค่า component Animator
     }
 
+    private void Awake()
+    {
+        inventoryManager = GetComponent<InventoryManager>();
+    }
+
     private void Update()
     {
-        // ตรวจสอบการกดปุ่มโจมตี
         if (Input.GetButtonDown("Fire1"))
         {
-            Attack(); // เรียกฟังก์ชันโจมตี
+            // ดึงข้อมูลดาบจากช่อง toolbar
+            Inventory.Slot selectedSlot = inventoryManager.toolbar.selectedSlot;
+
+            if (selectedSlot != null && selectedSlot.itemName != "")
+            {
+                Item item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
+
+                if (item != null)
+                {
+                    equippedSword = item.GetComponent<DamageSword>();
+
+                    if (equippedSword != null)
+                    {
+                        Attack(); // เรียกฟังก์ชันโจมตี
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Selected item is not a DamageSword.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("No item found by the selected item name.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("No item selected.");
+            }
         }
     }
 
     void Attack()
     {
-        // ตรวจสอบว่าได้ตั้งค่า attackPoint หรือยัง
-        if (attackPoint == null)
+        if (equippedSword == null)
         {
-            Debug.LogError("Attack Point is not assigned."); // แจ้งเตือนในกรณีที่ไม่ได้ตั้งค่า
+            Debug.LogWarning("No sword equipped.");
             return;
         }
 
-        // ดึงค่าทิศทางการหันหน้าจาก Animator
         float horizontal = animator.GetFloat("Horizontal");
         float vertical = animator.GetFloat("Vertical");
 
-        // ปรับการหมุนของ attackPoint ตามทิศทางการโจมตี
-        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+        attackDirection = new Vector2(horizontal, vertical).normalized;
 
-        if (direction != Vector2.zero)
+        if (attackDirection == Vector2.zero)
         {
-            attackPoint.localPosition = direction * attackRange;  // กำหนดตำแหน่งของ attackPoint ตามทิศทางและระยะ
-            attackPoint.right = direction;  // หมุน attackPoint ให้หันหน้าตามทิศทางการโจมตี
+            Debug.LogWarning("No attack direction found.");
+            return;
         }
 
-        // ตรวจสอบว่ามีศัตรูในระยะโจมตีหรือไม่
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position + (Vector3)attackDirection * attackRange, attackRange, enemyLayer);
 
         Debug.Log("Attack triggered. Number of enemies hit: " + hitEnemies.Length);
 
-        // จัดการความเสียหายกับศัตรูที่อยู่ในระยะโจมตี
+        equippedSword.Attack(); // เล่นอนิเมชันโจมตี
+
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>(); // รับ component สุขภาพของศัตรู
@@ -60,7 +91,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(1); // ส่งความเสียหายให้ศัตรู
+                enemyHealth.TakeDamage(equippedSword.damage); // ใช้ค่า damage จากดาบที่เลือก
 
                 if (knockback != null)
                 {
@@ -75,13 +106,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // ฟังก์ชันสำหรับแสดงการโจมตีใน Editor
     private void OnDrawGizmosSelected()
     {
-        if (attackPoint == null)
-            return;
-
         Gizmos.color = Color.red; // ตั้งค่าสีของ Gizmos
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange); // วาดวงกลมเพื่อแสดงระยะโจมตี
+        Gizmos.DrawWireSphere(transform.position + (Vector3)attackDirection * attackRange, attackRange); // วาดวงกลมเพื่อแสดงระยะโจมตี
     }
 }

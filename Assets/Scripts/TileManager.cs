@@ -41,6 +41,11 @@ public class TileManager : MonoBehaviour
                 plantMap.SetTile(position, wheat);  //plantwheat
             }
 
+    public void SetHavested(Vector3Int position)
+    {
+        plantMap.SetTile(position, plowedTile);  // Setting the interacted tile
+    }
+
     public string GetTileName(Vector3Int position)
     {
         if (interactableMap != null)
@@ -55,4 +60,20 @@ public class TileManager : MonoBehaviour
 
         return "";
     }
+
+    public string GetTileNamePlant(Vector3Int position)
+    {
+        if (plantMap != null)
+        {
+            TileBase plant_tile = plantMap.GetTile(position);
+
+            if (plant_tile != null)
+            {
+                return plant_tile.name;
+            }
+        }
+
+        return "";
+    }
 }
+

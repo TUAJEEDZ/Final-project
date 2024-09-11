@@ -10,7 +10,7 @@ public class Collectable : MonoBehaviour
     {
         coll = GetComponent<Collider2D>();
         coll.enabled = false; // Disable the collider at the start
-        StartCoroutine(EnableColliderAfterDelay(1f)); // Enable the collider after second
+        StartCoroutine(EnableColliderAfterDelay(0.5f)); // Enable the collider after second
     }
 
     private IEnumerator EnableColliderAfterDelay(float delay)
