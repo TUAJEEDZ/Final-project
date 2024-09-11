@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private Movement movement;
+    private HavestDrop havestDrop;
 
     private UI_Manager ui_manager;
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     }
     private void Awake()
     {
+        havestDrop = GetComponent<HavestDrop>();
         inventoryManager = GetComponent<InventoryManager>();
         movement = GetComponent<Movement>();
     }
@@ -125,6 +127,30 @@ public class Player : MonoBehaviour
                         }
                     }
 
+                }
+            }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
+            {
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+
+                    string tileName = tileManager.GetTileNamePlant(position);
+
+                    if (!string.IsNullOrWhiteSpace(tileName))
+                    {
+                        if (tileName == "wheat_plant4")
+                        {
+                            tileManager.SetHavested(position);
+                            // Pass the direction to DropItem
+                            havestDrop.DropItem(position, direction);
+                        }
+                    }
                 }
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Ironsword")
