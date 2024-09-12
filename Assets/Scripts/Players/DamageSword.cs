@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class DamageSword : MonoBehaviour
 {
-    public int damage; // ค่า Damage ของดาบ
+    public int damage; //  Damage ของดาบ
 
-    //private Animator animator; // ลบตัวแปรนี้
+    //private Animator animator;
 
     void Start()
     {
-        //animator = GetComponent<Animator>(); // ลบการตั้งค่าตัวแปรนี้
+        //animator = GetComponent<Animator>();
     }
 
     // ฟังก์ชันโจมตี
     public void Attack()
     {
-        // ไม่ต้องเล่นอนิเมชันใดๆ แล้ว
-        // ทำได้แค่ทำการโจมตี
+        
     }
 
     // เมื่อ Player เก็บดาบชนศัตรู จะเกิดการตรวจจับความเสียหาย
