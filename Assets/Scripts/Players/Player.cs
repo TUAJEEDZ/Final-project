@@ -128,9 +128,8 @@ public class Player : MonoBehaviour
                     }
 
                 }
-<<<<<<< HEAD
-            }  
-=======
+
+
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
             {
@@ -182,15 +181,14 @@ public class Player : MonoBehaviour
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Ironsword")
             {
-            animator.SetTrigger("IsAttacking");
+                animator.SetTrigger("IsAttacking");
 
             }
->>>>>>> bf010f9255aac10e9d6310b7a3470f7129d95d9e
-            
+
         }
     }
 
- 
+
 
     public void DropItem(Item item)
     {
@@ -199,11 +197,11 @@ public class Player : MonoBehaviour
 
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-            if (direction != Vector2.zero)
-            {
-                dropPoint.localPosition = direction * dropRange; 
-                dropPoint.right = direction;  
-            }
+        if (direction != Vector2.zero)
+        {
+            dropPoint.localPosition = direction * dropRange;
+            dropPoint.right = direction;
+        }
         Vector2 spawnLocation = (Vector2)transform.position + direction; // Spawn item in front of player
 
         Vector2 spawnOffset = Random.insideUnitCircle * 0.5f; // Slight random offset
