@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 100; // จำนวนเริ่มต้นของสุขภาพของศัตรู
+    [SerializeField] private GameObject deathVFXPrefab;
     private int currentHealth;
 
     private void Awake()
@@ -27,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
             Debug.Log("Enemy is dead. Preparing to die."); // แสดงข้อความเมื่อศัตรูตาย
             Die(); // ตรวจสอบสุขภาพและจัดการเมื่อตาย
         }
