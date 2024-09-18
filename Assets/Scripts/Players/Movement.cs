@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour
 
     public PlayerState currentState { get; private set; } = PlayerState.walk;
 
-
     private void Awake()
     {
         if (instance == null)

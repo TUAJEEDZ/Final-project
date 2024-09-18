@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 6168746810148628194}
   - component: {fileID: -1157764141061432941}
   - component: {fileID: -4973432168829070770}
-  - component: {fileID: 1640557725875306496}
-  - component: {fileID: -214595893647284607}
+  - component: {fileID: 8500477559863381518}
+  - component: {fileID: 3196815406556166743}
+  - component: {fileID: 5643563636734264181}
   - component: {fileID: -1322225723790540595}
   - component: {fileID: -3349427663160645229}
-  - component: {fileID: 7100153039971581812}
   - component: {fileID: 7075335593574570099}
   - component: {fileID: 3372046437905552526}
   - component: {fileID: 2670817861504763659}
@@ -153,10 +153,10 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4, y: 4}
+  m_Offset: {x: 0.16274309, y: -0.005419016}
+  m_Size: {x: 1.6917534, y: 2.4448504}
   m_Direction: 0
---- !u!114 &1640557725875306496
+--- !u!114 &8500477559863381518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,10 +165,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7079738097024457600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e729221e3f47f3c4f80ee1f15d8be1ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a5c67e5f6efe7b43a3fad11d7615bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-214595893647284607
+  attackRange: 5
+  enemyType: {fileID: 5643563636734264181}
+  attackCooldown: 2
+  stopMovingWhileAttacking: 1
+  roamChangeDirFloat: 5
+  chaseRange: 10
+--- !u!114 &3196815406556166743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,14 +183,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7079738097024457600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26dade66b446e094299d2b65d176835c, type: 3}
+  m_Script: {fileID: 11500000, guid: ea82a19e33216e64daa125fc33f45bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  attackCooldown: 1.5
+  moveSpeed: 2
+--- !u!114 &5643563636734264181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079738097024457600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140cdf586da81be4fb57cfa5306bd9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2007479939201831244, guid: e7008eb78cdbec046a6b39dee143955f, type: 3}
 --- !u!114 &-1322225723790540595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,19 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   deathVFXPrefab: {fileID: 383752543725269534, guid: 24aafecbe3c6df541b4c63a7e5114e09, type: 3}
---- !u!114 &7100153039971581812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7079738097024457600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dbed9b9b349d65479e4f1c7e095a7b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1.5
 --- !u!114 &7075335593574570099
 MonoBehaviour:
   m_ObjectHideFlags: 0

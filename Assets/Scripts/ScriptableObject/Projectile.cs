@@ -1,17 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 22f;
     [SerializeField] private GameObject particleOnHitPrefabVFX;
-    [SerializeField] private bool isEnemyProjectile = false;
+    [SerializeField] private bool isEnemyProjectile = false; // ใช้สำหรับระบุว่ามันเป็นโปรเจกไทล์ของศัตรูหรือไม่
     [SerializeField] private float projectileRange = 10f;
     [SerializeField] private int damage;
 
-
     private Vector3 startPosition;
+    private Vector2 direction;
 
     private void Start()
     {
@@ -24,40 +23,41 @@ public class Projectile : MonoBehaviour
         DetectFireDistance();
     }
 
-    public void UpdateProjectileRange(float projectileRange)
+    public void SetDirection(Vector2 newDirection)
     {
-        this.projectileRange = projectileRange;
+        direction = newDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
         PlayerHealth player = other.gameObject.GetComponent<PlayerHealth>();
 
-        if (!other.isTrigger && (enemyHealth || player))
+        // ตรวจสอบการชนเฉพาะกับผู้เล่นเท่านั้นเมื่อเป็นโปรเจกไทล์ของศัตรู
+        if (player != null && isEnemyProjectile && !other.isTrigger)
         {
-            if (player && isEnemyProjectile)
-            {
-                Debug.Log("Player hit by projectile");
-                player.TakeDamage(damage);
-            }
+            // ทำดาเมจให้ผู้เล่น
+            player.TakeDamage(damage);
 
+            // สร้างเอฟเฟกต์เมื่อโปรเจกไทล์ชน
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
+
+            // ทำลายโปรเจกไทล์เมื่อชนกับผู้เล่น
             Destroy(gameObject);
         }
     }
 
-
     private void DetectFireDistance()
     {
+        // ทำลายโปรเจกไทล์เมื่อมันเคลื่อนที่เกินระยะที่กำหนด
         if (Vector3.Distance(transform.position, startPosition) > projectileRange)
         {
-            Destroy(gameObject); // ทำลายกระสุนเมื่อมันไปเกินระยะที่ตั้งไว้
+            Destroy(gameObject);
         }
     }
 
     private void MoveProjectile()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed); // กระสุนเคลื่อนที่ไปข้างหน้า
+        // เคลื่อนที่โปรเจกไทล์ไปในทิศทางที่ตั้งไว้
+        transform.Translate(direction * Time.deltaTime * moveSpeed);
     }
 }
