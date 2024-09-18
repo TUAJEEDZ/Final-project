@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
                         {
                             tileManager.SetHavested(position);
                             // Pass the direction to DropItem
-                            havestDrop.DropItem(position, direction);
+                            havestDrop.DropItem();
                         }
                     }
                 }

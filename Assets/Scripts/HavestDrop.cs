@@ -17,7 +17,7 @@ public class HavestDrop : MonoBehaviour
     }
 
     // Updated DropItem method to accept direction
-    public void DropItem(Vector3Int position, Vector2 direction)
+    public void DropItem()
     {
         if (dropItems.Length > 0)
         {
@@ -29,14 +29,7 @@ public class HavestDrop : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, dropItems.Length);
                     GameObject dropItem = dropItems[randomIndex];
-
-                    // Calculate the drop position based on the player's facing direction
-                    Vector3 dropPosition = position + new Vector3(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y  + direction.y),
-                        0);
-
-                    Instantiate(dropItem, dropPosition, Quaternion.identity);
+                    Instantiate(dropItem, transform.position, Quaternion.identity);
 
                     Debug.Log("Dropped item: " + dropItem.name);
                 }
