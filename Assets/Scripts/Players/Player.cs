@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Movement movement;
     private HavestDrop havestDrop;
+    public ItemManager itemManager;
 
     private UI_Manager ui_manager;
 
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
                     StartCoroutine(DelayedInteraction(position));
                     IEnumerator DelayedInteraction(Vector3Int position)
                     {
-                        yield return new WaitForSeconds(0.3f); 
+                        yield return new WaitForSeconds(0.4f); 
                         movement.ChangeState(PlayerState.walk);
                         string tileName = tileManager.GetTileName(position);
 
@@ -163,11 +164,15 @@ public class Player : MonoBehaviour
 
                             if (tileName == "wheat_plant4")
                             {
-
                                 tileManager.SetHavested(position);
                                 // Pass the direction to DropItem
-                                havestDrop.DropItem();
-                              
+                                //havestDrop.DropItem();
+                                // Spawn the item after harvesting
+                                Item item = GameManager.instance.itemManager.GetItemByName("Axe");
+                                if (item != null)
+                                {
+                                    DropItem(item); // Call the DropItem method to spawn the item
+                                }
                             }
                         }
                     }       
