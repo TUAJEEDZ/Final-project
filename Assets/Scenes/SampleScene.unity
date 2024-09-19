@@ -82799,6 +82799,7 @@ MonoBehaviour:
   dropRange: 3
   inventoryManager: {fileID: 0}
   dropPoint: {fileID: 1841275211}
+  itemManager: {fileID: 0}
 --- !u!114 &1496944476
 MonoBehaviour:
   m_ObjectHideFlags: 0
