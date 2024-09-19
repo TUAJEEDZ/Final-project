@@ -4191,6 +4191,9 @@ MonoBehaviour:
   plowedTile: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
   wetTile: {fileID: 11400000, guid: d979c5024197b314abb745f83f4bbddd, type: 2}
   wheat: {fileID: 11400000, guid: 3c2b3400a9adf924ea67328094c22700, type: 2}
+  plantableTile:
+  - {fileID: 11400000, guid: d979c5024197b314abb745f83f4bbddd, type: 2}
+  - {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
 --- !u!114 &573976951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75928,7 +75931,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.8254595
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -82793,7 +82796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fc96fbeca38094fbcf792779247841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropRange: 2
+  dropRange: 3
   inventoryManager: {fileID: 0}
   dropPoint: {fileID: 1841275211}
 --- !u!114 &1496944476
@@ -82808,7 +82811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8ab1c3b10b9414c86cdc3725e480c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   animator: {fileID: 1496944478}
   direction: {x: 0, y: 0, z: 0}
 --- !u!212 &1496944477
@@ -82945,7 +82948,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackPoint: {fileID: 1841275211}
+  inventoryManager: {fileID: 0}
   knockbackForce: 5
 --- !u!114 &1496944482
 MonoBehaviour:

@@ -17,6 +17,7 @@ public class UI_Manager : MonoBehaviour
 
     private void Awake()
     {
+        inventoryPanel.SetActive(false);
         Initialize();
     }
 

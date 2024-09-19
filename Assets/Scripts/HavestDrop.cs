@@ -19,6 +19,11 @@ public class HavestDrop : MonoBehaviour
     // Updated DropItem method to accept direction
     public void DropItem()
     {
+        float horizontal = animator.GetFloat("Horizontal");
+        float vertical = animator.GetFloat("Vertical");
+
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+
         if (dropItems.Length > 0)
         {
             if (Random.value <= dropChance)
@@ -29,7 +34,14 @@ public class HavestDrop : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, dropItems.Length);
                     GameObject dropItem = dropItems[randomIndex];
-                    Instantiate(dropItem, transform.position, Quaternion.identity);
+
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x  + direction.x),
+                        Mathf.RoundToInt(transform.position.y  + direction.y),
+                        0
+                    );
+
+                    Instantiate(dropItem, position, Quaternion.identity);
 
                     Debug.Log("Dropped item: " + dropItem.name);
                 }

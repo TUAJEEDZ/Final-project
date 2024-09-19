@@ -873,6 +873,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Actions_37
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 208
+        width: 19
+        height: 16
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
+      border: {x: 9, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e4e842c80ce2a4e84279e74d37d2da
+      internalID: -685617284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Actions_38
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 207
+        width: 22
+        height: 18
+      alignment: 9
+      pivot: {x: 0.2, y: 0.5}
+      border: {x: 0, y: 0, z: 12, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26ea8fc43164f7e428b5766170d00d0f
+      internalID: -605079188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Actions_39
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 298
+        width: 22
+        height: 21
+      alignment: 9
+      pivot: {x: 0.32, y: 0.62}
+      border: {x: 0, y: 5, z: 8, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca99c3a635b71ab44b2cab8bd2bda957
+      internalID: 76364934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Actions_40
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 256
+        width: 19
+        height: 16
+      alignment: 9
+      pivot: {x: 0.25, y: 0.5}
+      border: {x: 0, y: 0, z: 9, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f1dfb470a319f0448170240447f8e61
+      internalID: -1148608867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Basic Charakter Actions_41
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 255
+        width: 22
+        height: 18
+      alignment: 9
+      pivot: {x: 0.8, y: 0.5}
+      border: {x: 12, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16987db183552404ca9af5fd8cfedfcd
+      internalID: 1842269713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -915,7 +1020,12 @@ TextureImporter:
       Basic Charakter Actions_34: 1085211349
       Basic Charakter Actions_35: 501349005
       Basic Charakter Actions_36: -992633851
+      Basic Charakter Actions_37: -685617284
+      Basic Charakter Actions_38: -605079188
+      Basic Charakter Actions_39: 76364934
       Basic Charakter Actions_4: -1373262736
+      Basic Charakter Actions_40: -1148608867
+      Basic Charakter Actions_41: 1842269713
       Basic Charakter Actions_5: -45412890
       Basic Charakter Actions_6: -1282479765
       Basic Charakter Actions_7: 464630995

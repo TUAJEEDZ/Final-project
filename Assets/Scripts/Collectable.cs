@@ -5,12 +5,22 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     private Collider2D coll;
+    public float hoverSpeed = 1f; // Speed of the hover
+    public float hoverHeight = 0.1f; // Height of the hover
+
+    private Vector3 startPosition; // Starting position of the collectable
 
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
         coll.enabled = false; // Disable the collider at the start
-        StartCoroutine(EnableColliderAfterDelay(0.5f)); // Enable the collider after second
+        StartCoroutine(EnableColliderAfterDelay(0.3f)); // Enable the collider after delay
+        startPosition = transform.position; // Store the initial position
+    }
+
+    private void Update()
+    {
+        Hover();
     }
 
     private IEnumerator EnableColliderAfterDelay(float delay)
@@ -33,5 +43,12 @@ public class Collectable : MonoBehaviour
                 Destroy(gameObject); // Destroy the collectable
             }
         }
+    }
+
+    // Hover up and down in the Y-axis
+    private void Hover()
+    {
+        float newY = Mathf.Sin(Time.time * hoverSpeed) * hoverHeight;
+        transform.position = new Vector3(startPosition.x, startPosition.y + newY, startPosition.z);
     }
 }

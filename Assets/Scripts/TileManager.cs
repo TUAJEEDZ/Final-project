@@ -11,6 +11,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
     [SerializeField] private Tile wetTile;
     [SerializeField] private Tile wheat;
+    [SerializeField] private Tile[] plantableTile;
 
 
     void Start()
@@ -43,7 +44,7 @@ public class TileManager : MonoBehaviour
 
     public void SetHavested(Vector3Int position)
     {
-        plantMap.SetTile(position, plowedTile);  // Setting the interacted tile
+        plantMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
     }
 
     public string GetTileName(Vector3Int position)
@@ -59,6 +60,18 @@ public class TileManager : MonoBehaviour
         }
 
         return "";
+    }
+
+    public bool IsPlantableTile(string tileName)
+    {
+        foreach (Tile tile in plantableTile)
+        {
+            if (tile != null && tile.name == tileName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public string GetTileNamePlant(Vector3Int position)

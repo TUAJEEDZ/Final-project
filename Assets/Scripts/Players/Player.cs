@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         {
             if (inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
             {
+                movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isPlowing");
                 if (tileManager != null && direction != Vector2.zero)
                 {
@@ -50,51 +51,56 @@ public class Player : MonoBehaviour
                         Mathf.RoundToInt(transform.position.y - 1 + direction.y),
                         0
                     );
-
-                    string tileName = tileManager.GetTileName(position);
-
-                    if (!string.IsNullOrWhiteSpace(tileName))
+                    StartCoroutine(DelayedInteraction(position));
+                    IEnumerator DelayedInteraction(Vector3Int position)
                     {
-                        if (tileName == "Interactable")
+                        yield return new WaitForSeconds(0.3f); 
+                        movement.ChangeState(PlayerState.walk);
+                        string tileName = tileManager.GetTileName(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
                         {
-                            StartCoroutine(DelayedInteraction(position));
-                        }
-                        IEnumerator DelayedInteraction(Vector3Int position)
-                        {
-                            yield return new WaitForSeconds(0.5f); // Delay for 1 second
-                            tileManager.SetInteracted(position);
+                            if (tileName == "Interactable")
+                            {
+
+
+                               
+                                tileManager.SetInteracted(position);
+                            }
                         }
                     }
-
                 }
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Watering Can")
             {
+                movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isWatering");
-                if (tileManager != null && direction != Vector2.zero)
+
+                // Calculate the position in front of the player based on the direction
+                Vector3Int position = new Vector3Int(
+                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                    0
+                );
+                StartCoroutine(DelayedInteraction(position));
+                IEnumerator DelayedInteraction(Vector3Int position)
                 {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-
-                    string tileName = tileManager.GetTileName(position);
-
-                    if (!string.IsNullOrWhiteSpace(tileName))
+                    yield return new WaitForSeconds(0.5f); 
+                    movement.ChangeState(PlayerState.walk);
+                    if (tileManager != null && direction != Vector2.zero)
                     {
-                        if (tileName == "Summer_Plowed")
-                        {
-                            StartCoroutine(DelayedInteraction(position));
-                        }
-                        IEnumerator DelayedInteraction(Vector3Int position)
-                        {
-                            yield return new WaitForSeconds(0.5f); // Delay for 1 second
-                            tileManager.SetWatered(position);
-                        }
-                    }
 
+                        string tileName = tileManager.GetTileName(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
+                        {
+                            if (tileName == "Summer_Plowed")
+                            {
+                                tileManager.SetWatered(position);
+                            }
+                        }
+
+                    }
                 }
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
@@ -110,10 +116,9 @@ public class Player : MonoBehaviour
 
                     string tileName = tileManager.GetTileName(position);
 
-                    if (!string.IsNullOrWhiteSpace(tileName))
+                    if (tileManager.IsPlantableTile(tileName))
                     {
-                        if (tileName == "Summer_Plowed" || tileName == "wetplowed 1")
-                        {
+                        
                             tileManager.SetPlantWheat(position);
 
                             // Check and remove the Wheat Seed from the selected slot
@@ -124,7 +129,7 @@ public class Player : MonoBehaviour
 
                                 GameManager.instance.uiManager.RefreshAll();
                             }
-                        }
+                        
                     }
 
                 }
@@ -133,26 +138,39 @@ public class Player : MonoBehaviour
             }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
             {
-                if (tileManager != null && direction != Vector2.zero)
+                movement.ChangeState(PlayerState.interact);
+                animator.SetTrigger("isCutting");
+               
+
+                Vector3Int position = new Vector3Int(
+                       Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                       Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                       0
+                   );
+                StartCoroutine(DelayedInteraction(position));
+                
+                IEnumerator DelayedInteraction(Vector3Int position)
                 {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-
-                    string tileName = tileManager.GetTileNamePlant(position);
-
-                    if (!string.IsNullOrWhiteSpace(tileName))
+                    yield return new WaitForSeconds(0.4f);
+                    movement.ChangeState(PlayerState.walk);
+                    if (tileManager != null && direction != Vector2.zero)
                     {
-                        if (tileName == "wheat_plant4")
+               
+                        string tileName = tileManager.GetTileNamePlant(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
                         {
-                            tileManager.SetHavested(position);
-                            // Pass the direction to DropItem
-                            havestDrop.DropItem();
+
+                            if (tileName == "wheat_plant4")
+                            {
+
+                                tileManager.SetHavested(position);
+                                // Pass the direction to DropItem
+                                havestDrop.DropItem();
+                              
+                            }
                         }
-                    }
+                    }       
                 }
             }
         }
@@ -176,9 +194,9 @@ public class Player : MonoBehaviour
 
         Vector2 spawnOffset = Random.insideUnitCircle * 0.5f; // Slight random offset
 
-        Item droppedItem = Instantiate(item, spawnLocation + spawnOffset, Quaternion.identity);
+        Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
 
-        droppedItem.rb2d.AddForce(direction * 2f + spawnOffset, ForceMode2D.Impulse);
+        droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
     }
 
     public void DropItem(Item item, int numToDrop)
