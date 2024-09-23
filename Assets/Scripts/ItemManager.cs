@@ -33,17 +33,4 @@ public class ItemManager : MonoBehaviour   //adjust new added item by name
         return null;
     }
 
-    // Method to spawn an item by name
-    public void SpawnItem(string itemName, Vector3 position, Quaternion rotation)
-    {
-        Item itemPrefab = GetItemByName(itemName);
-        if (itemPrefab != null)
-        {
-            Instantiate(itemPrefab, position, rotation);
-        }
-        else
-        {
-            Debug.LogWarning("Item not found: " + itemName);
-        }
-    }
 }

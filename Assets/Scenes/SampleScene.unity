@@ -79855,6 +79855,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Collectable_pumkin
       objectReference: {fileID: 0}
+    - target: {fileID: 9215002829435388620, guid: 7ba652104dd68604aaef35941cae675e, type: 3}
+      propertyPath: hoverSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215002829435388620, guid: 7ba652104dd68604aaef35941cae675e, type: 3}
+      propertyPath: hoverHeight
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

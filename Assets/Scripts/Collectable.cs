@@ -48,6 +48,7 @@ public class Collectable : MonoBehaviour
     // Hover up and down in the Y-axis
     private void Hover()
     {
+        //This line calculates the new Y position of the object to create a hovering effect.
         float newY = Mathf.Sin(Time.time * hoverSpeed) * hoverHeight;
         transform.position = new Vector3(startPosition.x, startPosition.y + newY, startPosition.z);
     }

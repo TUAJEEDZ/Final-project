@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
                                 // Pass the direction to DropItem
                                 //havestDrop.DropItem();
                                 // Spawn the item after harvesting
-                                Item item = GameManager.instance.itemManager.GetItemByName("Axe");
+                                Item item = GameManager.instance.itemManager.GetItemByName("Wheat");
                                 if (item != null)
                                 {
                                     DropItem(item); // Call the DropItem method to spawn the item
