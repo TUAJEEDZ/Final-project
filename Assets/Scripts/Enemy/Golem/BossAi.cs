@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BossAi : MonoBehaviour
+public class GolemBossAi : MonoBehaviour
 {
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private MonoBehaviour enemyType; // Ensure this implements IEnemy
@@ -32,12 +32,6 @@ public class BossAi : MonoBehaviour
         bossPathfinding = GetComponent<BossPathfinding>();
         animator = GetComponent<Animator>();
         state = State.Roaming;
-
-        if (bossPathfinding == null)
-            Debug.LogError("BossPathfinding component is missing!");
-
-        if (animator == null)
-            Debug.LogError("Animator component is missing!");
     }
 
     private void Start()
@@ -47,35 +41,29 @@ public class BossAi : MonoBehaviour
 
     private void Update()
     {
-        MovementStateControl();
+        if (Movement.instance == null) return;
+
+        UpdateState();
         UpdateAnimator();
     }
 
-    private void MovementStateControl()
+    private void UpdateState()
     {
-        if (Movement.instance == null)
-        {
-            Debug.LogError("Movement.instance is missing!");
-            return;
-        }
-
         switch (state)
         {
             case State.Roaming:
-                Roaming();
+                HandleRoaming();
                 break;
-
             case State.ChasingPlayer:
-                ChasingPlayer();
+                HandleChasingPlayer();
                 break;
-
             case State.Attacking:
-                Attacking();
+                HandleAttacking();
                 break;
         }
     }
 
-    private void Roaming()
+    private void HandleRoaming()
     {
         timeRoaming += Time.deltaTime;
         bossPathfinding.MoveTo(roamPosition);
@@ -99,7 +87,7 @@ public class BossAi : MonoBehaviour
         }
     }
 
-    private void ChasingPlayer()
+    private void HandleChasingPlayer()
     {
         bossPathfinding.MoveTo(Movement.instance.transform.position);
         isWalking = true;
@@ -117,22 +105,17 @@ public class BossAi : MonoBehaviour
         }
     }
 
-    private void Attacking()
+    private void HandleAttacking()
     {
-        if (Movement.instance == null)
-        {
-            Debug.LogError("Movement.instance is missing!");
-            state = State.Roaming;
-            return;
-        }
+        float distanceToPlayer = Vector2.Distance(transform.position, Movement.instance.transform.position);
 
-        if (Vector2.Distance(transform.position, Movement.instance.transform.position) > attackRange)
+        if (distanceToPlayer > attackRange)
         {
             state = State.Roaming;
             return;
         }
 
-        if (attackRange != 0 && canAttack)
+        if (canAttack)
         {
             canAttack = false;
             (enemyType as IEnemy)?.Attack();
@@ -145,10 +128,6 @@ public class BossAi : MonoBehaviour
             if (stopMovingWhileAttacking)
             {
                 bossPathfinding.StopMoving();
-            }
-            else
-            {
-                bossPathfinding.MoveTo(roamPosition);
             }
 
             StartCoroutine(AttackCooldownRoutine());
@@ -173,10 +152,8 @@ public class BossAi : MonoBehaviour
             animator.SetBool("isMoving", isWalking);
 
             Vector2 movementDirection = bossPathfinding.GetCurrentDirection();
-
             animator.SetFloat("Horizontal", movementDirection.x);
             animator.SetFloat("Vertical", movementDirection.y);
         }
     }
 }
-

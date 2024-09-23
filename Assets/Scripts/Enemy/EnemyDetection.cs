@@ -22,7 +22,7 @@ public class EnemyDetection : MonoBehaviour
 
     private bool canAttack = true;
 
-    void Update()
+    private void Update()
     {
         DetectPlayer();
         if (playerInRange)
@@ -39,7 +39,7 @@ public class EnemyDetection : MonoBehaviour
         }
     }
 
-    void DetectPlayer()
+    private void DetectPlayer()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRange, playerLayer);
         foreach (var hit in hits)
@@ -54,7 +54,7 @@ public class EnemyDetection : MonoBehaviour
         playerInRange = false;
     }
 
-    void ChasePlayer()
+    private void ChasePlayer()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.position, 2f * Time.deltaTime);
     }

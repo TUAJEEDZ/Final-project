@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 22f;
     [SerializeField] private GameObject particleOnHitPrefabVFX;
-    [SerializeField] private bool isEnemyProjectile = false; // ใช้สำหรับระบุว่ามันเป็นโปรเจกไทล์ของศัตรูหรือไม่
+    [SerializeField] private bool isEnemyProjectile = false; // Used to specify if this is an enemy projectile
     [SerializeField] private float projectileRange = 10f;
     [SerializeField] private int damage;
 
@@ -32,23 +32,23 @@ public class Projectile : MonoBehaviour
     {
         PlayerHealth player = other.gameObject.GetComponent<PlayerHealth>();
 
-        // ตรวจสอบการชนเฉพาะกับผู้เล่นเท่านั้นเมื่อเป็นโปรเจกไทล์ของศัตรู
+        // Check for collisions only with the player if this is an enemy projectile
         if (player != null && isEnemyProjectile && !other.isTrigger)
         {
-            // ทำดาเมจให้ผู้เล่น
+            // Deal damage to the player
             player.TakeDamage(damage);
 
-            // สร้างเอฟเฟกต์เมื่อโปรเจกไทล์ชน
+            // Instantiate the hit effect when the projectile hits something
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
 
-            // ทำลายโปรเจกไทล์เมื่อชนกับผู้เล่น
+            // Destroy the projectile when it hits the player
             Destroy(gameObject);
         }
     }
 
     private void DetectFireDistance()
     {
-        // ทำลายโปรเจกไทล์เมื่อมันเคลื่อนที่เกินระยะที่กำหนด
+        // Destroy the projectile if it moves beyond the specified range
         if (Vector3.Distance(transform.position, startPosition) > projectileRange)
         {
             Destroy(gameObject);
@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
 
     private void MoveProjectile()
     {
-        // เคลื่อนที่โปรเจกไทล์ไปในทิศทางที่ตั้งไว้
+        // Move the projectile in the set direction
         transform.Translate(direction * Time.deltaTime * moveSpeed);
     }
 }
