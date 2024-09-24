@@ -6,9 +6,11 @@ public class GolemBossAi : MonoBehaviour
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private MonoBehaviour enemyType; // Ensure this implements IEnemy
     [SerializeField] private float attackCooldown = 2f;
-    [SerializeField] private bool stopMovingWhileAttacking = false;
     [SerializeField] private float roamChangeDirFloat = 5f;
     [SerializeField] private float chaseRange = 10f;
+
+    [SerializeField] private float roamAmplitude = 2f; // Amplitude of vertical movement
+    [SerializeField] private float roamSpeed = 1f; // Speed of vertical movement
 
     private bool canAttack = true;
     private bool isWalking = false;
@@ -36,7 +38,7 @@ public class GolemBossAi : MonoBehaviour
 
     private void Start()
     {
-        roamPosition = GetRoamingPosition();
+        roamPosition = new Vector2(transform.position.x, transform.position.y); // Start at current Y position
     }
 
     private void Update()
@@ -66,30 +68,29 @@ public class GolemBossAi : MonoBehaviour
     private void HandleRoaming()
     {
         timeRoaming += Time.deltaTime;
-        bossPathfinding.MoveTo(roamPosition);
+
+        // Keep the X position fixed and oscillate in the Y direction
+        roamPosition.y = transform.position.y + Mathf.Sin(timeRoaming * roamSpeed) * roamAmplitude;
+
+        bossPathfinding.MoveTo(new Vector2(transform.position.x, roamPosition.y));
         isWalking = true;
 
         float distanceToPlayer = Vector2.Distance(transform.position, Movement.instance.transform.position);
         if (distanceToPlayer < attackRange)
         {
             state = State.Attacking;
-            isWalking = false;
+            isWalking = false; // Set walking to false when attacking
         }
         else if (distanceToPlayer < chaseRange)
         {
             state = State.ChasingPlayer;
         }
-
-        if (timeRoaming > roamChangeDirFloat)
-        {
-            roamPosition = GetRoamingPosition();
-            timeRoaming = 0f;
-        }
     }
 
     private void HandleChasingPlayer()
     {
-        bossPathfinding.MoveTo(Movement.instance.transform.position);
+        // Keep the X position fixed and move vertically toward the player's Y position
+        bossPathfinding.MoveTo(new Vector2(transform.position.x, Movement.instance.transform.position.y));
         isWalking = true;
 
         float distanceToPlayer = Vector2.Distance(transform.position, Movement.instance.transform.position);
@@ -101,7 +102,7 @@ public class GolemBossAi : MonoBehaviour
         else if (distanceToPlayer < attackRange)
         {
             state = State.Attacking;
-            isWalking = false;
+            isWalking = false; // Set walking to false when attacking
         }
     }
 
@@ -115,6 +116,9 @@ public class GolemBossAi : MonoBehaviour
             return;
         }
 
+        // Keep the X position fixed and move vertically toward the player's Y position while attacking
+        bossPathfinding.MoveTo(new Vector2(transform.position.x, Movement.instance.transform.position.y));
+
         if (canAttack)
         {
             canAttack = false;
@@ -123,11 +127,6 @@ public class GolemBossAi : MonoBehaviour
             if (animator != null)
             {
                 animator.SetTrigger("Attack");
-            }
-
-            if (stopMovingWhileAttacking)
-            {
-                bossPathfinding.StopMoving();
             }
 
             StartCoroutine(AttackCooldownRoutine());
@@ -140,19 +139,15 @@ public class GolemBossAi : MonoBehaviour
         canAttack = true;
     }
 
-    private Vector2 GetRoamingPosition()
-    {
-        return new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f));
-    }
-
     private void UpdateAnimator()
     {
         if (animator != null)
         {
             animator.SetBool("isMoving", isWalking);
 
+            // Set animator parameters based on the movement direction
             Vector2 movementDirection = bossPathfinding.GetCurrentDirection();
-            animator.SetFloat("Horizontal", movementDirection.x);
+            animator.SetFloat("Horizontal", 0); // Always set horizontal to 0 since we are not moving on X-axis
             animator.SetFloat("Vertical", movementDirection.y);
         }
     }

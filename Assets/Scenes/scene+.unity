@@ -974,7 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191508459}
   - component: {fileID: 191508460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14234,7 +14234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 966345604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'AttackPoint '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23476,7 +23476,7 @@ GameObject:
   - component: {fileID: 2109716050}
   - component: {fileID: 2109716049}
   - component: {fileID: 2109716048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -23657,7 +23657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5906fc4147f4ed46ac80e0b980c14fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 10
   knockBackThrustAmount: 10
   damageRecoveryTime: 1
   healthSlider: {fileID: 134447046}
@@ -23847,6 +23847,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1471697395}
     m_Modifications:
+    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: chaseRange
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: attackRange
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: stopMovingWhileAttacking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1191523657948190327, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.9357
@@ -23895,9 +23907,25 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 1419983047}
+    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: damageDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: detectRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7079738097024457600, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: m_Name
       value: Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079738097024457600, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

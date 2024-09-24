@@ -172,9 +172,10 @@ MonoBehaviour:
   attackRange: 5
   enemyType: {fileID: 5643563636734264181}
   attackCooldown: 2
-  stopMovingWhileAttacking: 1
   roamChangeDirFloat: 5
   chaseRange: 10
+  roamAmplitude: 2
+  roamSpeed: 1
 --- !u!114 &3800489302917982689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a95f2573f3877428d124dbe0175c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
   detectRange: 10
   laserPrefab: {fileID: 6749115931396813883, guid: 599f5d1a76ceac547ad0c3230c6d8d3a, type: 3}
   attackCooldown: 2
