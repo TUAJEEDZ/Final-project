@@ -197,7 +197,7 @@ public class DayNightCycle : MonoBehaviour
     }
 }
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
 [CustomEditor(typeof(DayNightCycle))]
 public class DayNightCycleEditor : Editor
 {
@@ -212,4 +212,4 @@ public class DayNightCycleEditor : Editor
         }
     }
 }
-#endif
+#endif*/
