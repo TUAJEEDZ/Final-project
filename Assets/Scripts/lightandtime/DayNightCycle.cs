@@ -52,6 +52,7 @@ public class DayNightCycle : MonoBehaviour
         {
             Debug.LogWarning("UI Text for displaying time is not assigned. Please assign it in the Inspector.");
         }
+        ResetDayAndTime();
     }
 
     void Update()

@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         tileManager = GameManager.instance.tileManager;
+        inventoryManager.Add("Toolbar", "Axe");
+        inventoryManager.Add("Toolbar", "Hoe");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()
     {
@@ -168,11 +172,9 @@ public class Player : MonoBehaviour
                                 // Pass the direction to DropItem
                                 //havestDrop.DropItem();
                                 // Spawn the item after harvesting
-                                Item item = GameManager.instance.itemManager.GetItemByName("Wheat");
-                                if (item != null)
-                                {
-                                    DropItem(item); // Call the DropItem method to spawn the item
-                                }
+
+                                DropItem("Wheat"); // Call the DropItem method to spawn the item
+                               
                             }
                         }
                     }       
@@ -201,6 +203,39 @@ public class Player : MonoBehaviour
 
         Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
 
+        droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
+    }
+
+    public void DropItem(string itemName)
+    {
+        // Retrieve the item using the provided name
+        Item item = GameManager.instance.itemManager.GetItemByName(itemName);
+        if (item == null)
+        {
+            Debug.LogWarning($"Item '{itemName}' not found!");
+            return; // Exit if the item doesn't exist
+        }
+
+        // Get the direction based on the animator's parameters
+        float horizontal = animator.GetFloat("Horizontal");
+        float vertical = animator.GetFloat("Vertical");
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+
+        // Calculate the drop point based on the direction
+        if (direction != Vector2.zero)
+        {
+            dropPoint.localPosition = direction * dropRange;
+            dropPoint.right = direction;
+        }
+
+        // Calculate the spawn location in front of the player
+        Vector2 spawnLocation = (Vector2)transform.position + direction; // Spawn item in front of player
+        Vector2 spawnOffset = Random.insideUnitCircle * 0.5f; // Slight random offset
+
+        // Instantiate the item
+        Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
+
+        // Add force to the dropped item
         droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
     }
 

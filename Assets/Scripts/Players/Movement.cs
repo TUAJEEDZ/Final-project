@@ -12,7 +12,10 @@ public class Movement : MonoBehaviour
 {
     public static Movement instance;
 
-    public float speed = 0;
+    public float walkSpeed = 3f;
+    public float runSpeed = 6f; // Speed when running
+    private float currentSpeed;
+
     public Animator animator;
     public Vector3 direction;
     private SpriteRenderer spriteRenderer;
@@ -43,8 +46,18 @@ public class Movement : MonoBehaviour
 
         if (knockback.gettingKnockedBack) { return; }
 
+        // Check if Left Shift is held for running
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = runSpeed; // Run
+        }
+        else
+        {
+            currentSpeed = walkSpeed; // Walk
+        }
+
         direction = new Vector3(horizontal, vertical, 0).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += direction * currentSpeed * Time.deltaTime;
 
         AnimatorMovement(direction);
     }
@@ -70,5 +83,4 @@ public class Movement : MonoBehaviour
     {
         currentState = newState;
     }
-
 }
