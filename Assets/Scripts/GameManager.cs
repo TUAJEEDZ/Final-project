@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour //use for connect other manager
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();
         uiManager = GetComponent<UI_Manager>();
+
         player = FindObjectOfType<Player>();
     }
 }

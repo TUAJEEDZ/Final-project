@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public ItemData data;
 
     [HideInInspector]  public Rigidbody2D rb2d;
+    public bool isCollected; // เพิ่มสถานะการเก็บ
 
     private void Awake()
     {

@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeandFarm.unity
     guid: 96bfbf009ca9eb94490c537b97d641ce
-  - enabled: 0
-    path: Assets/Scenes/villager.unity
-    guid: b2efb15e3faab634390fc44b2ec17805
   - enabled: 1
     path: Assets/Scenes/homescene.unity
     guid: 3a88b7dfc518d5c47bc7fb3c00de6db6
@@ -26,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/testmix.unity
     guid: 305036b42562c0e4d91722a69ed8e028
+  - enabled: 1
+    path: Assets/Scenes/testmixwave.unity
+    guid: bf9a3d3dfb9b812489833b9c616eb416
   m_configObjects: {}
