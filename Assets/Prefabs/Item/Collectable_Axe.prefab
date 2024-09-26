@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 825036743093708410}
   - component: {fileID: 1638816529624584430}
   m_Layer: 0
-  m_Name: Collectable_Hoe 1
+  m_Name: Collectable_Axe
   m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 319538946, guid: e982a233f42451242adf184639292248, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -145,6 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7a742a60b0f274a938eb34de257847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverSpeed: 1
+  hoverHeight: 0.1
 --- !u!114 &825036743093708410
 MonoBehaviour:
   m_ObjectHideFlags: 0

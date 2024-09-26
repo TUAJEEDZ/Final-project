@@ -7,6 +7,8 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tilemap plantMap;
+    [SerializeField] private Tilemap cutMap;
+    [SerializeField] private Tilemap treeMap;
     [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
     [SerializeField] private Tile wetTile;
@@ -30,6 +32,11 @@ public class TileManager : MonoBehaviour
     public void SetInteracted(Vector3Int position)
     {
         interactableMap.SetTile(position, plowedTile);  // Setting the interacted tile
+    }
+
+    public void SetCutted(Vector3Int position)
+    {
+        treeMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
     }
 
     public void SetWatered(Vector3Int position)
@@ -86,6 +93,20 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        return "";
+    }
+
+    public string GetTileNameTree(Vector3Int position)
+    {
+        if (cutMap != null)
+        {
+            TileBase cut_tile = cutMap.GetTile(position);
+
+            if (cut_tile != null)
+            {
+                return cut_tile.name;
+            }
+        }
         return "";
     }
 }

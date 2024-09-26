@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isCutting");
-               
+
 
                 Vector3Int position = new Vector3Int(
                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
@@ -153,14 +153,14 @@ public class Player : MonoBehaviour
                        0
                    );
                 StartCoroutine(DelayedInteraction(position));
-                
+
                 IEnumerator DelayedInteraction(Vector3Int position)
                 {
                     yield return new WaitForSeconds(0.4f);
                     movement.ChangeState(PlayerState.walk);
                     if (tileManager != null && direction != Vector2.zero)
                     {
-               
+
                         string tileName = tileManager.GetTileNamePlant(position);
 
                         if (!string.IsNullOrWhiteSpace(tileName))
@@ -174,10 +174,43 @@ public class Player : MonoBehaviour
                                 // Spawn the item after harvesting
 
                                 DropItem("Wheat"); // Call the DropItem method to spawn the item
-                               
+
                             }
                         }
-                    }       
+                    }
+                }
+            }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
+            {
+                movement.ChangeState(PlayerState.interact);
+                animator.SetTrigger("isCutting");
+
+                // Calculate the position in front of the player based on the direction
+                Vector3Int position = new Vector3Int(
+                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                    0
+                );
+                StartCoroutine(DelayedInteraction(position));
+                IEnumerator DelayedInteraction(Vector3Int position)
+                {
+                    yield return new WaitForSeconds(0.4f);
+                    movement.ChangeState(PlayerState.walk);
+                    if (tileManager != null && direction != Vector2.zero)
+                    {
+
+                        string tileName = tileManager.GetTileNameTree(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
+                        {
+                            if (tileName == "Basic_Grass_Biom_things_21")
+                            {
+                                tileManager.SetCutted(position);
+                                inventoryManager.Add("Backpack", "Wood");
+                            }
+                        }
+
+                    }
                 }
             }
         }
