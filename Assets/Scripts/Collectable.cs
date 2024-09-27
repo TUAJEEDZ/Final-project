@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Item))]
 public class Collectable : MonoBehaviour
 {
+    public static Collectable instance;
+
     private Collider2D coll;
     public float hoverSpeed = 1f; // Speed of the hover
     public float hoverHeight = 0.1f; // Height of the hover
@@ -12,6 +14,16 @@ public class Collectable : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject); // Ensure the GameManager persists across scenes
+        }
+
         coll = GetComponent<Collider2D>();
         coll.enabled = false; // Disable the collider at the start
         StartCoroutine(EnableColliderAfterDelay(0.3f)); // Enable the collider after delay
