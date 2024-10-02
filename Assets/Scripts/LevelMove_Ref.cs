@@ -11,6 +11,8 @@ public class DoorController : MonoBehaviour
     public Image interactionImage; // ลาก UI Image ของคุณมาที่นี่ใน Inspector
     private bool playerInTrigger = false;
 
+    private MapManager mapManager;
+
     // กำหนดตำแหน่งใหม่โดยใช้ Vector3
     public Vector3 doorExitPosition;
 
@@ -82,7 +84,19 @@ public class DoorController : MonoBehaviour
 
             // โหลดฉากใหม่
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+
+            if (GameManager.instance.mapManager.IsFarmOn() == false)
+            {
+                GameManager.instance.mapManager.SetFarmOn(true);
+            }
+            else
+            {
+                GameManager.instance.mapManager.SetFarmOn(false);
+            }
+
         }
+
+        
     }
 
     // ฟังก์ชันนี้จะถูกเรียกเมื่อฉากใหม่ถูกโหลด

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public ItemManager itemManager;
+    public MapManager mapManager;
     public TileManager tileManager;
     public UI_Manager uiManager;
     public Player player;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
         itemManager = GetComponent<ItemManager>();
         tileManager = GetComponent<TileManager>();
         uiManager = GetComponent<UI_Manager>();
+        mapManager = GetComponent<MapManager>();
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
