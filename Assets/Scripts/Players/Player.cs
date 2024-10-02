@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private TileManager tileManager;
     public Transform dropPoint;
 
+    public Transform DropParent;
 
     private Animator animator;
     private Movement movement;
@@ -203,7 +204,7 @@ public class Player : MonoBehaviour
 
                         if (!string.IsNullOrWhiteSpace(tileName))
                         {
-                            if (tileName == "Basic_Grass_Biom_things_21")
+                            if (tileName == "cutabletree")
                             {
                                 tileManager.SetCutted(position);
                                 inventoryManager.Add("Backpack", "Wood");
@@ -235,6 +236,7 @@ public class Player : MonoBehaviour
         Vector2 spawnOffset = Random.insideUnitCircle * 0.5f; // Slight random offset
 
         Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
+        droppedItem.transform.SetParent(DropParent.transform, true);
 
         droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
     }
@@ -268,6 +270,8 @@ public class Player : MonoBehaviour
         // Instantiate the item
         Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
 
+        droppedItem.transform.SetParent(DropParent.transform, true);
+
         // Add force to the dropped item
         droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
     }
@@ -279,4 +283,6 @@ public class Player : MonoBehaviour
             DropItem(item);
         }
     }
+
+    
 }

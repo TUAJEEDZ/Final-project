@@ -14,7 +14,7 @@ public class Collectable : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+     /*   if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -22,7 +22,7 @@ public class Collectable : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject); // Ensure the Collectable persists across scenes
-        }
+        }*/
 
         coll = GetComponent<Collider2D>();
         coll.enabled = false; // Disable the collider at the start
