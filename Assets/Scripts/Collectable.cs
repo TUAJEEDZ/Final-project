@@ -21,7 +21,7 @@ public class Collectable : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject); // Ensure the GameManager persists across scenes
+            DontDestroyOnLoad(this.gameObject); // Ensure the Collectable persists across scenes
         }
 
         coll = GetComponent<Collider2D>();
