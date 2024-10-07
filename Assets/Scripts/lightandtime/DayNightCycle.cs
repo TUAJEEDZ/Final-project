@@ -9,6 +9,7 @@ using UnityEditor;
 
 public class DayNightCycle : MonoBehaviour
 {
+
     public Light2D globalLight2D;
     public List<Light2D> spotLights2D;
     public Color dayColor = Color.white;
@@ -22,6 +23,7 @@ public class DayNightCycle : MonoBehaviour
     private int monthCount;
     private int yearCount;
 
+    public TileManager tileManager;
     void Start()
     {
         dayCount = PlayerPrefs.GetInt("DayCount", 1);
@@ -74,6 +76,7 @@ public class DayNightCycle : MonoBehaviour
         {
             time -= 1f;
             dayCount++;
+            GameManager.instance.tileManager.CheckPlantGrowth();
             if (dayCount > 30) // Assuming each month has 30 days
             {
                 dayCount = 1;

@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Axe");
         inventoryManager.Add("Toolbar", "Hoe");
         inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Watering Can");
+        inventoryManager.Add("Toolbar", "Carrot");
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()
@@ -124,24 +130,27 @@ public class Player : MonoBehaviour
 
                     if (tileManager.IsPlantableTile(tileName))
                     {
-                        
-                            tileManager.SetPlantWheat(position);
+                        // Plant the wheat at the calculated position
+                        tileManager.SetPlantWheat(position);
 
-                            // Check and remove the Wheat Seed from the selected slot
-                            if (inventoryManager.toolbar.selectedSlot != null &&
-                               inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
-                            {
-                                inventoryManager.toolbar.selectedSlot.RemoveItem();
+                        // Check and remove the Wheat Seed from the selected slot
+                        if (inventoryManager.toolbar.selectedSlot != null &&
+                            inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                        {
+                            inventoryManager.toolbar.selectedSlot.RemoveItem();
 
-                                GameManager.instance.uiManager.RefreshAll();
-                            }
-                        
+                            // Refresh the UI to reflect the changes
+                            GameManager.instance.uiManager.RefreshAll();
+                        }
                     }
-
+                    else
+                    {
+                        // Optionally, you can add feedback to the player that the tile is not plantable
+                        Debug.Log("Cannot plant on this tile.");
+                    }
                 }
-
-
             }
+
             if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
             {
                 movement.ChangeState(PlayerState.interact);

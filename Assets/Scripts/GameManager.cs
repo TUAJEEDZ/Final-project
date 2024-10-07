@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     public ItemManager itemManager;
     public MapManager mapManager;
     public TileManager tileManager;
+    public PlantManager plantManager;
     public UI_Manager uiManager;
     public Player player;
+    public DayNightCycle dayNightCycle;
+
 
     private void Awake()
     {
@@ -29,6 +32,8 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
         uiManager = GetComponent<UI_Manager>();
         mapManager = GetComponent<MapManager>();
+        plantManager = GetComponent<PlantManager>();
+
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
