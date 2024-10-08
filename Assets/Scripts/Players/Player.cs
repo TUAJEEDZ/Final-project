@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Wheat Seed");
         inventoryManager.Add("Toolbar", "Wheat Seed");
         inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
         inventoryManager.Add("Toolbar", "Watering Can");
         inventoryManager.Add("Toolbar", "Carrot");
         GameManager.instance.uiManager.RefreshAll();
@@ -151,6 +156,42 @@ public class Player : MonoBehaviour
                 }
             }
 
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+            {
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+
+                    string tileName = tileManager.GetTileName(position);
+
+                    if (tileManager.IsPlantableTile(tileName))
+                    {
+                        // Plant the wheat at the calculated position
+                        tileManager.SetPlantTomato(position);
+
+                        // Check and remove the Wheat Seed from the selected slot
+                        if (inventoryManager.toolbar.selectedSlot != null &&
+                            inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+                        {
+                            inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                            // Refresh the UI to reflect the changes
+                            GameManager.instance.uiManager.RefreshAll();
+                        }
+                    }
+                    else
+                    {
+                        // Optionally, you can add feedback to the player that the tile is not plantable
+                        Debug.Log("Cannot plant on this tile.");
+                    }
+                }
+            }
+
             if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
             {
                 movement.ChangeState(PlayerState.interact);
@@ -178,12 +219,22 @@ public class Player : MonoBehaviour
 
                             if (tileName == "wheat_plant4")
                             {
-                                tileManager.SetHavested(position);
+                                tileManager.SetHarvested(position);
                                 // Pass the direction to DropItem
                                 //havestDrop.DropItem();
                                 // Spawn the item after harvesting
 
                                 DropItem("Wheat"); // Call the DropItem method to spawn the item
+
+                            }
+                            else if (tileName == "tomato4")
+                            {
+                                tileManager.SetPickup(position);
+                                // Pass the direction to DropItem
+                                //havestDrop.DropItem();
+                                // Spawn the item after harvesting
+
+                                DropItem("Tomato"); // Call the DropItem method to spawn the item
 
                             }
                         }

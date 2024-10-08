@@ -16,8 +16,14 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
 
-    // Track planted tiles with both type and growth stage
-    private Dictionary<Vector3Int, (string cropType, int growthStage)> plantedTiles = new Dictionary<Vector3Int, (string cropType, int growthStage)>();
+    private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
+    {
+        { "wheat", 2 },    // Wheat requires 3 ticks per growth stage
+        { "tomato", 3 }     // Tomato requires 5 ticks per growth stage
+    };
+
+    // Track planted tiles with both type, growth stage, and current tick count
+    private Dictionary<Vector3Int, (string cropType, int growthStage, int tickCount)> plantedTiles = new Dictionary<Vector3Int, (string cropType, int growthStage, int tickCount)>();
 
     void Start()
     {
@@ -50,7 +56,7 @@ public class TileManager : MonoBehaviour
         if (wheatStages.Length > 0) // Ensure there are growth stages defined
         {
             plantMap.SetTile(position, wheatStages[0]); // Set the first stage of wheat
-            plantedTiles[position] = ("wheat", 0); // Track crop type and growth stage
+            plantedTiles[position] = ("wheat", 0, 0); // Track crop type, growth stage, and tick count
         }
     }
 
@@ -59,7 +65,7 @@ public class TileManager : MonoBehaviour
         if (tomatoStages.Length > 0) // Ensure there are growth stages defined
         {
             plantMap.SetTile(position, tomatoStages[0]); // Set the first stage of tomato
-            plantedTiles[position] = ("tomato", 0); // Track crop type and growth stage
+            plantedTiles[position] = ("tomato", 0, 0); // Track crop type, growth stage, and tick count
         }
     }
 
@@ -69,24 +75,58 @@ public class TileManager : MonoBehaviour
         plantedTiles.Remove(position); // Remove from tracking
     }
 
+    public void SetPickup(Vector3Int position)
+    {
+        if (plantedTiles.TryGetValue(position, out var cropData))
+        {
+            string cropType = cropData.cropType;
+            int currentStage = cropData.growthStage;
+
+            // Decrease the growth stage by 1 if it's greater than 0
+            if (currentStage > 0)
+            {
+                int newStage = currentStage - 1;
+
+                // Update the tile based on the crop type
+               /* if (cropType == "wheat" && wheatStages.Length > 0)
+                {
+                    plantMap.SetTile(position, wheatStages[newStage]); // Set the previous stage of wheat
+                }*/
+                if (cropType == "tomato" && tomatoStages.Length > 0)
+                {
+                    plantMap.SetTile(position, tomatoStages[newStage]); // Set the previous stage of tomato
+                }
+
+                // Update the growth stage in the dictionary
+                plantedTiles[position] = (cropType, newStage, cropData.tickCount);
+            }
+            else
+            {
+                // Optionally, handle the case where the crop is already at stage 0 (no further harvesting possible)
+                Debug.Log("Crop is already at the lowest growth stage.");
+            }
+        }
+    }
+
+
     public void UpdateGrowthStage(Vector3Int position)
     {
         if (plantedTiles.TryGetValue(position, out var cropData))
         {
             string cropType = cropData.cropType;
             int currentStage = cropData.growthStage;
-            currentStage++;
+            int tickCount = cropData.tickCount;
 
             // Update the tile based on the crop type
-            if (cropType == "wheat" && currentStage < wheatStages.Length)
+            if (cropType == "wheat" && currentStage < wheatStages.Length - 1)
             {
-                plantMap.SetTile(position, wheatStages[currentStage]); // Update to the next wheat stage
-                plantedTiles[position] = (cropType, currentStage); // Update tracking
+                plantMap.SetTile(position, wheatStages[currentStage + 1]); // Update to the next wheat stage
+                plantedTiles[position] = (cropType, currentStage + 1, 0); // Reset tick count and advance stage
             }
-            else if (cropType == "tomato" && currentStage < tomatoStages.Length)
+            else if (cropType == "tomato" && currentStage < tomatoStages.Length - 1)
             {
-                plantMap.SetTile(position, tomatoStages[currentStage]); // Update to the next tomato stage
-                plantedTiles[position] = (cropType, currentStage); // Update tracking
+                plantMap.SetTile(position, tomatoStages[currentStage + 1]); // Update to the next tomato stage
+                plantedTiles[position] = (cropType, currentStage + 1, 0); // Reset tick count and advance stage
             }
             else
             {
@@ -153,24 +193,50 @@ public class TileManager : MonoBehaviour
 
     public void CheckPlantGrowth()
     {
-        foreach (var position in plantMap.cellBounds.allPositionsWithin)
+        List<Vector3Int> positionsToGrow = new List<Vector3Int>();
+        List<Vector3Int> positionsToUpdateTick = new List<Vector3Int>();
+
+        foreach (var position in plantedTiles.Keys) // First, collect positions that need to grow and those that just need a tick increment
         {
+            var cropData = plantedTiles[position];
+            string cropType = cropData.cropType;
+            int tickCount = cropData.tickCount;
+
+            // Get the tile name at the current position
             string tileName = GetTileName(position);
 
-            if (!string.IsNullOrWhiteSpace(tileName))
+            // Only proceed if the tile is "wetplowed 1"
+            if (tileName == "wetplowed 1")
             {
-                if (tileName == "wetplowed 1")
+                tickCount++;  // Increment the tick count
+
+                // Check if enough ticks have passed to grow the plant
+                if (tickCount >= cropTickRequirements[cropType])
                 {
-                    if (plantMap.HasTile(position))
-                    {
-                        if (plantedTiles.ContainsKey(position))
-                        {
-                            UpdateGrowthStage(position); // Attempt to update the growth stage
-                            SetInteracted(position);
-                        }
-                    }
+                    positionsToGrow.Add(position);  // Collect positions that should update growth stage
+                    SetInteracted(position);
+                }
+                else
+                {
+                    // Collect positions to update the tick count
+                    positionsToUpdateTick.Add(position);
+                    SetInteracted(position);
                 }
             }
         }
+
+        // Now, update tick counts for those that are not yet ready to grow
+        foreach (var position in positionsToUpdateTick)
+        {
+            var cropData = plantedTiles[position];
+            plantedTiles[position] = (cropData.cropType, cropData.growthStage, cropData.tickCount + 1);
+        }
+
+        // Finally, update growth stages for those that reached the tick requirement
+        foreach (var position in positionsToGrow)
+        {
+            UpdateGrowthStage(position);
+        }
     }
+
 }
