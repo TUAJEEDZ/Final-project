@@ -9,13 +9,15 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap plantMap;
     [SerializeField] private Tilemap cutMap;
     [SerializeField] private Tilemap treeMap;
-    [SerializeField] private Tile hiddenInteractableTile; //select tile to hide
-    [SerializeField] private Tile plowedTile;  // select tile to replace hiddentile
+    [SerializeField] private Tile hiddenInteractableTile; // select tile to hide
+    [SerializeField] private Tile plowedTile;  // select tile to replace hidden tile
     [SerializeField] private Tile wetTile;
     [SerializeField] private Tile[] wheatStages;  // Array to hold wheat growth stages
+    [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
 
-    private Dictionary<Vector3Int, int> plantedTiles = new Dictionary<Vector3Int, int>(); // Track growth stages
+    // Track planted tiles with both type and growth stage
+    private Dictionary<Vector3Int, (string cropType, int growthStage)> plantedTiles = new Dictionary<Vector3Int, (string cropType, int growthStage)>();
 
     void Start()
     {
@@ -48,11 +50,20 @@ public class TileManager : MonoBehaviour
         if (wheatStages.Length > 0) // Ensure there are growth stages defined
         {
             plantMap.SetTile(position, wheatStages[0]); // Set the first stage of wheat
-            plantedTiles[position] = 0; // Track growth stage
+            plantedTiles[position] = ("wheat", 0); // Track crop type and growth stage
         }
     }
 
-    public void SetHavested(Vector3Int position)
+    public void SetPlantTomato(Vector3Int position)
+    {
+        if (tomatoStages.Length > 0) // Ensure there are growth stages defined
+        {
+            plantMap.SetTile(position, tomatoStages[0]); // Set the first stage of tomato
+            plantedTiles[position] = ("tomato", 0); // Track crop type and growth stage
+        }
+    }
+
+    public void SetHarvested(Vector3Int position)
     {
         plantMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
         plantedTiles.Remove(position); // Remove from tracking
@@ -60,17 +71,26 @@ public class TileManager : MonoBehaviour
 
     public void UpdateGrowthStage(Vector3Int position)
     {
-        if (plantedTiles.TryGetValue(position, out int currentStage))
+        if (plantedTiles.TryGetValue(position, out var cropData))
         {
+            string cropType = cropData.cropType;
+            int currentStage = cropData.growthStage;
             currentStage++;
-            if (currentStage < wheatStages.Length) // Check if within the bounds of stages
+
+            // Update the tile based on the crop type
+            if (cropType == "wheat" && currentStage < wheatStages.Length)
             {
-                plantMap.SetTile(position, wheatStages[currentStage]); // Update to the next growth stage
-                plantedTiles[position] = currentStage; // Update growth stage tracking
+                plantMap.SetTile(position, wheatStages[currentStage]); // Update to the next wheat stage
+                plantedTiles[position] = (cropType, currentStage); // Update tracking
+            }
+            else if (cropType == "tomato" && currentStage < tomatoStages.Length)
+            {
+                plantMap.SetTile(position, tomatoStages[currentStage]); // Update to the next tomato stage
+                plantedTiles[position] = (cropType, currentStage); // Update tracking
             }
             else
             {
-                // Optionally, handle the case where the crop is fully grown (harvestable)
+                // Optionally, handle fully grown crops
             }
         }
     }
