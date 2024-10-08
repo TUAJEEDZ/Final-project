@@ -211,4 +211,6 @@ public class Player : MonoBehaviour
             DropItem(item);
         }
     }
+
+    
 }

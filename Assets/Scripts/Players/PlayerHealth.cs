@@ -17,9 +17,11 @@ public class PlayerHealth : MonoBehaviour
     private Knockback knockback;
     private Flash flash;
     private Movement playerMovement;
+    private Animator animator;
 
-    const string TOWN_TEXT = "scene+";
-    readonly int DEATH_HASH = Animator.StringToHash("Death");
+    const string TOWN_TEXT = "Bossscene";
+    readonly int DEATH_TRIGGER_HASH = Animator.StringToHash("Death");
+    readonly int IDLE_TRIGGER_HASH = Animator.StringToHash("Idle");
 
     private void Start()
     {
@@ -27,7 +29,9 @@ public class PlayerHealth : MonoBehaviour
         flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
         playerMovement = GetComponent<Movement>();
-        currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
+
+        ResetPlayerHealth();
 
         if (healthSlider == null)
         {
@@ -36,6 +40,24 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHealthSlider();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == TOWN_TEXT)
+        {
+            ResetPlayerHealth();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -52,6 +74,13 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(flash.FlashRoutine());
         }
     }
+    private IEnumerator DamageRecoveryRoutine()
+    {
+        // ใช้ damageRecoveryTime ในการกำหนดเวลาการฟื้นตัวจากการโดนโจมตี
+        yield return new WaitForSeconds(damageRecoveryTime);
+        canTakeDamage = true;
+    }
+
 
     public void HealPlayer()
     {
@@ -60,6 +89,28 @@ public class PlayerHealth : MonoBehaviour
             currentHealth += 1;
             UpdateHealthSlider();
         }
+    }
+
+    public void ResetPlayerHealth()
+    {
+        currentHealth = maxHealth;
+        isdead = false;
+        canTakeDamage = true;
+
+        // Reset triggers when reviving
+        if (animator != null)
+        {
+            animator.ResetTrigger(DEATH_TRIGGER_HASH);
+            animator.SetTrigger(IDLE_TRIGGER_HASH); // Trigger Idle state
+        }
+
+        // Enable movement and reset to walking animation
+        if (playerMovement != null)
+        {
+            playerMovement.ChangeState(PlayerState.walk);
+        }
+
+        UpdateHealthSlider();
     }
 
     public void TakeDamage(int damageAmount)
@@ -85,26 +136,54 @@ public class PlayerHealth : MonoBehaviour
         {
             isdead = true;
             currentHealth = 0;
-            GetComponent<Animator>().SetTrigger(DEATH_HASH);
 
+            Debug.Log("Setting Death Trigger in Animator");
+
+            animator.SetTrigger(DEATH_TRIGGER_HASH);
+
+            // Stop player movement when the player dies
             if (playerMovement != null)
             {
-                playerMovement.ChangeState(PlayerState.dead);
-            }
-            else
-            {
-                Debug.LogError("Movement script is not assigned or found.");
+                playerMovement.ChangeState(PlayerState.dead); // Set player's state to dead
             }
 
-            StartCoroutine(DeathLoadSceneRoutine());
+            // Wait for death animation to finish before resetting everything
+            StartCoroutine(WaitForDeathAndReset());
         }
     }
 
-    private IEnumerator DamageRecoveryRoutine()
+    private IEnumerator WaitForDeathAndReset()
     {
-        yield return new WaitForSeconds(damageRecoveryTime);
-        canTakeDamage = true;
+        // Wait for the death animation to finish
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        while (stateInfo.IsName("Death") && stateInfo.normalizedTime < 1.0f)
+        {
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            yield return null;  // Wait until the next frame
+        }
+
+        // After the death animation, start resetting
+        StartCoroutine(ResetAfterDeath());
     }
+
+    private IEnumerator ResetAfterDeath()
+    {
+        // Wait for a short delay to simulate the reset process
+        yield return new WaitForSeconds(2f);
+
+        // Reset the player's health, movement, and everything else
+        ResetPlayerHealth();
+
+        // Trigger Idle animation only after everything is reset
+        if (animator != null)
+        {
+            animator.SetTrigger(IDLE_TRIGGER_HASH); // Trigger Idle state after reset
+        }
+
+        // Reload the scene after everything is reset
+        SceneManager.LoadScene(TOWN_TEXT); // Load the scene after death
+    }
+
 
     private void UpdateHealthSlider()
     {
@@ -113,11 +192,5 @@ public class PlayerHealth : MonoBehaviour
             healthSlider.maxValue = maxHealth;
             healthSlider.value = currentHealth;
         }
-    }
-
-    private IEnumerator DeathLoadSceneRoutine()
-    {
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(TOWN_TEXT);
     }
 }
