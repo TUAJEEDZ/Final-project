@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour   //adjust new added item by name 
+public class ItemManager : MonoBehaviour
 {
-    public Item[] items;
+    public Item[] items;  // Array of items to be initialized in the inspector
 
-    private Dictionary<string, Item> nameToItemDict =
-        new Dictionary<string, Item>();
-                        
+    private Dictionary<string, Item> nameToItemDict = new Dictionary<string, Item>();
+
     private void Awake()
     {
-        foreach(Item item in items)
+        // Initialize the dictionary with items
+        foreach (Item item in items)
         {
             AddItem(item);
         }
@@ -19,18 +19,20 @@ public class ItemManager : MonoBehaviour   //adjust new added item by name
 
     private void AddItem(Item item)
     {
-        if(!nameToItemDict.ContainsKey(item.data.itemName))
+        // Add item to dictionary if it doesn't already exist
+        if (!nameToItemDict.ContainsKey(item.data.itemName))
         {
             nameToItemDict.Add(item.data.itemName, item);
         }
     }
+
     public Item GetItemByName(string key)
     {
-        if(nameToItemDict.ContainsKey(key))
+        // Return the item if it exists, otherwise return null
+        if (nameToItemDict.ContainsKey(key))
         {
             return nameToItemDict[key];
         }
         return null;
     }
-
 }

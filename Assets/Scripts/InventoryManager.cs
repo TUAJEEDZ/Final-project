@@ -14,6 +14,8 @@ public class InventoryManager : MonoBehaviour
     public Inventory toolbar;
     public int toolbarSlotCount;
 
+    private ItemManager itemManager;
+
     private void Awake()
     {
         backpack = new Inventory(backpackSlotCount);
@@ -21,6 +23,13 @@ public class InventoryManager : MonoBehaviour
 
         inventoryByName.Add("Backpack", backpack);
         inventoryByName.Add("Toolbar", toolbar);
+
+        itemManager = FindObjectOfType<ItemManager>(); // Find ItemManager in the scene
+
+        if (itemManager == null)
+        {
+            Debug.LogError("ItemManager not found in the scene!");
+        }
     }
 
     public void Add(string inventoryName, Item item)
@@ -30,6 +39,28 @@ public class InventoryManager : MonoBehaviour
             inventoryByName[inventoryName].Add(item);
         }
     }
+
+    public void Add(string inventoryName, string itemName)
+    {
+        if (inventoryByName.ContainsKey(inventoryName))
+        {
+            Item item = itemManager.GetItemByName(itemName);
+            if (item != null)
+            {
+                inventoryByName[inventoryName].Add(item);
+            }
+            else
+            {
+                Debug.LogWarning($"Item '{itemName}' not found in ItemManager!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Inventory '{inventoryName}' not found!");
+        }
+    }
+
+
     public Inventory GetInventoryByName(string inventoryName)
     {
         if(inventoryByName.ContainsKey(inventoryName))
