@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Tomato Seed");
         inventoryManager.Add("Toolbar", "Tomato Seed");
         inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Fertilizer");
         inventoryManager.Add("Toolbar", "Watering Can");
         inventoryManager.Add("Toolbar", "Carrot");
         GameManager.instance.uiManager.RefreshAll();
