@@ -8,10 +8,12 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tilemap plantMap;
     [SerializeField] private Tilemap cutMap;
+    [SerializeField] private Tilemap fertilizedMap;
     [SerializeField] private Tilemap treeMap;
     [SerializeField] private Tile hiddenInteractableTile; // select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hidden tile
     [SerializeField] private Tile wetTile;
+    [SerializeField] private Tile fertilizedTile;
     [SerializeField] private Tile[] wheatStages;  // Array to hold wheat growth stages
     [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
@@ -39,6 +41,11 @@ public class TileManager : MonoBehaviour
     public void SetInteracted(Vector3Int position)
     {
         interactableMap.SetTile(position, plowedTile);  // Setting the interacted tile
+    }
+
+    public void Setfertilized(Vector3Int position)
+    {
+        fertilizedMap.SetTile(position, fertilizedTile);  // Setting the interacted tile
     }
 
     public void SetCutted(Vector3Int position)
@@ -73,6 +80,7 @@ public class TileManager : MonoBehaviour
     {
         plantMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
         plantedTiles.Remove(position); // Remove from tracking
+        fertilizedMap.SetTile(position, hiddenInteractableTile);
     }
 
     public void SetPickup(Vector3Int position)
@@ -177,6 +185,21 @@ public class TileManager : MonoBehaviour
         return "";
     }
 
+    public string GetTileNamefertilized(Vector3Int position)
+    {
+        if (fertilizedMap != null)
+        {
+            TileBase fertilized_tile = fertilizedMap.GetTile(position);
+
+            if (fertilized_tile != null)
+            {
+                return fertilized_tile.name;
+            }
+        }
+
+        return "";
+    }
+
     public string GetTileNameTree(Vector3Int position)
     {
         if (cutMap != null)
@@ -208,7 +231,17 @@ public class TileManager : MonoBehaviour
             // Only proceed if the tile is "wetplowed 1"
             if (tileName == "wetplowed 1")
             {
-                tickCount++;  // Increment the tick count
+                string isfertilized = GetTileNamefertilized(position);
+
+                if (isfertilized == "fertilizer")
+                {
+                    tickCount++;
+                    tickCount++;// Increment the tick count
+                }
+                else
+                {
+                    tickCount++;  // Increment the tick count
+                }
 
                 // Check if enough ticks have passed to grow the plant
                 if (tickCount >= cropTickRequirements[cropType])

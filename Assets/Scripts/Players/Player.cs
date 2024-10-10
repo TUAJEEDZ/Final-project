@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Tomato Seed");
         inventoryManager.Add("Toolbar", "Tomato Seed");
         inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
         inventoryManager.Add("Toolbar", "Watering Can");
         inventoryManager.Add("Toolbar", "Carrot");
         GameManager.instance.uiManager.RefreshAll();
@@ -80,9 +83,6 @@ public class Player : MonoBehaviour
                         {
                             if (tileName == "Interactable")
                             {
-
-
-                               
                                 tileManager.SetInteracted(position);
                             }
                         }
@@ -189,6 +189,46 @@ public class Player : MonoBehaviour
                     {
                         // Optionally, you can add feedback to the player that the tile is not plantable
                         Debug.Log("Cannot plant on this tile.");
+                    }
+                }
+            }
+
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
+            {
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+
+                    string tileName = tileManager.GetTileName(position);
+
+                    if (tileManager.IsPlantableTile(tileName))
+                    {
+                        string isfertilized = tileManager.GetTileNamefertilized(position);
+
+                        if (isfertilized != "fertilizer")
+                        { // Plant the wheat at the calculated position
+                            tileManager.Setfertilized(position);
+
+                            // Check and remove the Wheat Seed from the selected slot
+                            if (inventoryManager.toolbar.selectedSlot != null &&
+                                inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
+                            {
+                                inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                // Refresh the UI to reflect the changes
+                                GameManager.instance.uiManager.RefreshAll();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Optionally, you can add feedback to the player that the tile is not plantable
+                        Debug.Log("Cannot fertilize on this tile.");
                     }
                 }
             }
