@@ -15046,7 +15046,7 @@ GameObject:
   - component: {fileID: 1698395705}
   - component: {fileID: 1698395704}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: "\u0E3ABossmap"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

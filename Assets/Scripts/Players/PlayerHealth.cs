@@ -18,8 +18,9 @@ public class PlayerHealth : MonoBehaviour
     private Flash flash;
     private Movement playerMovement;
     private Animator animator;
+    private MapManager mapManager;
 
-    const string TOWN_TEXT = "Bossscene";
+    const string TOWN_TEXT = "testmix";
     readonly int DEATH_TRIGGER_HASH = Animator.StringToHash("Death");
     readonly int IDLE_TRIGGER_HASH = Animator.StringToHash("Idle");
 
@@ -30,6 +31,8 @@ public class PlayerHealth : MonoBehaviour
         knockback = GetComponent<Knockback>();
         playerMovement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
+        mapManager = GetComponent<MapManager>();
+
 
         ResetPlayerHealth();
 
@@ -182,6 +185,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Reload the scene after everything is reset
         SceneManager.LoadScene(TOWN_TEXT); // Load the scene after death
+        GameManager.instance.mapManager.SetFarmOn(true);
     }
 
 

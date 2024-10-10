@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Fertilizer");
         inventoryManager.Add("Toolbar", "Watering Can");
         inventoryManager.Add("Toolbar", "Carrot");
+        inventoryManager.Add("Toolbar", "Longsword");
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()

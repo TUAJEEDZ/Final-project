@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/testmixwave.unity
     guid: bf9a3d3dfb9b812489833b9c616eb416
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 266afc3f0f0d92846b0dae8b773f8719
   m_configObjects: {}
