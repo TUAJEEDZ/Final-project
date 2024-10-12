@@ -94,6 +94,39 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Pickaxe")
+            {
+                movement.ChangeState(PlayerState.interact);
+                animator.SetTrigger("isMining");
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+                    StartCoroutine(DelayedInteraction(position));
+                    IEnumerator DelayedInteraction(Vector3Int position)
+                    {
+                        yield return new WaitForSeconds(0.4f);
+                        movement.ChangeState(PlayerState.walk);
+                        string tileName = tileManager.GetTileName(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
+                        {
+                            if (tileName == "Interactable")
+                            {
+                                tileManager.SetInteracted(position);
+                            }
+                            else if (tileManager.IsPlantableTile(tileName))
+                            {
+                                tileManager.SetFill(position);
+                            }
+                        }
+                    }
+                }
+            }
             if (inventoryManager.toolbar.selectedSlot.itemName == "Watering Can")
             {
                 movement.ChangeState(PlayerState.interact);
