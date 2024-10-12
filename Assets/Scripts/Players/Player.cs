@@ -25,22 +25,22 @@ public class Player : MonoBehaviour
         tileManager = GameManager.instance.tileManager;
         inventoryManager.Add("Toolbar", "Axe");
         inventoryManager.Add("Toolbar", "Hoe");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Sickle");
         inventoryManager.Add("Toolbar", "Watering Can");
-        inventoryManager.Add("Toolbar", "Carrot");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Tomato Seed");
+        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
+        inventoryManager.Add("Toolbar", "Fertilizer");
         inventoryManager.Add("Toolbar", "Longsword");
         GameManager.instance.uiManager.RefreshAll();
     }
@@ -238,10 +238,10 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Sickle")
             {
                 movement.ChangeState(PlayerState.interact);
-                animator.SetTrigger("isCutting");
+                animator.SetTrigger("isHarvesting");
 
 
                 Vector3Int position = new Vector3Int(
