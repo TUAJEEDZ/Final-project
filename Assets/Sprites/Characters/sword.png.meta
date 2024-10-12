@@ -1,0 +1,334 @@
+fileFormatVersion: 2
+guid: 55b9b2ef40a7b674a977c9f1d7336fbf
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sword_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 544
+        width: 25
+        height: 23
+      alignment: 9
+      pivot: {x: 0.70223284, y: 0.39293373}
+      border: {x: 10, y: 0, z: 0, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb65b5964ce395e428d087eddf0dd27e
+      internalID: -1925039708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 534
+        width: 22
+        height: 26
+      alignment: 9
+      pivot: {x: 0.32407483, y: 0.6688303}
+      border: {x: 0, y: 9, z: 8, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4934c0e0f81f9645b66e8f4f26e31c2
+      internalID: 386819856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_4
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 495
+        width: 20
+        height: 21
+      alignment: 9
+      pivot: {x: 0.6610462, y: 0.3721851}
+      border: {x: 6, y: 0, z: 0, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 470089be30b081a48b538aa7d7331aa4
+      internalID: -891852454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 484
+        width: 26
+        height: 27
+      alignment: 9
+      pivot: {x: 0.27497894, y: 0.6827031}
+      border: {x: 0, y: 10, z: 12, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf0dfb379325c3b44bcbacfc65b180b0
+      internalID: 256729152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_3
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 447
+        width: 24
+        height: 17
+      alignment: 9
+      pivot: {x: 0.21331882, y: 0.4750492}
+      border: {x: 0, y: 0, z: 14, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6df24661bcc0a8d43bd9258894d197a3
+      internalID: 138134262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_5
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 438
+        width: 25
+        height: 26
+      alignment: 9
+      pivot: {x: 0.81171054, y: 0.684933}
+      border: {x: 15, y: 10, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0098193d900d7343846394ee1d263c8
+      internalID: -1316789636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_6
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 399
+        width: 24
+        height: 17
+      alignment: 9
+      pivot: {x: 0.8022261, y: 0.47309607}
+      border: {x: 14, y: 0, z: 0, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297b359f16794d341935c038420e6a11
+      internalID: 737210918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_7
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 390
+        width: 26
+        height: 26
+      alignment: 9
+      pivot: {x: 0.1958891, y: 0.68850124}
+      border: {x: 0, y: 10, z: 16, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a254f6dd7c03143a6241c77b72bbdf
+      internalID: -868021514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sword_0: -1925039708
+      sword_1: 386819856
+      sword_10: -1246070166
+      sword_11: 1830713631
+      sword_12: 614616735
+      sword_13: 374919810
+      sword_14: 122879145
+      sword_15: -1410787394
+      sword_16: -1556644822
+      sword_17: 1116179661
+      sword_18: 230145069
+      sword_19: 808753893
+      sword_2: 256729152
+      sword_20: 713000336
+      sword_21: 594210187
+      sword_22: 113820632
+      sword_23: -682280260
+      sword_24: -1995047898
+      sword_25: 1534623052
+      sword_26: 458969890
+      sword_27: 1565160595
+      sword_28: 794099804
+      sword_29: 1211165534
+      sword_3: 138134262
+      sword_30: 1563260572
+      sword_31: -32044016
+      sword_32: 578890810
+      sword_33: 843986137
+      sword_34: -2105354204
+      sword_35: -1630149540
+      sword_36: 333316516
+      sword_37: -1207656352
+      sword_38: -1501886021
+      sword_4: -891852454
+      sword_5: -1316789636
+      sword_6: 737210918
+      sword_7: -868021514
+      sword_8: 438670474
+      sword_9: 1405402862
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

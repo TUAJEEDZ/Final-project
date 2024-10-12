@@ -40,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
                     if (equippedSword != null)
                     {
                         Attack(); // เรียกฟังก์ชันโจมตี
+                        animator.SetTrigger("IsAttacking");
                     }
                     else
                     {
