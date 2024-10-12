@@ -43,6 +43,11 @@ public class TileManager : MonoBehaviour
         interactableMap.SetTile(position, plowedTile);  // Setting the interacted tile
     }
 
+    public void SetFill(Vector3Int position)
+    {
+        interactableMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
+    }
+
     public void Setfertilized(Vector3Int position)
     {
         fertilizedMap.SetTile(position, fertilizedTile);  // Setting the interacted tile

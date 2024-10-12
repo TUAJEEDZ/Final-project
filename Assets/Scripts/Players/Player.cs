@@ -86,6 +86,10 @@ public class Player : MonoBehaviour
                             {
                                 tileManager.SetInteracted(position);
                             }
+                            else if (tileManager.IsPlantableTile(tileName))
+                            {
+                                tileManager.SetFill(position);
+                            }
                         }
                     }
                 }
