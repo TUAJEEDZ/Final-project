@@ -20,8 +20,8 @@ public class TileManager : MonoBehaviour
 
     private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
     {
-        { "wheat", 2 },    // Wheat requires 3 ticks per growth stage
-        { "tomato", 3 }     // Tomato requires 5 ticks per growth stage
+        { "wheat", 2 },    // Wheat requires 2 ticks per growth stage
+        { "tomato", 3 }     // Tomato requires 3 ticks per growth stage
     };
 
     // Track planted tiles with both type, growth stage, and current tick count
