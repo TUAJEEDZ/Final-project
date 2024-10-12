@@ -94,6 +94,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
             if (inventoryManager.toolbar.selectedSlot.itemName == "Pickaxe")
             {
                 movement.ChangeState(PlayerState.interact);
@@ -127,6 +128,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
             if (inventoryManager.toolbar.selectedSlot.itemName == "Watering Can")
             {
                 movement.ChangeState(PlayerState.interact);
@@ -159,6 +161,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
             if (inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
             {
                 if (tileManager != null && direction != Vector2.zero)
