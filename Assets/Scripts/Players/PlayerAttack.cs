@@ -7,10 +7,12 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask enemyLayer; // เลเยอร์ของศัตรู
     public InventoryManager inventoryManager; // ระบบ Inventory ของผู้เล่น
     public float knockbackForce = 5f; // แรงกระแทกของศัตรู
+    public float attackCooldown = 1f; // ระยะเวลา cooldown ระหว่างการโจมตี
 
     private Animator animator; // ตัวแปรอ้างอิงถึง Animator ของตัวละคร
     private Vector2 attackDirection; // ทิศทางการโจมตี
     private DamageSword equippedSword; // ดาบที่ผู้เล่นใช้งาน
+    private float lastAttackTime = 0f; // เวลาในการโจมตีครั้งล่าสุด
 
     private void Start()
     {
@@ -24,37 +26,41 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Time.time >= lastAttackTime + attackCooldown)
         {
-            // ดึงข้อมูลดาบจากช่อง toolbar
-            Inventory.Slot selectedSlot = inventoryManager.toolbar.selectedSlot;
-
-            if (selectedSlot != null && selectedSlot.itemName != "")
+            if (Input.GetButtonDown("Fire1"))
             {
-                Item item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
+                // ดึงข้อมูลดาบจากช่อง toolbar
+                Inventory.Slot selectedSlot = inventoryManager.toolbar.selectedSlot;
 
-                if (item != null)
+                if (selectedSlot != null && selectedSlot.itemName != "")
                 {
-                    equippedSword = item.GetComponent<DamageSword>();
+                    Item item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
 
-                    if (equippedSword != null)
+                    if (item != null)
                     {
-                        Attack(); // เรียกฟังก์ชันโจมตี
-                        animator.SetTrigger("IsAttacking");
+                        equippedSword = item.GetComponent<DamageSword>();
+
+                        if (equippedSword != null)
+                        {
+                            Attack(); // เรียกฟังก์ชันโจมตี
+                            animator.SetTrigger("IsAttacking");
+                            lastAttackTime = Time.time; // บันทึกเวลาที่โจมตีครั้งล่าสุด
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Selected item is not a DamageSword.");
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning("Selected item is not a DamageSword.");
+                        Debug.LogWarning("No item found by the selected item name.");
                     }
                 }
                 else
                 {
-                    Debug.LogWarning("No item found by the selected item name.");
+                    Debug.LogWarning("No item selected.");
                 }
-            }
-            else
-            {
-                Debug.LogWarning("No item selected.");
             }
         }
     }

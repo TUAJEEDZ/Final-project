@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/testmix.unity
+    guid: 305036b42562c0e4d91722a69ed8e028
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 266afc3f0f0d92846b0dae8b773f8719
+  - enabled: 1
+    path: Assets/Scenes/Bossscene.unity
+    guid: 9f6f98e5928ad6342a0d055ea6a583a8
+  - enabled: 1
+    path: Assets/Scenes/NPC home1.unity
+    guid: c8f5a93d06c98764b9177b9736849dbd
   m_configObjects: {}
