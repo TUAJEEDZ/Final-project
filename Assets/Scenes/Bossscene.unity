@@ -15117,10 +15117,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableMap: {fileID: 0}
   plantMap: {fileID: 0}
+  cutMap: {fileID: 0}
+  fertilizedMap: {fileID: 0}
+  treeMap: {fileID: 0}
   hiddenInteractableTile: {fileID: 11400000, guid: 62c662bbe9cc46c47bb15f7b3c2a29dd, type: 2}
   plowedTile: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
   wetTile: {fileID: 0}
-  wheat: {fileID: 0}
+  fertilizedTile: {fileID: 0}
+  wheatStages: []
+  tomatoStages: []
   plantableTile: []
 --- !u!114 &1834668325
 MonoBehaviour:
@@ -15156,9 +15161,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemManager: {fileID: 0}
+  mapManager: {fileID: 0}
   tileManager: {fileID: 0}
+  plantManager: {fileID: 0}
   uiManager: {fileID: 0}
   player: {fileID: 0}
+  dayNightCycle: {fileID: 0}
 --- !u!4 &1834668327
 Transform:
   m_ObjectHideFlags: 0
@@ -15333,7 +15341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7079738097024457600, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

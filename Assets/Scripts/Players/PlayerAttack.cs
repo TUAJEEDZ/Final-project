@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector2 attackDirection; // ทิศทางการโจมตี
     private DamageSword equippedSword; // ดาบที่ผู้เล่นใช้งาน
     private float lastAttackTime = 0f; // เวลาในการโจมตีครั้งล่าสุด
+    private Movement movement;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
+        movement = GetComponent<Movement>();
     }
 
     private void Update()
@@ -44,8 +46,17 @@ public class PlayerAttack : MonoBehaviour
                         if (equippedSword != null)
                         {
                             Attack(); // เรียกฟังก์ชันโจมตี
+                            movement.ChangeState(PlayerState.interact);
                             animator.SetTrigger("IsAttacking");
                             lastAttackTime = Time.time; // บันทึกเวลาที่โจมตีครั้งล่าสุด
+
+                            StartCoroutine(DelayedInteraction());
+                            IEnumerator DelayedInteraction()
+                            {
+                                yield return new WaitForSeconds(0.5f);
+                                movement.ChangeState(PlayerState.walk);
+
+                            }
                         }
                         else
                         {
