@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7a742a60b0f274a938eb34de257847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverSpeed: 1
-  hoverHeight: 0.1
+  hoverSpeed: 2
+  hoverHeight: 0.25
 --- !u!114 &825036743093708410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6185175c499f4c1429751755c569d319, type: 2}
   rb2d: {fileID: 0}
+  isCollected: 0
 --- !u!50 &1638816529624584430
 Rigidbody2D:
   serializedVersion: 4

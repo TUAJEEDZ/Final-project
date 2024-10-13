@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142bad6e06461054e801fa38e8ba8124, type: 3}
   m_Name: sickle
   m_EditorClassIdentifier: 
-  itemName: Sickle
+  itemName: Stone Sickle
   icon: {fileID: -515553583, guid: 054869663b1d86e408f09fb8ad96eab9, type: 3}

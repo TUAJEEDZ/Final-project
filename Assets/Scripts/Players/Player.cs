@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     public float dropRange = 1f;
     public InventoryManager inventoryManager;
     private TileManager tileManager;
@@ -23,10 +24,10 @@ public class Player : MonoBehaviour
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         tileManager = GameManager.instance.tileManager;
-        inventoryManager.Add("Toolbar", "Axe");
-        inventoryManager.Add("Toolbar", "Hoe");
-        inventoryManager.Add("Toolbar", "Sickle");
-        inventoryManager.Add("Toolbar", "Watering Can");
+        inventoryManager.Add("Toolbar", "Stone Axe");
+        inventoryManager.Add("Toolbar", "Stone Hoe");
+        inventoryManager.Add("Toolbar", "Stone Sickle");
+        inventoryManager.Add("Toolbar", "Stone Watering Can");
         inventoryManager.Add("Toolbar", "Wheat Seed");
         inventoryManager.Add("Toolbar", "Wheat Seed");
         inventoryManager.Add("Toolbar", "Wheat Seed");
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) // set keybind
         {
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Hoe")
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isPlowing");
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Pickaxe")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Pickaxe")
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isMining");
@@ -129,7 +130,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Watering Can")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Watering Can")
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isWatering");
@@ -274,7 +275,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Sickle")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Sickle")
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isHarvesting");
@@ -323,7 +324,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Axe")
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Axe")
             {
                 movement.ChangeState(PlayerState.interact);
                 animator.SetTrigger("isCutting");
@@ -348,7 +349,42 @@ public class Player : MonoBehaviour
                         {
                             if (tileName == "cutabletree")
                             {
-                                tileManager.SetCutted(position);
+                                tileManager.DamageTree(position);
+                                inventoryManager.Add("Backpack", "Wood");
+                            }
+                        }
+
+                    }
+                }
+            }
+            if (inventoryManager.toolbar.selectedSlot.itemName == "Copper Axe")
+            {
+                movement.ChangeState(PlayerState.interact);
+                animator.SetTrigger("isCutting");
+
+                // Calculate the position in front of the player based on the direction
+                Vector3Int position = new Vector3Int(
+                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                    0
+                );
+                StartCoroutine(DelayedInteraction(position));
+                IEnumerator DelayedInteraction(Vector3Int position)
+                {
+                    yield return new WaitForSeconds(0.4f);
+                    movement.ChangeState(PlayerState.walk);
+                    if (tileManager != null && direction != Vector2.zero)
+                    {
+
+                        string tileName = tileManager.GetTileNameTree(position);
+
+                        if (!string.IsNullOrWhiteSpace(tileName))
+                        {
+                            if (tileName == "cutabletree")
+                            {
+                                tileManager.DamageTree(position);
+                                tileManager.DamageTree(position);
+                                inventoryManager.Add("Backpack", "Wood");
                                 inventoryManager.Add("Backpack", "Wood");
                             }
                         }
