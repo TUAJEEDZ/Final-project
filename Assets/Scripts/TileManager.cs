@@ -18,6 +18,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
 
+    private Player player;
+
     private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
     {
         { "wheat", 2 },    // Wheat requires 2 ticks per growth stage
@@ -26,6 +28,12 @@ public class TileManager : MonoBehaviour
 
     // Track planted tiles with both type, growth stage, and current tick count
     private Dictionary<Vector3Int, (string cropType, int growthStage, int tickCount)> plantedTiles = new Dictionary<Vector3Int, (string cropType, int growthStage, int tickCount)>();
+
+    // New dictionary to track tree health
+    private Dictionary<Vector3Int, int> treeHealth = new Dictionary<Vector3Int, int>();
+
+    // Default tree health value
+    private int defaultTreeHealth = 10; // Number of hits required to cut down the tree
 
     void Start()
     {
@@ -121,6 +129,32 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    // New function to damage the tree
+    public void DamageTree(Vector3Int position)
+    {
+        if (treeHealth.ContainsKey(position))
+        {
+            treeHealth[position]--; // Decrease tree health by 1
+            treeHealth[position]--;
+
+            // Check if the tree health has reached zero
+            if (treeHealth[position] <= 0)
+            {
+                SetCutted(position); // Cut down the tree
+                Debug.Log("Tree cut down at " + position);
+            }
+            else
+            {
+                Debug.Log("Tree health remaining: " + treeHealth[position]);
+            }
+        }
+        else
+        {
+            // Initialize the tree health if this is the first interaction
+            treeHealth[position] = defaultTreeHealth - 1;
+            Debug.Log("Tree health remaining: " + treeHealth[position]);
+        }
+    }
 
     public void UpdateGrowthStage(Vector3Int position)
     {
