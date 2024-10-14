@@ -9,8 +9,8 @@ public class SceneTransitionManager : MonoBehaviour
     void Start()
     {
         // Get the active scene and its name
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log("Current Scene: " + currentSceneName);
+        /*string currentSceneName = SceneManager.GetActiveScene().name;
+        Debug.Log("Current Scene: " + currentSceneName);*/
     }
 
     // Method to load a scene by its name
