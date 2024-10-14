@@ -8,6 +8,7 @@ public class UI_Manager : MonoBehaviour
     public Dictionary<string, Inventory_UI> inventoryUIByName = new Dictionary<string, Inventory_UI>();
 
     public GameObject inventoryPanel;
+    public GameObject removePanel;
 
     public List<Inventory_UI> inventoryUIs;
 
@@ -18,6 +19,7 @@ public class UI_Manager : MonoBehaviour
     private void Awake()
     {
         inventoryPanel.SetActive(false);
+        removePanel.SetActive(false);
         Initialize();
     }
 
@@ -45,11 +47,13 @@ public class UI_Manager : MonoBehaviour
             if (!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
+                removePanel.SetActive(true);
                 RefreshInventoryUI("Backpack");
             }
             else
             {
                 inventoryPanel.SetActive(false);
+                removePanel.SetActive(false);
             }
         }
     }
