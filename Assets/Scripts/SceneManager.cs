@@ -25,4 +25,8 @@ public class SceneTransitionManager : MonoBehaviour
         SceneManager.LoadScene(sceneBuildIndex); // Loads the scene by index
     }
 
+    public string GetActiveSceneName()
+    {
+        return SceneManager.GetActiveScene().name; // Returns the active scene name
+    }
 }

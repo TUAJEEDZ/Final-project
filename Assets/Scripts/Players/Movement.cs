@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
 {
     public static Movement instance;
 
+    public VectorValue startingPosition;
     public float walkSpeed = 3f;
     public float runSpeed = 6f; // Speed when running
     private float currentSpeed;
@@ -22,6 +23,12 @@ public class Movement : MonoBehaviour
     private Knockback knockback;
 
     public PlayerState currentState { get; private set; } = PlayerState.walk;
+
+    private void Start()
+    {
+        // Set the starting position from the VectorValue
+        transform.position = startingPosition.initialValue;
+    }
 
     private void Awake()
     {

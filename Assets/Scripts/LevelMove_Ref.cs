@@ -87,8 +87,16 @@ public class DoorController : MonoBehaviour
 
             GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
 
+            string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
             // Toggle farm state
-            GameManager.instance.mapManager.SetFarmOn(!GameManager.instance.mapManager.IsFarmOn());
+            if(currentSceneName == "testmix")
+            { 
+                GameManager.instance.mapManager.SetFarmOn(false); 
+            }
+            else if (currentSceneName == "Forest")
+            {
+                GameManager.instance.mapManager.SetFarmOn(true);
+            }
 
 
         }

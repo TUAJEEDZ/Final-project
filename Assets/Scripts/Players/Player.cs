@@ -341,7 +341,7 @@ public class Player : MonoBehaviour
                             {
                                 tileManager.DamageTree(position);
                                 //inventoryManager.Add("Backpack", "Wood");
-                                DropItem("Wood");
+                                DropItem("Wood", 1);
                             }
                         }
 
