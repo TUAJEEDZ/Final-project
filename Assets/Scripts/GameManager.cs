@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public TileManager tileManager;
     public UI_Manager uiManager;
     public Player player;
+    public InventoryManager inventoryManager; // Added InventoryManager reference
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
         uiManager = GetComponent<UI_Manager>();
         mapManager = GetComponent<MapManager>();
+        inventoryManager = GetComponent<InventoryManager>(); // Initialize InventoryManager
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
@@ -39,5 +41,10 @@ public class GameManager : MonoBehaviour
                 DontDestroyOnLoad(player.gameObject); // Ensure Player persists across scenes
             }
         }
+    }
+
+    public InventoryManager GetInventoryManager() // Optional getter method
+    {
+        return inventoryManager;
     }
 }
