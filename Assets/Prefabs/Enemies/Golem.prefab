@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: -1157764141061432941}
   - component: {fileID: -4973432168829070770}
   - component: {fileID: 283468873714919042}
+  - component: {fileID: 1803102806590229453}
   - component: {fileID: 3800489302917982689}
   - component: {fileID: 5643563636734264181}
   - component: {fileID: 3196815406556166743}
   - component: {fileID: -1322225723790540595}
-  - component: {fileID: -3349427663160645229}
   - component: {fileID: 7075335593574570099}
   - component: {fileID: 3372046437905552526}
   - component: {fileID: 2670817861504763659}
@@ -169,13 +169,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855eabb49a6a53444bc8244280f05281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 5
+  attackRange: 80
   enemyType: {fileID: 5643563636734264181}
   attackCooldown: 2
   roamChangeDirFloat: 5
-  chaseRange: 10
+  chaseRange: 80
   roamAmplitude: 2
   roamSpeed: 1
+--- !u!114 &1803102806590229453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079738097024457600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88884f33d640b2458926850d898e792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  monsterPrefab: {fileID: 0}
+  spawnPoints: []
 --- !u!114 &3800489302917982689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,10 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a95f2573f3877428d124dbe0175c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectRange: 10
+  detectRange: 2
   laserPrefab: {fileID: 6749115931396813883, guid: 599f5d1a76ceac547ad0c3230c6d8d3a, type: 3}
   attackCooldown: 2
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 1191523657948190327}
 --- !u!114 &5643563636734264181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,20 +249,6 @@ MonoBehaviour:
   dropChance: 1
   minDropCount: 1
   maxDropCount: 5
---- !u!114 &-3349427663160645229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7079738097024457600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50077fdb244cf4c47ba934528aace502, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 5
-  deathVFXPrefab: {fileID: 383752543725269534, guid: 24aafecbe3c6df541b4c63a7e5114e09, type: 3}
 --- !u!114 &7075335593574570099
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15263,18 +15263,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1026180948}
     m_Modifications:
-    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: chaseRange
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: attackRange
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 283468873714919042, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: stopMovingWhileAttacking
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1191523657948190327, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.782112
@@ -15315,33 +15303,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: damage
-      value: 5
+    - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: maxHealth
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: firePoint
+    - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 1419983047}
-    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: damageDelay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3800489302917982689, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: detectRange
-      value: 2
+      objectReference: {fileID: 5003045802170818549, guid: be4ef0b569500344a96d9302866b1ab7, type: 3}
+    - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: deathVFXPrefab
+      value: 
+      objectReference: {fileID: 383752543725269534, guid: 4fbf1398a93ab0148abb0348f0ba8f68, type: 3}
+    - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7079738097024457600, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: m_Name
       value: Golem
-      objectReference: {fileID: 0}
-    - target: {fileID: 7079738097024457600, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16212,8 +16192,8 @@ SceneRoots:
   - {fileID: 1102855497}
   - {fileID: 1279403043}
   - {fileID: 1698395705}
-  - {fileID: 8476014602226252501}
   - {fileID: 1834668327}
+  - {fileID: 8476014602226252501}
   - {fileID: 479800634}
   - {fileID: 130845938}
   - {fileID: 45802860}
