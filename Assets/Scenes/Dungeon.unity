@@ -3131,7 +3131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 273318775}
   - component: {fileID: 273318774}
-  - component: {fileID: 273318776}
   m_Layer: 0
   m_Name: MonsterSpawner
   m_TagString: Untagged
@@ -3151,14 +3150,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cea978dd26c42f468c243419f82a30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mineralPrefabs:
+  - {fileID: 4858233730134112159, guid: c1b58c41eb0f4554488729abc185d71b, type: 3}
+  - {fileID: 3801110247840832651, guid: 10bb1469616afb74482825b8cc8b8778, type: 3}
+  - {fileID: 996713185005191033, guid: 5dd830a0a0b70ca4db7c95398f2fb1df, type: 3}
   monsterPrefabs:
   - {fileID: 4803238509211807770, guid: 559e66f343a527f47bef421f24aaf9c3, type: 3}
   - {fileID: 3513627279191283105, guid: d0f301b1d2cd75947915c2d57315a87d, type: 3}
   - {fileID: 5003045802170818549, guid: be4ef0b569500344a96d9302866b1ab7, type: 3}
+  numberOfMinerals: 5
   numberOfMonsters: 5
-  spawnAreaWidth: 10
-  spawnAreaHeight: 10
-  checkRadius: 4
+  spawnAreaWidth: 25
+  spawnAreaHeight: 8
+  checkRadius: 2
 --- !u!4 &273318775
 Transform:
   m_ObjectHideFlags: 0
@@ -3174,26 +3178,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &273318776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273318773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121dfabd2836725439ba62676d6e0fed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mineralPrefabs:
-  - {fileID: 4858233730134112159, guid: c1b58c41eb0f4554488729abc185d71b, type: 3}
-  - {fileID: 3801110247840832651, guid: 10bb1469616afb74482825b8cc8b8778, type: 3}
-  - {fileID: 996713185005191033, guid: 5dd830a0a0b70ca4db7c95398f2fb1df, type: 3}
-  numberOfMinerals: 5
-  spawnAreaWidth: 10
-  spawnAreaHeight: 10
-  checkRadius: 1
 --- !u!1001 &299652345
 PrefabInstance:
   m_ObjectHideFlags: 0

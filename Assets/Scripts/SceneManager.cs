@@ -20,9 +20,9 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     // Method to load a scene by its index
-    public void LoadSceneByIndex(int sceneIndex)
+    public void LoadSceneByIndex(int sceneBuildIndex)
     {
-        SceneManager.LoadScene(sceneIndex); // Loads the scene by index
+        SceneManager.LoadScene(sceneBuildIndex); // Loads the scene by index
     }
 
 }

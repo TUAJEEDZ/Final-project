@@ -84,6 +84,7 @@ public class DoorController : MonoBehaviour
 
             // โหลดฉากใหม่
             // Load the new scene using the GameManager's sceneTransitionManager
+
             GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
 
             // Toggle farm state
