@@ -104,6 +104,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>(); // รับ component สุขภาพของศัตรู
+            BossHealth bossHealth = enemyCollider.GetComponent<BossHealth>(); // รับ component สุขภาพของศัตรู
             Knockback knockback = enemyCollider.GetComponent<Knockback>(); // รับ component การกระแทกของศัตรู
             Flash flash = enemyCollider.GetComponent<Flash>(); // รับ component เอฟเฟกต์ Flash ของศัตรู
 
@@ -115,6 +116,20 @@ public class PlayerAttack : MonoBehaviour
                 {
                     knockback.GetKnockedBack(transform, knockbackForce); // ทำให้ศัตรูกระเด็นกลับ
                 }
+
+                if (flash != null)
+                {
+                    StartCoroutine(flash.FlashRoutine()); // เรียกใช้งานเอฟเฟกต์ Flash
+                }
+            }
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(equippedSword.damage); // ใช้ค่า damage จากดาบที่เลือก
+
+               /* if (knockback != null)
+                {
+                    knockback.GetKnockedBack(transform, knockbackForce); // ทำให้ศัตรูกระเด็นกลับ
+                }*/
 
                 if (flash != null)
                 {
