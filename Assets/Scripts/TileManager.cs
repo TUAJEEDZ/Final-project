@@ -18,8 +18,6 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
 
-    private Player player;
-
     private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
     {
         { "wheat", 2 },    // Wheat requires 2 ticks per growth stage
@@ -134,8 +132,7 @@ public class TileManager : MonoBehaviour
     {
         if (treeHealth.ContainsKey(position))
         {
-            treeHealth[position]--; // Decrease tree health by 1
-            treeHealth[position]--;
+            treeHealth[position] -= 2; // Decrease tree health by 1
 
             // Check if the tree health has reached zero
             if (treeHealth[position] <= 0)
@@ -151,7 +148,7 @@ public class TileManager : MonoBehaviour
         else
         {
             // Initialize the tree health if this is the first interaction
-            treeHealth[position] = defaultTreeHealth - 1;
+            treeHealth[position] = defaultTreeHealth - 2;
             Debug.Log("Tree health remaining: " + treeHealth[position]);
         }
     }

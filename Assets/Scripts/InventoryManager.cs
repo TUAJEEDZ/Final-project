@@ -40,14 +40,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void Add(string inventoryName, string itemName)
+    public void Add(string inventoryName, string itemName, int quantity = 1)
     {
         if (inventoryByName.ContainsKey(inventoryName))
         {
             Item item = itemManager.GetItemByName(itemName);
             if (item != null)
             {
-                inventoryByName[inventoryName].Add(item);
+                for (int i = 0; i < quantity; i++)
+                {
+                    inventoryByName[inventoryName].Add(item); // Add the item multiple times
+                }
             }
             else
             {

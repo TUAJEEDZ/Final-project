@@ -24,25 +24,14 @@ public class Player : MonoBehaviour
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         tileManager = GameManager.instance.tileManager;
-        inventoryManager.Add("Toolbar", "Stone Axe");
-        inventoryManager.Add("Toolbar", "Stone Hoe");
-        inventoryManager.Add("Toolbar", "Stone Sickle");
-        inventoryManager.Add("Toolbar", "Stone Watering Can");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Tomato Seed");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Fertilizer");
-        inventoryManager.Add("Toolbar", "Longsword");
+        inventoryManager.Add("Toolbar", "Stone Axe", 1);
+        inventoryManager.Add("Toolbar", "Stone Hoe", 1);
+        inventoryManager.Add("Toolbar", "Stone Sickle", 1);
+        inventoryManager.Add("Toolbar", "Stone Watering Can", 1);
+        inventoryManager.Add("Toolbar", "Wheat Seed", 10);
+        inventoryManager.Add("Toolbar", "Tomato Seed", 10);
+        inventoryManager.Add("Toolbar", "Fertilizer", 10);
+        inventoryManager.Add("Toolbar", "Longsword", 1);
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()
@@ -350,7 +339,8 @@ public class Player : MonoBehaviour
                             if (tileName == "cutabletree")
                             {
                                 tileManager.DamageTree(position);
-                                inventoryManager.Add("Backpack", "Wood");
+                                //inventoryManager.Add("Backpack", "Wood");
+                                DropItem("Wood");
                             }
                         }
 
@@ -384,8 +374,9 @@ public class Player : MonoBehaviour
                             {
                                 tileManager.DamageTree(position);
                                 tileManager.DamageTree(position);
-                                inventoryManager.Add("Backpack", "Wood");
-                                inventoryManager.Add("Backpack", "Wood");
+                                /*inventoryManager.Add("Backpack", "Wood");
+                                inventoryManager.Add("Backpack", "Wood");*/
+                                DropItem("Wood", 2);
                             }
                         }
 
@@ -462,5 +453,42 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    public void DropItem(string itemName, int numToDrop)
+    {
+        // Retrieve the item using the provided name
+        Item item = GameManager.instance.itemManager.GetItemByName(itemName);
+        if (item == null)
+        {
+            Debug.LogWarning($"Item '{itemName}' not found!");
+            return; // Exit if the item doesn't exist
+        }
+
+        // Get the direction based on the animator's parameters
+        float horizontal = animator.GetFloat("Horizontal");
+        float vertical = animator.GetFloat("Vertical");
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+
+        // Calculate the drop point based on the direction
+        if (direction != Vector2.zero)
+        {
+            dropPoint.localPosition = direction * dropRange;
+            dropPoint.right = direction;
+        }
+
+        for (int i = 0; i < numToDrop; i++)
+        {
+            // Calculate the spawn location in front of the player
+            Vector2 spawnLocation = (Vector2)transform.position + direction; // Spawn item in front of player
+            Vector2 spawnOffset = Random.insideUnitCircle * 0.5f; // Slight random offset
+
+            // Instantiate the item
+            Item droppedItem = Instantiate(item, spawnLocation, Quaternion.identity);
+
+            droppedItem.transform.SetParent(DropParent.transform, true);
+
+            // Add force to the dropped item
+            droppedItem.rb2d.AddForce(direction * 3f + spawnOffset, ForceMode2D.Impulse);
+        }
+    }
+
 }
