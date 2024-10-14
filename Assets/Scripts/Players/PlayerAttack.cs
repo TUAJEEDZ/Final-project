@@ -3,21 +3,22 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackRange = 1f; // ระยะการโจมตี
-    public LayerMask enemyLayer; // เลเยอร์ของศัตรู
-    public InventoryManager inventoryManager; // ระบบ Inventory ของผู้เล่น
-    public float knockbackForce = 5f; // แรงกระแทกของศัตรู
-    public float attackCooldown = 1f; // ระยะเวลา cooldown ระหว่างการโจมตี
+    public float attackRange = 1f; // Attack range
+    public LayerMask enemyLayer; // Enemy layer
+    public InventoryManager inventoryManager; // Player inventory system
+    public float knockbackForce = 5f; // Knockback force for enemies
+    public float attackCooldown = 1f; // Cooldown duration between attacks
 
-    private Animator animator; // ตัวแปรอ้างอิงถึง Animator ของตัวละคร
-    private Vector2 attackDirection; // ทิศทางการโจมตี
-    private DamageSword equippedSword; // ดาบที่ผู้เล่นใช้งาน
-    private float lastAttackTime = 0f; // เวลาในการโจมตีครั้งล่าสุด
+    private Animator animator; // Reference to character's Animator
+    private Vector2 attackDirection; // Attack direction
+    private DamageSword equippedSword; // Reference to equipped sword
+    private Pickaxedamage equippedPickaxe; // Reference to equipped pickaxe
+    private float lastAttackTime = 0f; // Time of the last attack
     private Movement movement;
 
     private void Start()
     {
-        animator = GetComponent<Animator>(); // รับค่า component Animator
+        animator = GetComponent<Animator>(); // Get Animator component
     }
 
     private void Awake()
@@ -32,55 +33,65 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                // ดึงข้อมูลดาบจากช่อง toolbar
+                // Get the item from the selected toolbar slot
                 Inventory.Slot selectedSlot = inventoryManager.toolbar.selectedSlot;
 
-                if (selectedSlot != null && selectedSlot.itemName != "")
+                if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
                 {
                     Item item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
 
                     if (item != null)
                     {
+                        // Check if the item is a sword or a pickaxe
                         equippedSword = item.GetComponent<DamageSword>();
+                        equippedPickaxe = item.GetComponent<Pickaxedamage>();
 
                         if (equippedSword != null)
                         {
-                            Attack(); // เรียกฟังก์ชันโจมตี
-                            movement.ChangeState(PlayerState.interact);
-                            animator.SetTrigger("IsAttacking");
-                            lastAttackTime = Time.time; // บันทึกเวลาที่โจมตีครั้งล่าสุด
-
-                            StartCoroutine(DelayedInteraction());
-                            IEnumerator DelayedInteraction()
-                            {
-                                yield return new WaitForSeconds(0.5f);
-                                movement.ChangeState(PlayerState.walk);
-
-                            }
+                            AttackWithSword(); // Attack with the sword
                         }
-                        else
+                        else if (equippedPickaxe != null)
                         {
-                            Debug.LogWarning("Selected item is not a DamageSword.");
+                            AttackWithPickaxe(); // Mine with the pickaxe
                         }
                     }
-                    else
-                    {
-                        Debug.LogWarning("No item found by the selected item name.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("No item selected.");
                 }
             }
         }
     }
 
+    void AttackWithSword()
+    {
+        Attack(); // Call the attack function
+        movement.ChangeState(PlayerState.interact);
+        animator.SetTrigger("IsAttacking");
+        lastAttackTime = Time.time;
+
+        StartCoroutine(DelayedInteraction());
+    }
+
+    void AttackWithPickaxe()
+    {
+        Attack(); // Call the attack function
+        movement.ChangeState(PlayerState.interact);
+        animator.SetTrigger("isMining");
+        lastAttackTime = Time.time;
+
+        StartCoroutine(DelayedInteraction());
+    }
+
+    private IEnumerator DelayedInteraction()
+    {
+        yield return new WaitForSeconds(0.5f);
+        movement.ChangeState(PlayerState.walk);
+    }
+
     void Attack()
     {
-        if (equippedSword == null)
+        // Check if either equippedSword or equippedPickaxe is null
+        if (equippedSword == null && equippedPickaxe == null)
         {
-            Debug.LogWarning("No sword equipped.");
+            Debug.LogWarning("No weapon equipped.");
             return;
         }
 
@@ -99,49 +110,52 @@ public class PlayerAttack : MonoBehaviour
 
         Debug.Log("Attack triggered. Number of enemies hit: " + hitEnemies.Length);
 
-        equippedSword.Attack(); // เล่นอนิเมชันโจมตี
+        if (equippedSword != null)
+        {
+            equippedSword.Attack(); // Play sword attack animation
+        }
 
         foreach (Collider2D enemyCollider in hitEnemies)
         {
-            EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>(); // รับ component สุขภาพของศัตรู
-            BossHealth bossHealth = enemyCollider.GetComponent<BossHealth>(); // รับ component สุขภาพของศัตรู
-            Knockback knockback = enemyCollider.GetComponent<Knockback>(); // รับ component การกระแทกของศัตรู
-            Flash flash = enemyCollider.GetComponent<Flash>(); // รับ component เอฟเฟกต์ Flash ของศัตรู
+            EnemyHealth enemyHealth = enemyCollider.GetComponent<EnemyHealth>(); // Get enemy health component
+            BossHealth bossHealth = enemyCollider.GetComponent<BossHealth>(); // Get boss health component
+            MineralHealth mineralHealth = enemyCollider.GetComponent<MineralHealth>(); // Get mineral health component
+            Knockback knockback = enemyCollider.GetComponent<Knockback>(); // Get enemy knockback component
+            Flash flash = enemyCollider.GetComponent<Flash>(); // Get enemy flash effect component
 
-            if (enemyHealth != null)
+            if (equippedSword != null && enemyHealth != null)
             {
-                enemyHealth.TakeDamage(equippedSword.damage); // ใช้ค่า damage จากดาบที่เลือก
-
-                if (knockback != null)
-                {
-                    knockback.GetKnockedBack(transform, knockbackForce); // ทำให้ศัตรูกระเด็นกลับ
-                }
-
-                if (flash != null)
-                {
-                    StartCoroutine(flash.FlashRoutine()); // เรียกใช้งานเอฟเฟกต์ Flash
-                }
+                enemyHealth.TakeDamage(equippedSword.damage); // Use sword damage for enemies
+                HandleKnockbackAndFlash(knockback, flash);
             }
-            if (bossHealth != null)
+            else if (equippedSword != null && bossHealth != null)
             {
-                bossHealth.TakeDamage(equippedSword.damage); // ใช้ค่า damage จากดาบที่เลือก
-
-               /* if (knockback != null)
-                {
-                    knockback.GetKnockedBack(transform, knockbackForce); // ทำให้ศัตรูกระเด็นกลับ
-                }*/
-
-                if (flash != null)
-                {
-                    StartCoroutine(flash.FlashRoutine()); // เรียกใช้งานเอฟเฟกต์ Flash
-                }
+                bossHealth.TakeDamage(equippedSword.damage); // Use sword damage for bosses
+                HandleKnockbackAndFlash(knockback, flash);
             }
+            else if (equippedPickaxe != null && mineralHealth != null)
+            {
+                mineralHealth.TakeDamage(equippedPickaxe.damage); // Use pickaxe damage for minerals
+            }
+        }
+    }
+
+    private void HandleKnockbackAndFlash(Knockback knockback, Flash flash)
+    {
+        if (knockback != null)
+        {
+            knockback.GetKnockedBack(transform, knockbackForce); // Apply knockback to the enemy
+        }
+
+        if (flash != null)
+        {
+            StartCoroutine(flash.FlashRoutine()); // Trigger flash effect
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red; // ตั้งค่าสีของ Gizmos
-        Gizmos.DrawWireSphere(transform.position + (Vector3)attackDirection * attackRange, attackRange); // วาดวงกลมเพื่อแสดงระยะโจมตี
+        Gizmos.color = Color.red; // Set the color of the Gizmos
+        Gizmos.DrawWireSphere(transform.position + (Vector3)attackDirection * attackRange, attackRange); // Draw a circle to show attack range
     }
 }

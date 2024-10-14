@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Wheat Seed", 10);
         inventoryManager.Add("Toolbar", "Tomato Seed", 10);
         inventoryManager.Add("Toolbar", "Fertilizer", 10);
+        inventoryManager.Add("Toolbar", "Stone Pickaxe", 1);
         inventoryManager.Add("Toolbar", "Longsword", 1);
         GameManager.instance.uiManager.RefreshAll();
     }
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-
+/*
             if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Pickaxe")
             {
                 movement.ChangeState(PlayerState.interact);
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-
+*/
             if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Watering Can")
             {
                 movement.ChangeState(PlayerState.interact);
