@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
     public UI_Manager uiManager;
     public Player player;
     public DayNightCycle dayNightCycle;
-
+    public SceneTransitionManager sceneTransitionManager; // Reference to SceneTransitionManager
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         uiManager = GetComponent<UI_Manager>();
         mapManager = GetComponent<MapManager>();
         plantManager = GetComponent<PlantManager>();
-
+        sceneTransitionManager = GetComponent<SceneTransitionManager>(); // Initialize SceneTransitionManager
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
@@ -44,5 +45,20 @@ public class GameManager : MonoBehaviour
                 DontDestroyOnLoad(player.gameObject); // Ensure Player persists across scenes
             }
         }
+        // Subscribe to the sceneLoaded event to detect scene changes
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from the sceneLoaded event when the GameManager is destroyed
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Method called whenever a new scene is loaded
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string currentSceneName = scene.name;
+        Debug.Log("Current Scene: " + currentSceneName);
     }
 }

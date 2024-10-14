@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject farmMap;
     [SerializeField] private GameObject door;
     [SerializeField] private GameObject houseMap;
+    [SerializeField] private GameObject dungeon;
 
     private bool isFarmOn = false;
     private bool isDoorOn = false;

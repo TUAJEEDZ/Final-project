@@ -83,16 +83,12 @@ public class DoorController : MonoBehaviour
             PlayerPrefs.SetFloat("DoorPositionZ", doorExitPosition.z);
 
             // โหลดฉากใหม่
-            SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
+            // Load the new scene using the GameManager's sceneTransitionManager
+            GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
 
-            if (GameManager.instance.mapManager.IsFarmOn() == false)
-            {
-                GameManager.instance.mapManager.SetFarmOn(true);
-            }
-            else
-            {
-                GameManager.instance.mapManager.SetFarmOn(false);
-            }
+            // Toggle farm state
+            GameManager.instance.mapManager.SetFarmOn(!GameManager.instance.mapManager.IsFarmOn());
+
 
         }
 
