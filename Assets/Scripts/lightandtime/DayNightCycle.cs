@@ -23,9 +23,13 @@ public class DayNightCycle : MonoBehaviour
     private int monthCount;
     private int yearCount;
 
+    [SerializeField] private Stamina stamina; // อ้างอิงผ่าน Inspector
     public TileManager tileManager;
+
     void Start()
     {
+        stamina = GetComponent<Stamina>(); // Get Stamina component
+
         dayCount = PlayerPrefs.GetInt("DayCount", 1);
         monthCount = PlayerPrefs.GetInt("MonthCount", 1);
         yearCount = PlayerPrefs.GetInt("YearCount", 2024); // Set default year to 2024
@@ -76,6 +80,8 @@ public class DayNightCycle : MonoBehaviour
         {
             time -= 1f;
             dayCount++;
+           GameManager.instance.stamina.RecoverStamina(10); // ฟื้นฟู stamina 5 หน่วย
+            Debug.Log("Stamina recovered by 10 points.");
             GameManager.instance.tileManager.CheckPlantGrowth();
             if (dayCount > 30) // Assuming each month has 30 days
             {

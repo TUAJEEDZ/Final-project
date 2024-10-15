@@ -35,5 +35,13 @@ public class Stamina : MonoBehaviour
     {
         staminaSlider.value = (float)CurrentStamina / maxStamina; // อัพเดตค่าของ slider ให้แสดงตาม currentStamina
     }
+    public void RecoverStamina(int amount)
+    {
+        CurrentStamina = Mathf.Clamp(CurrentStamina + amount, 0, maxStamina);
+        Debug.Log("Stamina recovered: " + amount);
+        staminaSlider.value = (float)CurrentStamina / maxStamina;
+    }
+
+
 
 }

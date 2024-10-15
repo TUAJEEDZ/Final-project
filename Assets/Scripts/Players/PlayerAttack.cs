@@ -54,11 +54,11 @@ public class PlayerAttack : MonoBehaviour
                         }
                         else if (equippedPickaxe != null)
                         {
-                            if (stamina.CurrentStamina >= equippedPickaxe.Stamina)
+                            if (GameManager.instance.stamina.CurrentStamina >= equippedPickaxe.Stamina)
                             // ตรวจสอบ stamina สำหรับ pickaxe เท่านั้น
                             {
                                 AttackWithPickaxe(); // ใช้ pickaxe
-                                stamina.UseStamina(equippedPickaxe.Stamina); // ใช้ stamina สำหรับ pickaxe
+                                GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina); // ใช้ stamina สำหรับ pickaxe
                             }
                             else
                             {

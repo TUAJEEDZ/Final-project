@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     public DayNightCycle dayNightCycle;
     public SceneTransitionManager sceneTransitionManager; // Reference to SceneTransitionManager
+    public Stamina stamina;
 
     private void Awake()
     {
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
         mapManager = GetComponent<MapManager>();
         plantManager = GetComponent<PlantManager>();
         sceneTransitionManager = GetComponent<SceneTransitionManager>(); // Initialize SceneTransitionManager
+        stamina = GetComponent<Stamina>(); // Get Stamina component
+
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
