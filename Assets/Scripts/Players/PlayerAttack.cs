@@ -15,10 +15,12 @@ public class PlayerAttack : MonoBehaviour
     private Pickaxedamage equippedPickaxe; // Reference to equipped pickaxe
     private float lastAttackTime = 0f; // Time of the last attack
     private Movement movement;
+    private Stamina stamina; // Reference to stamina system
 
     private void Start()
     {
         animator = GetComponent<Animator>(); // Get Animator component
+        stamina = GetComponent<Stamina>(); // Get Stamina component
     }
 
     private void Awake()
@@ -48,11 +50,20 @@ public class PlayerAttack : MonoBehaviour
 
                         if (equippedSword != null)
                         {
-                            AttackWithSword(); // Attack with the sword
+                            AttackWithSword(); // ไม่ต้องใช้ stamina สำหรับดาบ
                         }
                         else if (equippedPickaxe != null)
                         {
-                            AttackWithPickaxe(); // Mine with the pickaxe
+                            if (stamina.CurrentStamina >= equippedPickaxe.Stamina)
+                            // ตรวจสอบ stamina สำหรับ pickaxe เท่านั้น
+                            {
+                                AttackWithPickaxe(); // ใช้ pickaxe
+                                stamina.UseStamina(equippedPickaxe.Stamina); // ใช้ stamina สำหรับ pickaxe
+                            }
+                            else
+                            {
+                                Debug.Log("Stamina ไม่พอ!");
+                            }
                         }
                     }
                 }
