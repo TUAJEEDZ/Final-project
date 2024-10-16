@@ -52,6 +52,9 @@ public class TileManager : MonoBehaviour
     public void SetFill(Vector3Int position)
     {
         interactableMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
+        fertilizedMap.SetTile(position, null);
+        plantMap.SetTile(position, null);
+
     }
 
     public void Setfertilized(Vector3Int position)
@@ -89,9 +92,9 @@ public class TileManager : MonoBehaviour
 
     public void SetHarvested(Vector3Int position)
     {
-        plantMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
+        plantMap.SetTile(position, null);  // Setting the interacted tile
         plantedTiles.Remove(position); // Remove from tracking
-        fertilizedMap.SetTile(position, hiddenInteractableTile);
+        fertilizedMap.SetTile(position, null);
     }
 
     public void SetPickup(Vector3Int position)

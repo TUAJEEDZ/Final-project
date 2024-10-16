@@ -179,17 +179,22 @@ public class Player : MonoBehaviour
 
                     if (tileManager.IsPlantableTile(tileName))
                     {
-                        // Plant the wheat at the calculated position
-                        tileManager.SetPlantWheat(position);
+                        string PlantName = tileManager.GetTileNamePlant(position);
 
-                        // Check and remove the Wheat Seed from the selected slot
-                        if (inventoryManager.toolbar.selectedSlot != null &&
-                            inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                        if(string.IsNullOrWhiteSpace(PlantName))
                         {
-                            inventoryManager.toolbar.selectedSlot.RemoveItem();
+                            // Plant the wheat at the calculated position
+                            tileManager.SetPlantWheat(position);
 
-                            // Refresh the UI to reflect the changes
-                            GameManager.instance.uiManager.RefreshAll();
+                            // Check and remove the Wheat Seed from the selected slot
+                            if (inventoryManager.toolbar.selectedSlot != null &&
+                                inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                            {
+                                inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                // Refresh the UI to reflect the changes
+                                GameManager.instance.uiManager.RefreshAll();
+                            }
                         }
                     }
                     else
@@ -215,17 +220,22 @@ public class Player : MonoBehaviour
 
                     if (tileManager.IsPlantableTile(tileName))
                     {
-                        // Plant the wheat at the calculated position
-                        tileManager.SetPlantTomato(position);
+                        string PlantName = tileManager.GetTileNamePlant(position);
 
-                        // Check and remove the Wheat Seed from the selected slot
-                        if (inventoryManager.toolbar.selectedSlot != null &&
-                            inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+                        if (string.IsNullOrWhiteSpace(PlantName))
                         {
-                            inventoryManager.toolbar.selectedSlot.RemoveItem();
+                            // Plant the wheat at the calculated position
+                            tileManager.SetPlantTomato(position);
 
-                            // Refresh the UI to reflect the changes
-                            GameManager.instance.uiManager.RefreshAll();
+                            // Check and remove the Wheat Seed from the selected slot
+                            if (inventoryManager.toolbar.selectedSlot != null &&
+                                inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+                            {
+                                inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                // Refresh the UI to reflect the changes
+                                GameManager.instance.uiManager.RefreshAll();
+                            }
                         }
                     }
                     else
@@ -350,7 +360,7 @@ public class Player : MonoBehaviour
 
                             if (!string.IsNullOrWhiteSpace(tileName))
                             {
-                                if (tileName == "cutabletree")
+                                if (tileName == "cutabletree1")
                                 {
                                     tileManager.DamageTree(position);
                                     //inventoryManager.Add("Backpack", "Wood");
@@ -387,7 +397,7 @@ public class Player : MonoBehaviour
 
                             if (!string.IsNullOrWhiteSpace(tileName))
                             {
-                                if (tileName == "cutabletree")
+                                if (tileName == "cutabletree1")
                                 {
                                     tileManager.DamageTree(position);
                                     tileManager.DamageTree(position);
