@@ -11,12 +11,16 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap fertilizedMap;
     [SerializeField] private Tilemap treeMap;
     [SerializeField] private Tile hiddenInteractableTile; // select tile to hide
+    [SerializeField] private Tile hiddenTreeTile; // select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hidden tile
     [SerializeField] private Tile wetTile;
+    [SerializeField] private Tile cutableTreeTile;
     [SerializeField] private Tile fertilizedTile;
     [SerializeField] private Tile[] wheatStages;  // Array to hold wheat growth stages
     [SerializeField] private Tile[] tomatoStages;  // Array to hold tomato growth stages
     [SerializeField] private Tile[] plantableTile;
+
+    private Dictionary<Vector3Int, int> treeTicks = new Dictionary<Vector3Int, int>();
 
     private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
     {
@@ -32,6 +36,7 @@ public class TileManager : MonoBehaviour
 
     // Default tree health value
     private int defaultTreeHealth = 10; // Number of hits required to cut down the tree
+    private int treeTickRequirement = 3; // Number of ticks to change from hidden to cutable tree
 
     void Start()
     {
@@ -64,7 +69,7 @@ public class TileManager : MonoBehaviour
 
     public void SetCutted(Vector3Int position)
     {
-        treeMap.SetTile(position, hiddenInteractableTile);  // Setting the interacted tile
+        treeMap.SetTile(position, hiddenTreeTile);  // Setting the interacted tile
     }
 
     public void SetWatered(Vector3Int position)
@@ -182,7 +187,31 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public string GetTileName(Vector3Int position)
+    public void UpdateTreeGrowth(Vector3Int position)
+    {
+        if (treeMap.GetTile(position) == hiddenTreeTile)
+        {
+            // Increment tick count
+            if (treeTicks.ContainsKey(position))
+            {
+                treeTicks[position]++;
+            }
+            else
+            {
+                treeTicks[position] = 1; // Initialize with 1 tick on first update
+            }
+
+            // Check if the tick count has reached the required number
+            if (treeTicks[position] >= treeTickRequirement)
+            {
+                treeMap.SetTile(position, cutableTreeTile); // Change to "cutabletree1"
+                treeTicks.Remove(position); // Reset or remove the tick counter for this position
+                Debug.Log("Tree at " + position + " is now cutable.");
+            }
+        }
+    }
+
+        public string GetTileName(Vector3Int position)
     {
         if (interactableMap != null)
         {
@@ -308,6 +337,17 @@ public class TileManager : MonoBehaviour
         foreach (var position in positionsToGrow)
         {
             UpdateGrowthStage(position);
+        }
+    }
+
+    public void CheckTreeGrowth()
+    {
+        foreach (var position in treeMap.cellBounds.allPositionsWithin)
+        {
+            if (treeMap.HasTile(position) && treeMap.GetTile(position) == hiddenTreeTile)
+            {
+                UpdateTreeGrowth(position); // Update tick count for each hidden tree tile
+            }
         }
     }
 

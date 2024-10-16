@@ -23,7 +23,7 @@ public class DayNightCycle : MonoBehaviour
     private int monthCount;
     private int yearCount;
 
-    [SerializeField] private Stamina stamina; // ÍéÒ§ÍÔ§¼èÒ¹ Inspector
+    [SerializeField] private Stamina stamina; // ï¿½ï¿½Ò§ï¿½Ô§ï¿½ï¿½Ò¹ Inspector
     public TileManager tileManager;
 
     void Start()
@@ -80,9 +80,10 @@ public class DayNightCycle : MonoBehaviour
         {
             time -= 1f;
             dayCount++;
-           GameManager.instance.stamina.RecoverStamina(10); // ¿×é¹¿Ù stamina 5 Ë¹èÇÂ
+            GameManager.instance.stamina.RecoverStamina(10); // ï¿½ï¿½é¹¿ï¿½ stamina 5 Ë¹ï¿½ï¿½ï¿½
             Debug.Log("Stamina recovered by 10 points.");
             GameManager.instance.tileManager.CheckPlantGrowth();
+            GameManager.instance.tileManager.CheckTreeGrowth();
             if (dayCount > 30) // Assuming each month has 30 days
             {
                 dayCount = 1;
