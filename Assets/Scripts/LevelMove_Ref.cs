@@ -93,7 +93,7 @@ public class DoorController : MonoBehaviour
             { 
                 GameManager.instance.mapManager.SetFarmOn(false); 
             }
-            else if (currentSceneName == "Forest")
+            else if (currentSceneName == "Dungeon")
             {
                 GameManager.instance.mapManager.SetFarmOn(true);
             }

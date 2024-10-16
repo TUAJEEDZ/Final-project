@@ -2965,6 +2965,8 @@ MonoBehaviour:
   flash: 1
   dayDuration: 30
   timeText: {fileID: 1191040045}
+  stamina: {fileID: 0}
+  tileManager: {fileID: 0}
 --- !u!483693784 &1044558625
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -3773,7 +3775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98e0c92238a298478f1d8ca806464c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneBuildIndex: 5
+  sceneBuildIndex: 0
   interactionText: {fileID: 1968319137}
   interactionImage: {fileID: 860278800}
   doorExitPosition: {x: 4.5, y: 5.2, z: 0}

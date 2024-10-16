@@ -84,6 +84,7 @@ public class DayNightCycle : MonoBehaviour
             Debug.Log("Stamina recovered by 10 points.");
             GameManager.instance.tileManager.CheckPlantGrowth();
             GameManager.instance.tileManager.CheckTreeGrowth();
+            GameManager.instance.OnNewDay();
             if (dayCount > 30) // Assuming each month has 30 days
             {
                 dayCount = 1;
