@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public SceneTransitionManager sceneTransitionManager; // Reference to SceneTransitionManager
     public Stamina stamina;
     public DungeonManager dungeonManager; // เพิ่ม DungeonManager
+    public Tickmanager tickmanager; // เพิ่ม DungeonManager
 
 
     private void Awake()
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         stamina = GetComponent<Stamina>(); // Get Stamina component
         dayNightCycle = FindObjectOfType<DayNightCycle>();
         dungeonManager = FindObjectOfType<DungeonManager>();
+        tickmanager = FindObjectOfType<Tickmanager>();
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
@@ -54,12 +56,7 @@ public class GameManager : MonoBehaviour
         // Subscribe to the sceneLoaded event to detect scene changes
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    private void Update()
-    {
-        // ตรวจสอบการรีเซ็ตดันเจี้ยนทุกวัน
-        dungeonManager.IncrementTick();
-    }
-
+   
     private void OnDestroy()
     {
         // Unsubscribe from the sceneLoaded event when the GameManager is destroyed
@@ -75,6 +72,7 @@ public class GameManager : MonoBehaviour
         dungeonManager.SpawnItems(); // ตรวจสอบให้แน่ใจว่าวิธีนี้ทำการสร้างของทันที
 
     }
+
 
     public void OnNewDay()
     {

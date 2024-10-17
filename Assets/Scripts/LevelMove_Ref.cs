@@ -6,19 +6,22 @@ using UnityEngine.UI;
 
 public class DoorController : MonoBehaviour
 {
-    public int sceneBuildIndex; // Index ของฉากที่ต้องการย้ายไป
-    public Text interactionText; // ลาก UI Text ของคุณมาที่นี่ใน Inspector
-    public Image interactionImage; // ลาก UI Image ของคุณมาที่นี่ใน Inspector
+    public int sceneBuildIndex; // Index of the scene to transition to
+    public Text interactionText; // UI Text for interaction
+    public Image interactionImage; // UI Image for interaction
     private bool playerInTrigger = false;
 
     private MapManager mapManager;
 
-    // กำหนดตำแหน่งใหม่โดยใช้ Vector3
+    // Position to exit the door
     public Vector3 doorExitPosition;
+
+    // Number of ticks to wait before using the door again
+    public int waitTicks = 3;
 
     private void Start()
     {
-        // ซ่อนข้อความและภาพเมื่อเริ่มเกม
+        // Hide interaction UI on start
         if (interactionText != null)
         {
             interactionText.gameObject.SetActive(false);
@@ -35,13 +38,14 @@ public class DoorController : MonoBehaviour
         {
             playerInTrigger = true;
 
+            // Show interaction UI when player is near
             if (interactionText != null)
             {
-                interactionText.gameObject.SetActive(true); // แสดงข้อความเมื่อผู้เล่นเข้าไปในพื้นที่ประตู
+                interactionText.gameObject.SetActive(true);
             }
             if (interactionImage != null)
             {
-                interactionImage.gameObject.SetActive(true); // แสดงภาพเมื่อผู้เล่นเข้าไปในพื้นที่ประตู
+                interactionImage.gameObject.SetActive(true);
             }
         }
     }
@@ -52,23 +56,14 @@ public class DoorController : MonoBehaviour
         {
             playerInTrigger = false;
 
-            // ตรวจสอบว่า interactionText และ interactionImage ไม่เป็น null ก่อนที่จะเข้าถึง
+            // Hide interaction UI when player leaves
             if (interactionText != null)
             {
-                interactionText.gameObject.SetActive(false); // ซ่อนข้อความเมื่อผู้เล่นออกจากพื้นที่ประตู
+                interactionText.gameObject.SetActive(false);
             }
-            else
-            {
-                Debug.LogWarning("interactionText is null");
-            }
-
             if (interactionImage != null)
             {
-                interactionImage.gameObject.SetActive(false); // ซ่อนภาพเมื่อผู้เล่นออกจากพื้นที่ประตู
-            }
-            else
-            {
-                Debug.LogWarning("interactionImage is null");
+                interactionImage.gameObject.SetActive(false);
             }
         }
     }
@@ -77,40 +72,54 @@ public class DoorController : MonoBehaviour
     {
         if (playerInTrigger && Input.GetKeyDown(KeyCode.F))
         {
-            // บันทึกตำแหน่งประตูเมื่อออกจากประตู
-            PlayerPrefs.SetFloat("DoorPositionX", doorExitPosition.x);
-            PlayerPrefs.SetFloat("DoorPositionY", doorExitPosition.y);
-            PlayerPrefs.SetFloat("DoorPositionZ", doorExitPosition.z);
-
-            // โหลดฉากใหม่
-            // Load the new scene using the GameManager's sceneTransitionManager
-
-            GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
-
-            string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
-            // Toggle farm state
-            if(currentSceneName == "testmix")
-            { 
-                GameManager.instance.mapManager.SetFarmOn(false); 
-            }
-            else if (currentSceneName == "Dungeon")
+            // Check if the player can use the door
+            if (CanUseDoor())
             {
-                GameManager.instance.mapManager.SetFarmOn(true);
+                // Save the door position when exiting
+                PlayerPrefs.SetFloat("DoorPositionX", doorExitPosition.x);
+                PlayerPrefs.SetFloat("DoorPositionY", doorExitPosition.y);
+                PlayerPrefs.SetFloat("DoorPositionZ", doorExitPosition.z);
+
+                // Load the new scene
+                GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
+
+                // Handle farm state based on the current scene
+                string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+                if (currentSceneName == "testmix")
+                {
+                    GameManager.instance.mapManager.SetFarmOn(false);
+                }
+                else if (currentSceneName == "Dungeon")
+                {
+                    GameManager.instance.mapManager.SetFarmOn(true);
+                    GameManager.instance.tickmanager.currentTick = 0;
+                }
+
+                // Update the last used tick for the door
+                PlayerPrefs.SetInt("LastUsedTick", GameManager.instance.tickmanager.GetCurrentTick());
+                PlayerPrefs.Save();
             }
-
-
+            else
+            {
+                Debug.Log("You must wait before using this door again.");
+            }
         }
-
-        
     }
 
-    // ฟังก์ชันนี้จะถูกเรียกเมื่อฉากใหม่ถูกโหลด
+    private bool CanUseDoor()
+    {
+        //int lastUsedTick = PlayerPrefs.GetInt("LastUsedTick", 0);
+        int currentTick = GameManager.instance.tickmanager.GetCurrentTick();
+
+        // Check if the required number of ticks have passed
+        return currentTick >= waitTicks;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // ตรวจสอบว่ามีการบันทึกตำแหน่งของประตูหรือไม่
+        // Check if there is a saved door position
         if (PlayerPrefs.HasKey("DoorPositionX"))
         {
-            // หาตำแหน่งที่บันทึกไว้และย้ายผู้เล่นไปยังตำแหน่งนั้น
             float x = PlayerPrefs.GetFloat("DoorPositionX");
             float y = PlayerPrefs.GetFloat("DoorPositionY");
             float z = PlayerPrefs.GetFloat("DoorPositionZ");
@@ -128,13 +137,13 @@ public class DoorController : MonoBehaviour
 
     private void OnEnable()
     {
-        // สมัคร event เมื่อฉากถูกโหลด
+        // Subscribe to the scene loaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // ยกเลิกการสมัคร event เมื่อ script นี้ถูกปิด
+        // Unsubscribe from the scene loaded event
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

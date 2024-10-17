@@ -35,6 +35,8 @@ public class DayNightCycle : MonoBehaviour
         yearCount = PlayerPrefs.GetInt("YearCount", 2024); // Set default year to 2024
         time = PlayerPrefs.GetFloat("TimeOfDay", 0.25f); // Default 06:00 AM
 
+        ResetDayAndTime();
+
         if (globalLight2D == null)
         {
             globalLight2D = FindObjectOfType<Light2D>();
@@ -58,7 +60,7 @@ public class DayNightCycle : MonoBehaviour
         {
             Debug.LogWarning("UI Text for displaying time is not assigned. Please assign it in the Inspector.");
         }
-        ResetDayAndTime();
+
     }
 
     void Update()
@@ -80,11 +82,11 @@ public class DayNightCycle : MonoBehaviour
         {
             time -= 1f;
             dayCount++;
-            GameManager.instance.stamina.RecoverStamina(10); // ��鹿� stamina 5 ˹���
-            Debug.Log("Stamina recovered by 10 points.");
+            GameManager.instance.stamina.RecoverStamina(10); // ��鹿� stamina 5 
             GameManager.instance.tileManager.CheckPlantGrowth();
             GameManager.instance.tileManager.CheckTreeGrowth();
             GameManager.instance.OnNewDay();
+            GameManager.instance.tickmanager.UpdatecurrentTick();
             if (dayCount > 30) // Assuming each month has 30 days
             {
                 dayCount = 1;
