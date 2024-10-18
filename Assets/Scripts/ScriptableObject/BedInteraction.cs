@@ -6,11 +6,29 @@ public class BedInteraction : MonoBehaviour
 {
     private bool isNearBed = false;
     private DayNightCycle dayNightCycle; // อ้างถึงสคริปต์ DayNightCycle
+    private Movement movement;
 
     void Start()
     {
         // ค้นหา DayNightCycle ในฉาก
         dayNightCycle = FindObjectOfType<DayNightCycle>();
+
+        // ตรวจสอบว่าหา DayNightCycle เจอหรือไม่
+        if (dayNightCycle == null)
+        {
+            Debug.LogError("DayNightCycle script not found in the scene!");
+        }
+    }
+
+    private void Awake()
+    {
+        movement = FindObjectOfType<Movement>();
+
+        // ตรวจสอบว่าหา Movement เจอหรือไม่
+        if (movement == null)
+        {
+            Debug.LogError("Movement script not found on the player!");
+        }
     }
 
     void Update()
@@ -18,8 +36,27 @@ public class BedInteraction : MonoBehaviour
         // ตรวจสอบว่าผู้เล่นอยู่ใกล้เตียงและกดปุ่ม G
         if (isNearBed && Input.GetKeyDown(KeyCode.G))
         {
-            Sleep(); // เรียกฟังก์ชันสำหรับการนอน
+            if (dayNightCycle != null)
+            {
+                Sleep(); // เรียกฟังก์ชันสำหรับการนอน
+                movement.ChangeState(PlayerState.interact); // เปลี่ยนสถานะผู้เล่นเป็น interact เพื่อหยุดขยับ
+
+                StartCoroutine(DelayedInteraction()); // รอจนกว่าจะถึง 6 โมงเช้า
+            }
+            else
+            {
+                Debug.LogError("DayNightCycle is not assigned or found.");
+            }
         }
+    }
+
+    private IEnumerator DelayedInteraction()
+    {
+        // รอจนกว่าจะถึง 6 โมงเช้า
+        yield return new WaitUntil(() => dayNightCycle.GetHours() == 6);
+
+        // เมื่อถึง 6 โมงเช้าแล้ว เปลี่ยนสถานะกลับมาเป็น walk
+        movement.ChangeState(PlayerState.walk);
     }
 
     // เมื่อผู้เล่นเดินชนกับ Collider ของเตียง

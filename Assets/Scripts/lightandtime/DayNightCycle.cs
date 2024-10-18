@@ -22,6 +22,7 @@ public class DayNightCycle : MonoBehaviour
     private int dayCount;
     private int monthCount;
     private int yearCount;
+    private Movement movement;
 
     [SerializeField] private Stamina stamina; // ��ҧ�ԧ��ҹ Inspector
     public TileManager tileManager;
@@ -29,6 +30,7 @@ public class DayNightCycle : MonoBehaviour
     void Start()
     {
         stamina = GetComponent<Stamina>(); // Get Stamina component
+        movement = GetComponent<Movement>();
 
         dayCount = PlayerPrefs.GetInt("DayCount", 1);
         monthCount = PlayerPrefs.GetInt("MonthCount", 1);
