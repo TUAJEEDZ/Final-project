@@ -91,6 +91,8 @@ public class DayNightCycle : MonoBehaviour
             {
                 dayCount = 1;
                 monthCount++;
+                GameManager.instance.tileManager.RemovePlantedTiles();
+
                 if (monthCount > 12)
                 {
                     monthCount = 1;
