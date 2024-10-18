@@ -31,6 +31,18 @@ public class PlayerMoney : MonoBehaviour
         UpdateMoneyUI(); // อัพเดต UI หลังจากเพิ่มเงิน
     }
 
+    // เพิ่มฟังก์ชันนี้
+    public int GetMoney()
+    {
+        return currentMoney; // คืนค่าจำนวนเงินปัจจุบัน
+    }
+
+    // เพิ่มฟังก์ชันนี้
+    public void RemoveMoney(int amount)
+    {
+        SpendMoney(amount); // เรียกใช้ฟังก์ชัน SpendMoney
+    }
+
     private void UpdateMoneyUI()
     {
         if (moneyText != null)

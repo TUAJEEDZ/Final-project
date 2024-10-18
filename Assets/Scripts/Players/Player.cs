@@ -25,7 +25,9 @@ public class Player : MonoBehaviour
         tileManager = GameManager.instance.tileManager;
         inventoryManager.Add("Toolbar", "Axe");
         inventoryManager.Add("Toolbar", "Hoe");
-        inventoryManager.Add("Toolbar", "Wheat Seed");
+        inventoryManager.Add("Toolbar", "Carrot");
+        inventoryManager.Add("Toolbar", "Carrot");
+        inventoryManager.Add("Toolbar", "Carrot");
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()

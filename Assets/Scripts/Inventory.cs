@@ -34,7 +34,7 @@ public class Inventory
             }
         }
 
-        public bool CanAddItem(string itemName)  //check player item quantity to not exceed maxallowed
+        public bool CanAddItem(string itemName)  // ตรวจสอบจำนวนของไอเท็มไม่ให้เกินจำนวนสูงสุด
         {
             if(this.itemName == itemName && count < maxAllowed)
             {
@@ -59,9 +59,9 @@ public class Inventory
             this.maxAllowed = maxAllowed;
         }
 
-        public void RemoveItem() // remove item form inventory by 1, if item equal 0 change icon to null and item name to empty.
+        public void RemoveItem() // ลบไอเท็มจาก inventory ทีละ 1, หากเหลือ 0 จะล้างค่าไอเท็ม
         {
-            if(count >0 )
+            if(count > 0)
             {
                 count--;
                 if(count == 0)
@@ -105,12 +105,25 @@ public class Inventory
             }
         }
     }
+
+    public Slot GetItemSlotByName(string itemName)
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.itemName == itemName && slot.count > 0)
+            {
+                return slot;
+            }
+        }
+        return null; // คืนค่า null หากไม่มีไอเท็มนี้ใน inventory
+    }
+
     public void Remove(int index)
     {
         slots[index].RemoveItem();
     }
 
-    public void Remove(int index, int numToRemove) //loop for slot quantity
+    public void Remove(int index, int numToRemove)
     {
         if (slots[index].count >= numToRemove)
         {
@@ -120,6 +133,7 @@ public class Inventory
             }
         }
     }
+
     public void MoveSlot(int fromIndex, int toIndex, Inventory toInventory, int numToMove = 1)
     {
         Slot fromSlot = slots[fromIndex];
