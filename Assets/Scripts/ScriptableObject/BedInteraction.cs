@@ -1,22 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // เพื่อใช้กับ Image ใน Canvas
 
 public class BedInteraction : MonoBehaviour
 {
     private bool isNearBed = false;
-    private DayNightCycle dayNightCycle; // อ้างถึงสคริปต์ DayNightCycle
+    private DayNightCycle dayNightCycle;
     private Movement movement;
+    public Image fadeImage; // Image ที่จะใช้สำหรับเฟด
+    public Text interactionText; // UI Text for interaction
+    public Image interactionImage; // UI Image for interaction
+    private bool playerInTrigger = false;
 
     void Start()
     {
         // ค้นหา DayNightCycle ในฉาก
         dayNightCycle = FindObjectOfType<DayNightCycle>();
 
-        // ตรวจสอบว่าหา DayNightCycle เจอหรือไม่
-        if (dayNightCycle == null)
+        if (interactionText != null)
         {
-            Debug.LogError("DayNightCycle script not found in the scene!");
+            interactionText.gameObject.SetActive(false);
+        }
+        if (interactionImage != null)
+        {
+            interactionImage.gameObject.SetActive(false);
         }
     }
 
@@ -24,85 +32,128 @@ public class BedInteraction : MonoBehaviour
     {
         movement = FindObjectOfType<Movement>();
 
-        // ตรวจสอบว่าหา Movement เจอหรือไม่
         if (movement == null)
         {
-            Debug.LogError("Movement script not found on the player!");
+            Debug.LogError("Movement script not found on the player or in the scene!");
+        }
+
+        if (fadeImage == null)
+        {
+            Debug.LogError("Fade Image not assigned!");
         }
     }
 
     void Update()
     {
-        // ตรวจสอบว่าผู้เล่นอยู่ใกล้เตียงและกดปุ่ม G
-        if (isNearBed && Input.GetKeyDown(KeyCode.G))
+        if (isNearBed && Input.GetKeyDown(KeyCode.E))
         {
-            if (dayNightCycle != null)
+            if (dayNightCycle != null && movement != null)
             {
-                Sleep(); // เรียกฟังก์ชันสำหรับการนอน
-                movement.ChangeState(PlayerState.interact); // เปลี่ยนสถานะผู้เล่นเป็น interact เพื่อหยุดขยับ
-
-                StartCoroutine(DelayedInteraction()); // รอจนกว่าจะถึง 6 โมงเช้า
-            }
-            else
-            {
-                Debug.LogError("DayNightCycle is not assigned or found.");
+                movement.ChangeState(PlayerState.interact); // หยุดผู้เล่นขยับ
+                StartCoroutine(FadeAndSleep()); // เรียกใช้ Coroutine สำหรับเฟดและเร่งเวลา
             }
         }
     }
 
-    private IEnumerator DelayedInteraction()
+    private IEnumerator FadeAndSleep()
     {
-        // รอจนกว่าจะถึง 6 โมงเช้า
-        yield return new WaitUntil(() => dayNightCycle.GetHours() == 6);
+        // เฟดจอเป็นสีดำ
+        yield return StartCoroutine(FadeToBlack());
 
-        // เมื่อถึง 6 โมงเช้าแล้ว เปลี่ยนสถานะกลับมาเป็น walk
+        // เร่งเวลาขณะนอนหลับ
+        yield return StartCoroutine(SpeedUpTime());
+
+        // เฟดกลับไปเป็นภาพเดิม
+        yield return StartCoroutine(FadeToClear());
+
+        // เมื่อถึงเวลา 6 โมงเช้าแล้ว ผู้เล่นจะสามารถขยับได้อีกครั้ง
         movement.ChangeState(PlayerState.walk);
     }
 
-    // เมื่อผู้เล่นเดินชนกับ Collider ของเตียง
+    private IEnumerator FadeToBlack()
+    {
+        float fadeDuration = 2f; // ระยะเวลาในการเฟดเป็นสีดำ
+        Color fadeColor = fadeImage.color;
+
+        for (float t = 0; t <= fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            fadeColor.a = Mathf.Lerp(0, 1, normalizedTime); // เพิ่ม alpha จาก 0 ถึง 1
+            fadeImage.color = fadeColor;
+            yield return null;
+        }
+
+        fadeColor.a = 1;
+        fadeImage.color = fadeColor; // ทำให้มั่นใจว่า alpha เป็น 1
+    }
+
+    private IEnumerator FadeToClear()
+    {
+        float fadeDuration = 2f; // ระยะเวลาในการเฟดกลับมาเป็นภาพปกติ
+        Color fadeColor = fadeImage.color;
+
+        for (float t = 0; t <= fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            fadeColor.a = Mathf.Lerp(1, 0, normalizedTime); // ลด alpha จาก 1 เป็น 0
+            fadeImage.color = fadeColor;
+            yield return null;
+        }
+
+        fadeColor.a = 0;
+        fadeImage.color = fadeColor; // ทำให้มั่นใจว่า alpha เป็น 0
+    }
+
+    private IEnumerator SpeedUpTime()
+    {
+        float originalDayDuration = dayNightCycle.dayDuration;
+        dayNightCycle.dayDuration = 5f; // เร่งเวลาให้เร็วกว่าปกติ
+
+        // รอจนกว่าเวลาจะถึง 6:00 AM
+        yield return new WaitUntil(() => dayNightCycle.GetHours() == 6);
+
+        dayNightCycle.dayDuration = originalDayDuration;
+        Debug.Log("It's 6:00 AM. Player woke up.");
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            isNearBed = true; // ผู้เล่นชนเตียง
-            Debug.Log("Player is near the bed. Press 'G' to sleep.");
+            isNearBed = true;
+            Debug.Log("Player is near the bed. Press 'E' to sleep.");
+        }
+        playerInTrigger = true;
+
+        // Show interaction UI when player is near
+        if (interactionText != null)
+        {
+            interactionText.gameObject.SetActive(true);
+        }
+        if (interactionImage != null)
+        {
+            interactionImage.gameObject.SetActive(true);
         }
     }
 
-    // เมื่อผู้เล่นเดินออกจากพื้นที่ Collider ของเตียง
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            isNearBed = false; // ผู้เล่นออกจากพื้นที่เตียง
+            isNearBed = false;
         }
-    }
 
-    // ฟังก์ชันเมื่อผู้เล่นนอน
-    void Sleep()
-    {
-        Debug.Log("Player is sleeping...");
-        // เร่งเวลาในเกมเมื่อผู้เล่นนอน
-        if (dayNightCycle != null)
+        playerInTrigger = false;
+
+        // Hide interaction UI when player leaves
+        if (interactionText != null)
         {
-            StartCoroutine(SpeedUpTime());
+            interactionText.gameObject.SetActive(false);
         }
-    }
-
-    // Coroutine สำหรับการเร่งเวลา
-    IEnumerator SpeedUpTime()
-    {
-        float originalDayDuration = dayNightCycle.dayDuration; // เก็บค่าเวลาปกติ
-
-        // เร่งการเดินของเวลา
-        dayNightCycle.dayDuration = 5f; // ลดระยะเวลาของ 1 วันลงเพื่อให้เวลาผ่านไปเร็วขึ้น
-
-        // รอจนกว่าเวลาจะถึง 6:00 AM โดยไม่ข้ามไปวันใหม่
-        yield return new WaitUntil(() => dayNightCycle.GetHours() == 6);
-
-        // คืนค่าระยะเวลาของวันกลับสู่ปกติ
-        dayNightCycle.dayDuration = originalDayDuration;
-
-        Debug.Log("It's 6:00 AM. Player woke up.");
+        if (interactionImage != null)
+        {
+            interactionImage.gameObject.SetActive(false);
+        }
     }
 }
+

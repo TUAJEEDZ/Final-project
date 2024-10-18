@@ -94,6 +94,10 @@ public class DoorController : MonoBehaviour
                     GameManager.instance.mapManager.SetFarmOn(true);
                     GameManager.instance.tickmanager.currentTick = 0;
                 }
+                else if (currentSceneName == "NPC home1")
+                {
+                    GameManager.instance.mapManager.SetFarmOn(true);
+                }
 
                 // Update the last used tick for the door
                 PlayerPrefs.SetInt("LastUsedTick", GameManager.instance.tickmanager.GetCurrentTick());
