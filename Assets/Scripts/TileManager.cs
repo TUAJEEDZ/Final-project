@@ -351,4 +351,22 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    public void RemovePlantedTiles()
+    {
+        // Loop through all positions within the bounds of the treeMap
+        foreach (var position in treeMap.cellBounds.allPositionsWithin)
+        {
+            // Check if the tile at this position is part of plantedTiles
+            if (plantedTiles.ContainsKey(position))
+            {
+                // Set the tile in plantMap to null
+                plantMap.SetTile(position, null);
+
+                // Optionally, remove the entry from the plantedTiles dictionary if no longer needed
+                plantedTiles.Remove(position);
+
+                Debug.Log("Planted tile removed at: " + position);
+            }
+        }
+    }
 }
