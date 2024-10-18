@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     public DayNightCycle dayNightCycle;
     public SceneTransitionManager sceneTransitionManager; // Reference to SceneTransitionManager
     public Stamina stamina;
-    public DungeonManager dungeonManager; // เพิ่ม DungeonManager
-    public Tickmanager tickmanager; // เพิ่ม DungeonManager
+    public DungeonManager dungeonManager; // ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ DungeonManager
+    public Tickmanager tickmanager; // ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ DungeonManager
 
 
     private void Awake()
@@ -69,15 +69,15 @@ public class GameManager : MonoBehaviour
         string currentSceneName = scene.name;
         Debug.Log("Current Scene: " + currentSceneName);
 
-        dungeonManager.SpawnItems(); // ตรวจสอบให้แน่ใจว่าวิธีนี้ทำการสร้างของทันที
+        dungeonManager.SpawnItems(); // ๏ฟฝ๏ฟฝวจ๏ฟฝอบ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิธีน๏ฟฝ๏ฟฝำก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาง๏ฟฝอง๏ฟฝัน๏ฟฝ๏ฟฝ
 
     }
 
 
     public void OnNewDay()
     {
-        // ลอจิกที่ควรเกิดขึ้นเมื่อวันใหม่เริ่มต้น
-        Debug.Log("เริ่มต้นวันใหม่แล้ว");
-        // ตัวอย่าง: ฟื้นฟูค่าพลัง, อัปเดต UI เป็นต้น
+        // ๏ฟฝอจิก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
+        Debug.Log("๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝัน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ");
+        // ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาง: ๏ฟฝ๏ฟฝ้นฟูค๏ฟฝาพ๏ฟฝัง, ๏ฟฝัปเดต UI ๏ฟฝ็นต๏ฟฝ
     }
 }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public Transform DropParent;
 
+    private PlayerAttack playerAttack;
     private Stamina stamina;
     private Animator animator;
     private Movement movement;
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
         havestDrop = GetComponent<HavestDrop>();
         inventoryManager = GetComponent<InventoryManager>();
         movement = GetComponent<Movement>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
@@ -52,361 +54,337 @@ public class Player : MonoBehaviour
 
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        if (Input.GetKeyDown(KeyCode.E)) // set keybind
+        if (!GameManager.instance.uiManager.inventoryPanel.activeSelf)
         {
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Hoe")
+            if (Time.time >= playerAttack.lastAttackTime + playerAttack.attackCooldown)
             {
-                if (GameManager.instance.stamina.CurrentStamina >= 3)
-                { 
-                    movement.ChangeState(PlayerState.interact);
-                    animator.SetTrigger("isPlowing");
-                    GameManager.instance.stamina.UseStamina(3);
-
-                    if (tileManager != null && direction != Vector2.zero)
+                if (Input.GetButtonDown("Fire1")) // set keybind
+                {
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Hoe")
                     {
-                        // Calculate the position in front of the player based on the direction
+                        if (GameManager.instance.stamina.CurrentStamina >= 3)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isPlowing");
+                            GameManager.instance.stamina.UseStamina(3);
+                            playerAttack.ActionCoolDown();
+                            if (tileManager != null && direction != Vector2.zero)
+                            {
+                                // Calculate the position in front of the player based on the direction
+                                Vector3Int position = new Vector3Int(
+                                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                    0
+                                );
+                                StartCoroutine(DelayedInteraction(position));
+                                IEnumerator DelayedInteraction(Vector3Int position)
+                                {
+                                    yield return new WaitForSeconds(0.4f);
+                                    movement.ChangeState(PlayerState.walk);
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Interactable")
+                                        {
+                                            tileManager.SetInteracted(position);
+                                        }
+                                        else if (tileManager.IsPlantableTile(tileName))
+                                        {
+                                            tileManager.SetFill(position);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Watering Can")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 3)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isWatering");
+                            GameManager.instance.stamina.UseStamina(3);
+                            playerAttack.ActionCoolDown();
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
+                            {
+                                yield return new WaitForSeconds(0.5f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
+                                {
+
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Summer_Plowed")
+                                        {
+                                            tileManager.SetWatered(position);
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                    {
+                        if (tileManager != null && direction != Vector2.zero)
+                        {
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+
+                            string tileName = tileManager.GetTileName(position);
+
+                            if (tileManager.IsPlantableTile(tileName))
+                            {
+                                string PlantName = tileManager.GetTileNamePlant(position);
+
+                                if (string.IsNullOrWhiteSpace(PlantName))
+                                {
+                                    // Plant the wheat at the calculated position
+                                    tileManager.SetPlantWheat(position);
+
+                                    // Check and remove the Wheat Seed from the selected slot
+                                    if (inventoryManager.toolbar.selectedSlot != null &&
+                                        inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                                    {
+                                        inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                        // Refresh the UI to reflect the changes
+                                        GameManager.instance.uiManager.RefreshAll();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Optionally, you can add feedback to the player that the tile is not plantable
+                                Debug.Log("Cannot plant on this tile.");
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+                    {
+                        if (tileManager != null && direction != Vector2.zero)
+                        {
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+
+                            string tileName = tileManager.GetTileName(position);
+
+                            if (tileManager.IsPlantableTile(tileName))
+                            {
+                                string PlantName = tileManager.GetTileNamePlant(position);
+
+                                if (string.IsNullOrWhiteSpace(PlantName))
+                                {
+                                    // Plant the wheat at the calculated position
+                                    tileManager.SetPlantTomato(position);
+
+                                    // Check and remove the Wheat Seed from the selected slot
+                                    if (inventoryManager.toolbar.selectedSlot != null &&
+                                        inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
+                                    {
+                                        inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                        // Refresh the UI to reflect the changes
+                                        GameManager.instance.uiManager.RefreshAll();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Optionally, you can add feedback to the player that the tile is not plantable
+                                Debug.Log("Cannot plant on this tile.");
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
+                    {
+                        if (tileManager != null && direction != Vector2.zero)
+                        {
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+
+                            string tileName = tileManager.GetTileName(position);
+
+                            if (tileManager.IsPlantableTile(tileName))
+                            {
+                                string isfertilized = tileManager.GetTileNamefertilized(position);
+
+                                if (isfertilized != "fertilizer")
+                                { // Plant the wheat at the calculated position
+                                    tileManager.Setfertilized(position);
+
+                                    // Check and remove the Wheat Seed from the selected slot
+                                    if (inventoryManager.toolbar.selectedSlot != null &&
+                                        inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
+                                    {
+                                        inventoryManager.toolbar.selectedSlot.RemoveItem();
+
+                                        // Refresh the UI to reflect the changes
+                                        GameManager.instance.uiManager.RefreshAll();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Optionally, you can add feedback to the player that the tile is not plantable
+                                Debug.Log("Cannot fertilize on this tile.");
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Sickle")
+                    {
+                        movement.ChangeState(PlayerState.interact);
+                        animator.SetTrigger("isHarvesting");
+                        playerAttack.ActionCoolDown();
+
                         Vector3Int position = new Vector3Int(
-                            Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                            Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                            0
-                        );
+                               Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                               Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                               0
+                           );
                         StartCoroutine(DelayedInteraction(position));
+
                         IEnumerator DelayedInteraction(Vector3Int position)
                         {
                             yield return new WaitForSeconds(0.4f);
                             movement.ChangeState(PlayerState.walk);
-                            string tileName = tileManager.GetTileName(position);
-
-                            if (!string.IsNullOrWhiteSpace(tileName))
+                            if (tileManager != null && direction != Vector2.zero)
                             {
-                                if (tileName == "Interactable")
+
+                                string tileName = tileManager.GetTileNamePlant(position);
+
+                                if (!string.IsNullOrWhiteSpace(tileName))
                                 {
-                                    tileManager.SetInteracted(position);
-                                }
-                                else if (tileManager.IsPlantableTile(tileName))
-                                {
-                                    tileManager.SetFill(position);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-/*
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Pickaxe")
-            {
-                movement.ChangeState(PlayerState.interact);
-                animator.SetTrigger("isMining");
-                if (tileManager != null && direction != Vector2.zero)
-                {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-                    StartCoroutine(DelayedInteraction(position));
-                    IEnumerator DelayedInteraction(Vector3Int position)
-                    {
-                        yield return new WaitForSeconds(0.4f);
-                        movement.ChangeState(PlayerState.walk);
-                        string tileName = tileManager.GetTileName(position);
 
-                        if (!string.IsNullOrWhiteSpace(tileName))
-                        {
-                            if (tileName == "Interactable")
-                            {
-                                tileManager.SetInteracted(position);
-                            }
-                            else if (tileManager.IsPlantableTile(tileName))
-                            {
-                                tileManager.SetFill(position);
-                            }
-                        }
-                    }
-                }
-            }
-*/
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Watering Can")
-            {
-                if (GameManager.instance.stamina.CurrentStamina >= 3)
-                {
-                    movement.ChangeState(PlayerState.interact);
-                    animator.SetTrigger("isWatering");
-                    GameManager.instance.stamina.UseStamina(3);
+                                    if (tileName == "wheat_plant4")
+                                    {
+                                        tileManager.SetHarvested(position);
+                                        // Pass the direction to DropItem
+                                        //havestDrop.DropItem();
+                                        // Spawn the item after harvesting
 
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-                    StartCoroutine(DelayedInteraction(position));
-                    IEnumerator DelayedInteraction(Vector3Int position)
-                    {
-                        yield return new WaitForSeconds(0.5f);
-                        movement.ChangeState(PlayerState.walk);
-                        if (tileManager != null && direction != Vector2.zero)
-                        {
+                                        DropItem("Wheat"); // Call the DropItem method to spawn the item
 
-                            string tileName = tileManager.GetTileName(position);
+                                    }
+                                    else if (tileName == "tomato4")
+                                    {
+                                        tileManager.SetPickup(position);
+                                        // Pass the direction to DropItem
+                                        //havestDrop.DropItem();
+                                        // Spawn the item after harvesting
 
-                            if (!string.IsNullOrWhiteSpace(tileName))
-                            {
-                                if (tileName == "Summer_Plowed")
-                                {
-                                    tileManager.SetWatered(position);
+                                        DropItem("Tomato"); // Call the DropItem method to spawn the item
+
+                                    }
                                 }
                             }
-
                         }
                     }
-                }
-            }
-
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
-            {
-                if (tileManager != null && direction != Vector2.zero)
-                {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-
-                    string tileName = tileManager.GetTileName(position);
-
-                    if (tileManager.IsPlantableTile(tileName))
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Axe")
                     {
-                        string PlantName = tileManager.GetTileNamePlant(position);
-
-                        if(string.IsNullOrWhiteSpace(PlantName))
+                        if (GameManager.instance.stamina.CurrentStamina >= 3)
                         {
-                            // Plant the wheat at the calculated position
-                            tileManager.SetPlantWheat(position);
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isCutting");
+                            GameManager.instance.stamina.UseStamina(3);
+                            playerAttack.ActionCoolDown();
 
-                            // Check and remove the Wheat Seed from the selected slot
-                            if (inventoryManager.toolbar.selectedSlot != null &&
-                                inventoryManager.toolbar.selectedSlot.itemName == "Wheat Seed")
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
                             {
-                                inventoryManager.toolbar.selectedSlot.RemoveItem();
-
-                                // Refresh the UI to reflect the changes
-                                GameManager.instance.uiManager.RefreshAll();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Optionally, you can add feedback to the player that the tile is not plantable
-                        Debug.Log("Cannot plant on this tile.");
-                    }
-                }
-            }
-
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
-            {
-                if (tileManager != null && direction != Vector2.zero)
-                {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-
-                    string tileName = tileManager.GetTileName(position);
-
-                    if (tileManager.IsPlantableTile(tileName))
-                    {
-                        string PlantName = tileManager.GetTileNamePlant(position);
-
-                        if (string.IsNullOrWhiteSpace(PlantName))
-                        {
-                            // Plant the wheat at the calculated position
-                            tileManager.SetPlantTomato(position);
-
-                            // Check and remove the Wheat Seed from the selected slot
-                            if (inventoryManager.toolbar.selectedSlot != null &&
-                                inventoryManager.toolbar.selectedSlot.itemName == "Tomato Seed")
-                            {
-                                inventoryManager.toolbar.selectedSlot.RemoveItem();
-
-                                // Refresh the UI to reflect the changes
-                                GameManager.instance.uiManager.RefreshAll();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Optionally, you can add feedback to the player that the tile is not plantable
-                        Debug.Log("Cannot plant on this tile.");
-                    }
-                }
-            }
-
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
-            {
-                if (tileManager != null && direction != Vector2.zero)
-                {
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-
-                    string tileName = tileManager.GetTileName(position);
-
-                    if (tileManager.IsPlantableTile(tileName))
-                    {
-                        string isfertilized = tileManager.GetTileNamefertilized(position);
-
-                        if (isfertilized != "fertilizer")
-                        { // Plant the wheat at the calculated position
-                            tileManager.Setfertilized(position);
-
-                            // Check and remove the Wheat Seed from the selected slot
-                            if (inventoryManager.toolbar.selectedSlot != null &&
-                                inventoryManager.toolbar.selectedSlot.itemName == "Fertilizer")
-                            {
-                                inventoryManager.toolbar.selectedSlot.RemoveItem();
-
-                                // Refresh the UI to reflect the changes
-                                GameManager.instance.uiManager.RefreshAll();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Optionally, you can add feedback to the player that the tile is not plantable
-                        Debug.Log("Cannot fertilize on this tile.");
-                    }
-                }
-            }
-
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Sickle")
-            {
-                movement.ChangeState(PlayerState.interact);
-                animator.SetTrigger("isHarvesting");
-
-
-                Vector3Int position = new Vector3Int(
-                       Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                       Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                       0
-                   );
-                StartCoroutine(DelayedInteraction(position));
-
-                IEnumerator DelayedInteraction(Vector3Int position)
-                {
-                    yield return new WaitForSeconds(0.4f);
-                    movement.ChangeState(PlayerState.walk);
-                    if (tileManager != null && direction != Vector2.zero)
-                    {
-
-                        string tileName = tileManager.GetTileNamePlant(position);
-
-                        if (!string.IsNullOrWhiteSpace(tileName))
-                        {
-
-                            if (tileName == "wheat_plant4")
-                            {
-                                tileManager.SetHarvested(position);
-                                // Pass the direction to DropItem
-                                //havestDrop.DropItem();
-                                // Spawn the item after harvesting
-
-                                DropItem("Wheat"); // Call the DropItem method to spawn the item
-
-                            }
-                            else if (tileName == "tomato4")
-                            {
-                                tileManager.SetPickup(position);
-                                // Pass the direction to DropItem
-                                //havestDrop.DropItem();
-                                // Spawn the item after harvesting
-
-                                DropItem("Tomato"); // Call the DropItem method to spawn the item
-
-                            }
-                        }
-                    }
-                }
-            }
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Axe")
-            {
-                if (GameManager.instance.stamina.CurrentStamina >= 3)
-                {
-                    movement.ChangeState(PlayerState.interact);
-                    animator.SetTrigger("isCutting");
-                    GameManager.instance.stamina.UseStamina(3); 
-                        // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-                    StartCoroutine(DelayedInteraction(position));
-                    IEnumerator DelayedInteraction(Vector3Int position)
-                    {
-                        yield return new WaitForSeconds(0.4f);
-                        movement.ChangeState(PlayerState.walk);
-                        if (tileManager != null && direction != Vector2.zero)
-                        {
-
-                            string tileName = tileManager.GetTileNameTree(position);
-
-                            if (!string.IsNullOrWhiteSpace(tileName))
-                            {
-                                if (tileName == "cutabletree1")
+                                yield return new WaitForSeconds(0.4f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
                                 {
-                                    tileManager.DamageTree(position);
-                                    //inventoryManager.Add("Backpack", "Wood");
-                                    DropItem("Wood", 1);
+
+                                    string tileName = tileManager.GetTileNameTree(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "cutabletree1")
+                                        {
+                                            tileManager.DamageTree(position);
+                                            //inventoryManager.Add("Backpack", "Wood");
+                                            DropItem("Wood", 1);
+                                        }
+                                    }
+
                                 }
                             }
-
                         }
                     }
-                }
-            }
-            if (inventoryManager.toolbar.selectedSlot.itemName == "Copper Axe")
-            {
-                if (GameManager.instance.stamina.CurrentStamina >= 2) 
-                {   
-                    movement.ChangeState(PlayerState.interact);
-                    animator.SetTrigger("isCutting");
-                    GameManager.instance.stamina.UseStamina(2);
-                    // Calculate the position in front of the player based on the direction
-                    Vector3Int position = new Vector3Int(
-                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
-                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
-                        0
-                    );
-                    StartCoroutine(DelayedInteraction(position));
-                    IEnumerator DelayedInteraction(Vector3Int position)
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Copper Axe")
                     {
-                        yield return new WaitForSeconds(0.4f);
-                        movement.ChangeState(PlayerState.walk);
-                        if (tileManager != null && direction != Vector2.zero)
+                        if (GameManager.instance.stamina.CurrentStamina >= 2)
                         {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isCutting");
+                            GameManager.instance.stamina.UseStamina(2);
+                            playerAttack.ActionCoolDown();
 
-                            string tileName = tileManager.GetTileNameTree(position);
-
-                            if (!string.IsNullOrWhiteSpace(tileName))
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
                             {
-                                if (tileName == "cutabletree1")
+                                yield return new WaitForSeconds(0.4f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
                                 {
-                                    tileManager.DamageTree(position);
-                                    tileManager.DamageTree(position);
-                                    /*inventoryManager.Add("Backpack", "Wood");
-                                    inventoryManager.Add("Backpack", "Wood");*/
-                                    DropItem("Wood", 2);
+
+                                    string tileName = tileManager.GetTileNameTree(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "cutabletree1")
+                                        {
+                                            tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
+                                            /*inventoryManager.Add("Backpack", "Wood");
+                                            inventoryManager.Add("Backpack", "Wood");*/
+                                            DropItem("Wood", 2);
+                                        }
+                                    }
+
                                 }
                             }
-
                         }
                     }
                 }

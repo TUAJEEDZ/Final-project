@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private Vector2 attackDirection; // Attack direction
     private DamageSword equippedSword; // Reference to equipped sword
     private Pickaxedamage equippedPickaxe; // Reference to equipped pickaxe
-    private float lastAttackTime = 0f; // Time of the last attack
+    public float lastAttackTime = 0f; // Time of the last attack
     private Movement movement;
     private Stamina stamina; // Reference to stamina system
 
@@ -50,19 +50,19 @@ public class PlayerAttack : MonoBehaviour
 
                         if (equippedSword != null)
                         {
-                            AttackWithSword(); // äÁèµéÍ§ãªé stamina ÊÓËÃÑº´Òº
+                            AttackWithSword(); // ï¿½ï¿½ï¿½ï¿½Í§ï¿½ï¿½ stamina ï¿½ï¿½ï¿½ï¿½Ñºï¿½Òº
                         }
                         else if (equippedPickaxe != null)
                         {
                             if (GameManager.instance.stamina.CurrentStamina >= equippedPickaxe.Stamina)
-                            // µÃÇ¨ÊÍº stamina ÊÓËÃÑº pickaxe à·èÒ¹Ñé¹
+                            // ï¿½ï¿½Ç¨ï¿½Íº stamina ï¿½ï¿½ï¿½ï¿½Ñº pickaxe ï¿½ï¿½Ò¹ï¿½ï¿½
                             {
-                                AttackWithPickaxe(); // ãªé pickaxe
-                                GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina); // ãªé stamina ÊÓËÃÑº pickaxe
+                                AttackWithPickaxe(); // ï¿½ï¿½ pickaxe
+                                GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina); // ï¿½ï¿½ stamina ï¿½ï¿½ï¿½ï¿½Ñº pickaxe
                             }
                             else
                             {
-                                Debug.Log("Stamina äÁè¾Í!");
+                                Debug.Log("Stamina ï¿½ï¿½ï¿½ï¿½!");
                             }
                         }
                     }
@@ -89,6 +89,11 @@ public class PlayerAttack : MonoBehaviour
         lastAttackTime = Time.time;
 
         StartCoroutine(DelayedInteraction());
+    }
+
+    public void ActionCoolDown()
+    {
+        lastAttackTime = Time.time;
     }
 
     private IEnumerator DelayedInteraction()
