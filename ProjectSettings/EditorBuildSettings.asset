@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Homeplayer.unity
     guid: 6595abf2f86198641979ce9022b8f217
+  - enabled: 1
+    path: Assets/Scenes/NPCShopSwod.unity
+    guid: e576165c34b98724d8ea9f6e0874be99
   m_configObjects: {}

@@ -8485,7 +8485,7 @@ MonoBehaviour:
   sceneBuildIndex: 5
   interactionText: {fileID: 0}
   interactionImage: {fileID: 0}
-  doorExitPosition: {x: 4.5, y: 5.2, z: 0}
+  doorExitPosition: {x: 79, y: 18, z: 0}
 --- !u!61 &1636288480
 BoxCollider2D:
   m_ObjectHideFlags: 0
