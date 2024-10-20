@@ -85,7 +85,7 @@ public class DoorController : MonoBehaviour
 
                 // Handle farm state based on the current scene
                 string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
-                if (currentSceneName == "testmix")
+                if (currentSceneName == "main")
                 {
                     GameManager.instance.mapManager.SetFarmOn(false);
                 }
