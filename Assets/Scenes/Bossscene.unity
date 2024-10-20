@@ -12937,7 +12937,7 @@ MonoBehaviour:
   sceneBuildIndex: 0
   interactionText: {fileID: 0}
   interactionImage: {fileID: 0}
-  doorExitPosition: {x: 0, y: 2, z: 0}
+  doorExitPosition: {x: 0, y: 0, z: 0}
   waitTicks: 0
 --- !u!61 &899585664
 BoxCollider2D:
@@ -12971,7 +12971,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.26101625, y: -0.4322996}
+  m_Offset: {x: -0.26101625, y: -6.8322744}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -12982,7 +12982,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2247334, y: 0.22365952}
+  m_Size: {x: 2.2247334, y: 0.86047363}
   m_EdgeRadius: 0
 --- !u!483693784 &899585665
 TilemapRenderer:
