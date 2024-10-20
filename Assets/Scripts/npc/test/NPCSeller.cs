@@ -18,6 +18,8 @@ public class NPCSeller : MonoBehaviour
     public InputField quantityInput;
     public Image itemIcon;
 
+    private bool isPlayerNearby = false; // เช็คว่าผู้เล่นอยู่ใกล้ NPC หรือไม่
+
     void Start()
     {
         playerMoney = FindObjectOfType<PlayerMoney>();
@@ -32,7 +34,7 @@ public class NPCSeller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
             OpenSellUI();
         }
@@ -53,7 +55,6 @@ public class NPCSeller : MonoBehaviour
 
     public void CloseSellUI()
     {
-        // ปิด UI
         sellUI.SetActive(false);
     }
 
@@ -171,5 +172,26 @@ public class NPCSeller : MonoBehaviour
             currentQuantity--;
         }
         quantityInput.text = currentQuantity.ToString();
+    }
+
+    // ฟังก์ชันที่เรียกเมื่อผู้เล่นเข้ามาใกล้ NPC
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = true;
+            Debug.Log("ผู้เล่นอยู่ใกล้ NPC");
+        }
+    }
+
+    // ฟังก์ชันที่เรียกเมื่อผู้เล่นออกห่างจาก NPC
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = false;
+            sellUI.SetActive(false); // ปิด UI เมื่อผู้เล่นออกห่าง
+            Debug.Log("ผู้เล่นออกห่างจาก NPC");
+        }
     }
 }
