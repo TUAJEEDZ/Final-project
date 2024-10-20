@@ -98,6 +98,10 @@ public class DoorController : MonoBehaviour
                 {
                     GameManager.instance.mapManager.SetFarmOn(true);
                 }
+                else if (currentSceneName == "Bossscene")
+                {
+                    GameManager.instance.mapManager.SetFarmOn(true);
+                }
 
                 // Update the last used tick for the door
                 PlayerPrefs.SetInt("LastUsedTick", GameManager.instance.tickmanager.GetCurrentTick());
