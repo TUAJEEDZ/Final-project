@@ -49,12 +49,18 @@ public class Player : MonoBehaviour
     private void Update()
     {
         // Get the direction the player is facing
+        string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+
         float horizontal = animator.GetFloat("Horizontal");
         float vertical = animator.GetFloat("Vertical");
 
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        if (!GameManager.instance.uiManager.inventoryPanel.activeSelf)
+        if (!GameManager.instance.uiManager.inventoryPanel.activeSelf &&
+             currentSceneName != "Sell" &&
+             currentSceneName != "SeedShop" &&
+             currentSceneName != "ToolsShop" &&
+             currentSceneName != "Homeplayer")
         {
             if (Time.time >= playerAttack.lastAttackTime + playerAttack.attackCooldown)
             {
