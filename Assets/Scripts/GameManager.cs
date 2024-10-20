@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public DungeonManager dungeonManager; // ���� DungeonManager
     public Tickmanager tickmanager; // ���� DungeonManager
 
+    public InventoryManager inventoryManager; // Added InventoryManager reference
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         dayNightCycle = FindObjectOfType<DayNightCycle>();
         dungeonManager = FindObjectOfType<DungeonManager>();
         tickmanager = FindObjectOfType<Tickmanager>();
+        inventoryManager = GetComponent<InventoryManager>(); // Initialize InventoryManager
 
         // Find the Player in the current scene, and ensure it persists
         if (player == null)
@@ -79,5 +81,10 @@ public class GameManager : MonoBehaviour
         // �ͨԡ������Դ���������ѹ�����������
         Debug.Log("��������ѹ��������");
         // ������ҧ: ��鹿٤�Ҿ�ѧ, �ѻവ UI �繵�
+    }
+
+    public InventoryManager GetInventoryManager() // Optional getter method
+    {
+        return inventoryManager;
     }
 }
