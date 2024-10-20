@@ -94,7 +94,7 @@ public class DoorController : MonoBehaviour
                     GameManager.instance.mapManager.SetFarmOn(true);
                     GameManager.instance.tickmanager.currentTick = 0;
                 }
-                else if (currentSceneName == "SeedShop" || currentSceneName == "Sell" || currentSceneName == "ToolsShop")
+                else if (currentSceneName == "SeedShop" || currentSceneName == "Sell" || currentSceneName == "ToolsShop" || currentSceneName == "Homeplayer")
                 {
                     GameManager.instance.mapManager.SetFarmOn(true);
                 }
