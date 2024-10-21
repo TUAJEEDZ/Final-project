@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
 
     public GameObject inventoryPanel;
     public GameObject removePanel;
+    public GameObject chestPanel;
 
     public List<Inventory_UI> inventoryUIs;
 
@@ -20,6 +21,7 @@ public class UI_Manager : MonoBehaviour
     {
         inventoryPanel.SetActive(false);
         removePanel.SetActive(false);
+        chestPanel.SetActive(false);
         Initialize();
     }
 
@@ -52,7 +54,26 @@ public class UI_Manager : MonoBehaviour
             }
             else
             {
+                chestPanel.SetActive(false);
                 inventoryPanel.SetActive(false);
+                removePanel.SetActive(false);
+            }
+        }
+    }
+
+    public void ToggleChestUI()
+    {
+        if (chestPanel != null)
+        {
+            if (!chestPanel.activeSelf)
+            {
+                chestPanel.SetActive(true);
+                removePanel.SetActive(true);
+                RefreshInventoryUI("Chest");
+            }
+            else
+            {
+                chestPanel.SetActive(false);
                 removePanel.SetActive(false);
             }
         }

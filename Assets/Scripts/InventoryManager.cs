@@ -14,15 +14,21 @@ public class InventoryManager : MonoBehaviour
     public Inventory toolbar;
     public int toolbarSlotCount;
 
+    [Header("Chest")]
+    public Inventory chest;
+    public int chestSlotCount;
+
     private ItemManager itemManager;
 
     private void Awake()
     {
         backpack = new Inventory(backpackSlotCount);
         toolbar = new Inventory(toolbarSlotCount);
+        chest = new Inventory(chestSlotCount);
 
         inventoryByName.Add("Backpack", backpack);
         inventoryByName.Add("Toolbar", toolbar);
+        inventoryByName.Add("Chest", chest);
 
         itemManager = FindObjectOfType<ItemManager>(); // Find ItemManager in the scene
 
