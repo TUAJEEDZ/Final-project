@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     public InventoryManager inventoryManager; // Player inventory system
     public float knockbackForce = 5f; // Knockback force for enemies
     public float attackCooldown = 1f; // Cooldown duration between attacks
+    public float actionCooldown = 0.4f;
 
     private Animator animator; // Reference to character's Animator
     private Vector2 attackDirection; // Attack direction

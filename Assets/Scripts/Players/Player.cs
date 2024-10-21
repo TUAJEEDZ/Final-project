@@ -44,12 +44,17 @@ public class Player : MonoBehaviour
         inventoryManager = GetComponent<InventoryManager>();
         movement = GetComponent<Movement>();
         playerAttack = GetComponent<PlayerAttack>();
+
+        // Initialize DropParent at the start
+        UpdateDropParent();
     }
 
     private void Update()
     {
         // Get the direction the player is facing
         string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+        // Update DropParent when scene changes
+        UpdateDropParent();
 
         float horizontal = animator.GetFloat("Horizontal");
         float vertical = animator.GetFloat("Vertical");
@@ -62,7 +67,7 @@ public class Player : MonoBehaviour
              currentSceneName != "ToolsShop" &&
              currentSceneName != "Homeplayer")
         {
-            if (Time.time >= playerAttack.lastAttackTime + playerAttack.attackCooldown)
+            if (Time.time >= playerAttack.lastAttackTime + playerAttack.actionCooldown)
             {
                 if (Input.GetButtonDown("Fire1")) // set keybind
                 {
@@ -398,6 +403,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void UpdateDropParent()
+    {
+        string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+
+        switch (currentSceneName)
+        {
+            case "main":
+                DropParent = GameObject.Find("MapFarm").transform;
+                break;
+            case "Homeplayer":
+                DropParent = GameObject.Find("map").transform;
+                break;
+            case "Seedshop":
+                DropParent = GameObject.Find("map").transform;
+                break;
+            case "Sell":
+                DropParent = GameObject.Find("map").transform;
+                break;
+            case "ToolsShop":
+                DropParent = GameObject.Find("map").transform;
+                break;
+            case "Dungeon":
+                DropParent = GameObject.Find("Dungeonmap").transform;
+                break;
+            case "Bossscene":
+                DropParent = GameObject.Find("Bossmap").transform;
+                break;
+            default:
+                DropParent = null; // Set it to null or a default parent if needed
+                break;
+        }
+
+        if (DropParent == null)
+        {
+            Debug.LogWarning("DropParent could not be found for the current scene.");
+        }
+    }
 
 
     public void DropItem(Item item)
