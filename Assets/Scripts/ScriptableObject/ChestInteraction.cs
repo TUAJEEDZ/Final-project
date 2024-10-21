@@ -34,7 +34,11 @@ public class ChestInteraction : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
+       if (!GameManager.instance.uiManager.chestPanel.activeSelf)
+       { 
+            movement.ChangeState(PlayerState.walk); 
+       }
         if (isNearChest && Input.GetKeyDown(KeyCode.E))
         {
             if (movement != null)
