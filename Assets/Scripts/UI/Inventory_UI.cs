@@ -44,42 +44,47 @@ public class Inventory_UI : MonoBehaviour
 
     public void Remove() // Remove item in inventory UI
     {
-        if (inventory == null)
-        {
-            Debug.LogError("Inventory is null. Cannot remove item.");
-            return;
-        }
-
         if (UI_Manager.draggedSlot == null)
         {
             Debug.LogError("Dragged slot is null. Cannot remove item.");
             return;
         }
 
-        if (UI_Manager.draggedSlot.slotID < 0 || UI_Manager.draggedSlot.slotID >= inventory.slots.Count)
+        // Retrieve the correct inventory from the dragged slot
+        Inventory draggedInventory = UI_Manager.draggedSlot.inventory;
+
+        if (draggedInventory == null)
         {
-            Debug.LogError("Invalid slotID. Cannot remove item.");
+            Debug.LogError("Dragged inventory is null. Cannot remove item.");
             return;
         }
 
+        // Check if the draggedSlot slotID is valid for the dragged inventory
+        if (UI_Manager.draggedSlot.slotID < 0 || UI_Manager.draggedSlot.slotID >= draggedInventory.slots.Count)
+        {
+            Debug.LogError("Invalid slotID for dragged inventory. Cannot remove item.");
+            return;
+        }
+
+        // Get the item to drop based on the draggedSlot's inventory and item
         Item itemToDrop = GameManager.instance.itemManager.GetItemByName(
-            inventory.slots[UI_Manager.draggedSlot.slotID].itemName);
+            draggedInventory.slots[UI_Manager.draggedSlot.slotID].itemName);
 
         if (itemToDrop != null)
         {
             if (UI_Manager.dragSingle)
             {
                 GameManager.instance.player.DropItem(itemToDrop);
-                inventory.Remove(UI_Manager.draggedSlot.slotID);  // Remove 1 in slot
+                draggedInventory.Remove(UI_Manager.draggedSlot.slotID);  // Remove 1 in slot
             }
             else
             {
-                GameManager.instance.player.DropItem(itemToDrop, inventory.slots[UI_Manager.draggedSlot.slotID].count);
-                inventory.Remove(UI_Manager.draggedSlot.slotID,
-                    inventory.slots[UI_Manager.draggedSlot.slotID].count); // Remove all in slot
+                GameManager.instance.player.DropItem(itemToDrop, draggedInventory.slots[UI_Manager.draggedSlot.slotID].count);
+                draggedInventory.Remove(UI_Manager.draggedSlot.slotID, draggedInventory.slots[UI_Manager.draggedSlot.slotID].count); // Remove all in slot
             }
 
-            Refresh();
+            // Refresh only the dragged inventory UI
+            GameManager.instance.uiManager.RefreshInventoryUI(draggedInventory == GameManager.instance.player.inventoryManager.backpack ? "Backpack" : "Toolbar");
         }
         else
         {
@@ -88,6 +93,7 @@ public class Inventory_UI : MonoBehaviour
 
         UI_Manager.draggedSlot = null;
     }
+
 
     public void SlotBeginDrag(Slot_UI slot)
     {
@@ -101,7 +107,7 @@ public class Inventory_UI : MonoBehaviour
     public void SlotDrag()
     {
         MoveToMousePosition(UI_Manager.draggedIcon.gameObject); // Move icon with mouse position
-        Debug.Log("Dragging: " + UI_Manager.draggedSlot.name);   
+        //Debug.Log("Dragging: " + UI_Manager.draggedSlot.name);   
     }
 
     public void SlotEndDrag()

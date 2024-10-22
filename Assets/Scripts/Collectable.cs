@@ -53,6 +53,7 @@ public class Collectable : MonoBehaviour
             {
                 player.inventoryManager.Add("Backpack", item); // Add item to inventory
                 Destroy(gameObject); // Destroy the collectable
+                GameManager.instance.uiManager.RefreshAll();
             }
         }
     }
