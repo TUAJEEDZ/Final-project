@@ -9868,7 +9868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98e0c92238a298478f1d8ca806464c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneBuildIndex: 1
+  sceneBuildIndex: 0
   interactionText: {fileID: 0}
   interactionImage: {fileID: 0}
   doorExitPosition: {x: 117, y: -5.8, z: 0}

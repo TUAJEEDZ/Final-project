@@ -10,7 +10,6 @@ public class DoorController : MonoBehaviour
     public Text interactionText; // UI Text for interaction
     public Image interactionImage; // UI Image for interaction
     private bool playerInTrigger = false;
-
     private MapManager mapManager;
 
     // Position to exit the door
@@ -82,7 +81,6 @@ public class DoorController : MonoBehaviour
 
                 // Load the new scene
                 GameManager.instance.sceneTransitionManager.LoadSceneByIndex(sceneBuildIndex);
-
                 // Handle farm state based on the current scene
                 string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
                 if (currentSceneName == "main")
@@ -95,6 +93,10 @@ public class DoorController : MonoBehaviour
                     GameManager.instance.tickmanager.currentTick = 0;
                 }
                 else if (currentSceneName == "SeedShop" || currentSceneName == "Sell" || currentSceneName == "ToolsShop" || currentSceneName == "Homeplayer")
+                {
+                    GameManager.instance.mapManager.SetFarmOn(true);
+                }
+                else if (currentSceneName == "Bossscene")
                 {
                     GameManager.instance.mapManager.SetFarmOn(true);
                 }
