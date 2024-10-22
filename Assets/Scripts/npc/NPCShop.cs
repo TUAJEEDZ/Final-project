@@ -24,9 +24,9 @@ public class NPCShop : MonoBehaviour
         {
             for (int i = 0; i < totalPrice / itemPrices[shopItems.IndexOf(item)]; i++) // เพิ่มจำนวนไอเท็มในอินเวนทอรี
             {
-                playerInventory?.Add("Toolbar", item.data.itemName);
+                playerInventory?.Add("Backpack", item.data.itemName); // เปลี่ยนเป็น Backpack
             }
-            GameManager.instance?.uiManager?.RefreshInventoryUI("Toolbar");
+            GameManager.instance?.uiManager?.RefreshInventoryUI("Backpack"); // รีเฟรช Backpack แทน Toolbar
             playerMoney.SpendMoney(totalPrice); // หักเงินหลังจากซื้อสินค้า
             Debug.Log($"ซื้อ {item.data.itemName} จำนวน {totalPrice / itemPrices[shopItems.IndexOf(item)]} เรียบร้อย");
         }
