@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Import SceneManagement namespace
 
 public class BossHealth : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private float spawnRadius = 5f; // ระยะห่างจากบอสในการ spawn มอนสเตอร์
     [SerializeField] private int numMonstersToSpawn = 3; // จำนวนมอนสเตอร์ที่จะ spawn
     private bool hasSpawnedMonsters = false; // เช็คว่าได้ spawn มอนสเตอร์หรือยัง
+    [SerializeField] private string sceneToLoad; // ชื่อของ scene ที่ต้องการโหลดเมื่อบอสตาย
 
     void Start()
     {
@@ -85,5 +87,8 @@ public class BossHealth : MonoBehaviour
     {
         Debug.Log("Boss died.");
         Destroy(gameObject); // ทำลายบอสเมื่อสุขภาพเป็น 0
+
+        // Teleport player back to the desired scene
+        SceneManager.LoadScene(sceneToLoad); // Load the desired scene
     }
 }

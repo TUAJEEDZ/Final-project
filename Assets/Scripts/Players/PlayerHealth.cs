@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float damageRecoveryTime = 1f;
     [SerializeField] private Slider healthSlider;
 
-    private int currentHealth;
+    public int currentHealth;
     private bool canTakeDamage = true;
     private Knockback knockback;
     private Flash flash;
@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         mapManager = GetComponent<MapManager>();
 
-        ResetPlayerHealth();
+        currentHealth = maxHealth;
 
         if (healthSlider == null)
         {
@@ -44,6 +44,14 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHealthSlider();
+    }
+
+    public void UseHealth(int amount)
+    {
+        if (currentHealth >= amount)
+        {
+            currentHealth -= amount;
+        }
     }
 
     private void OnEnable()
@@ -60,11 +68,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (scene.name == TOWN_TEXT)
         {
-            ResetPlayerHealth(); // Reset health ก่อน
-            transform.position = startingPosition.initialValue; // แล้วค่อยตั้งค่าตำแหน่งใหม่
+            // ไม่ต้องรีเซ็ตสุขภาพ แต่ตั้งค่าตำแหน่งใหม่เมื่อกลับเข้าสู่ฉาก
+            transform.position = startingPosition.initialValue;
         }
     }
-
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -83,18 +90,15 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator DamageRecoveryRoutine()
     {
-        // ใช้ damageRecoveryTime ในการกำหนดเวลาการฟื้นตัวจากการโดนโจมตี
         yield return new WaitForSeconds(damageRecoveryTime);
         canTakeDamage = true;
     }
 
-    public void HealPlayer()
+    public void HealPlayer(int amount)
     {
-        if (currentHealth < maxHealth)
-        {
-            currentHealth += 1;
-            UpdateHealthSlider();
-        }
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        Debug.Log("Health recovered: " + amount);
+        UpdateHealthSlider();
     }
 
     public void ResetPlayerHealth()

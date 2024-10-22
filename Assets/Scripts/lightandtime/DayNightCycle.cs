@@ -24,12 +24,10 @@ public class DayNightCycle : MonoBehaviour
     private int yearCount;
     private Movement movement;
 
-    [SerializeField] private Stamina stamina; // ��ҧ�ԧ��ҹ Inspector
     public TileManager tileManager;
 
     void Start()
     {
-        stamina = GetComponent<Stamina>(); // Get Stamina component
         movement = GetComponent<Movement>();
 
         dayCount = PlayerPrefs.GetInt("DayCount", 1);
@@ -84,7 +82,6 @@ public class DayNightCycle : MonoBehaviour
         {
             time -= 1f;
             dayCount++;
-            GameManager.instance.stamina.RecoverStamina(10); // ��鹿� stamina 5 
             GameManager.instance.tileManager.CheckPlantGrowth();
             GameManager.instance.tileManager.CheckTreeGrowth();
             GameManager.instance.OnNewDay();
