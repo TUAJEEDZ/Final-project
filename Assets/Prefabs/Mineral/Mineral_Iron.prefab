@@ -104,7 +104,7 @@ MonoBehaviour:
   - {fileID: 2203376978846238105, guid: 8bf00a2d3b53a0e4399b2b6a90491bff, type: 3}
   dropChance: 1
   minDropCount: 1
-  maxDropCount: 5
+  maxDropCount: 3
 --- !u!50 &472317761186059914
 Rigidbody2D:
   serializedVersion: 4
@@ -179,5 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d5d2507d326cc40b3e23bb4c9afc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineralHealth: 10
+  mineralHealth: 25
   deathVFXPrefab: {fileID: 7516051212965171915, guid: b5499812498fc37478719c96b0bfa2c9, type: 3}

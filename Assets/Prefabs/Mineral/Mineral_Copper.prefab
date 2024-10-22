@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d5d2507d326cc40b3e23bb4c9afc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineralHealth: 10
+  mineralHealth: 25
   deathVFXPrefab: {fileID: 7516051212965171915, guid: b5499812498fc37478719c96b0bfa2c9, type: 3}
 --- !u!50 &7371506031309509844
 Rigidbody2D:
@@ -180,4 +180,4 @@ MonoBehaviour:
   - {fileID: 788010076658912434, guid: 6cbe15f025812c6498ea77ae07bc0f47, type: 3}
   dropChance: 1
   minDropCount: 1
-  maxDropCount: 1
+  maxDropCount: 3
