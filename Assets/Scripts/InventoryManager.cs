@@ -67,6 +67,7 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.LogWarning($"Inventory '{inventoryName}' not found!");
         }
+
     }
 
 

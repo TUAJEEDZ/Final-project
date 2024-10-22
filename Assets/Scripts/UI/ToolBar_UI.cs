@@ -11,7 +11,7 @@ public class ToolBar_UI : MonoBehaviour
 
     private void Start()
     {
-        SelectSlot(0); // Already select first slot when starting the game
+        //SelectSlot(0); // Already select first slot when starting the game
     }
 
     private void Update()
