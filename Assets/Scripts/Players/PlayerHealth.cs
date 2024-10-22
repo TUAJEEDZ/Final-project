@@ -20,7 +20,9 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private MapManager mapManager;
 
-    const string TOWN_TEXT = "testmix";
+    public VectorValue startingPosition; // กำหนดตำแหน่งเกิดใหม่
+
+    const string TOWN_TEXT = "main";
     readonly int DEATH_TRIGGER_HASH = Animator.StringToHash("Death");
     readonly int IDLE_TRIGGER_HASH = Animator.StringToHash("Idle");
 
@@ -32,7 +34,6 @@ public class PlayerHealth : MonoBehaviour
         playerMovement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
         mapManager = GetComponent<MapManager>();
-
 
         ResetPlayerHealth();
 
@@ -59,9 +60,11 @@ public class PlayerHealth : MonoBehaviour
     {
         if (scene.name == TOWN_TEXT)
         {
-            ResetPlayerHealth();
+            ResetPlayerHealth(); // Reset health ก่อน
+            transform.position = startingPosition.initialValue; // แล้วค่อยตั้งค่าตำแหน่งใหม่
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -77,13 +80,13 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(flash.FlashRoutine());
         }
     }
+
     private IEnumerator DamageRecoveryRoutine()
     {
         // ใช้ damageRecoveryTime ในการกำหนดเวลาการฟื้นตัวจากการโดนโจมตี
         yield return new WaitForSeconds(damageRecoveryTime);
         canTakeDamage = true;
     }
-
 
     public void HealPlayer()
     {
@@ -99,6 +102,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         isdead = false;
         canTakeDamage = true;
+
+        // ตั้งค่าตำแหน่งเกิดใหม่
+        transform.position = startingPosition.initialValue;
 
         // Reset triggers when reviving
         if (animator != null)
@@ -187,7 +193,6 @@ public class PlayerHealth : MonoBehaviour
         SceneManager.LoadScene(TOWN_TEXT); // Load the scene after death
         GameManager.instance.mapManager.SetFarmOn(true);
     }
-
 
     private void UpdateHealthSlider()
     {
