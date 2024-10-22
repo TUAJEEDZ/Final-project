@@ -5900,9 +5900,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItems:
   - {fileID: 11400000, guid: 67fed6f3159f790468fefe66e67c74c0, type: 2}
-  - {fileID: 11400000, guid: 6185175c499f4c1429751755c569d319, type: 2}
-  - {fileID: 11400000, guid: e70cc96fcdb995a459e143ede6c9f7fe, type: 2}
-  itemPrices: 64000000e8030000e8030000
+  - {fileID: 11400000, guid: 8e11ed7cd205e994aa8618d8226049be, type: 2}
+  - {fileID: 11400000, guid: 12ce956fd084b9a4e9936496ffb1e5ec, type: 2}
+  - {fileID: 11400000, guid: eace6c6eeba63dc4881ec86c8217097f, type: 2}
+  itemPrices: 3200000032000000320000002d000000
   sellUI: {fileID: 1496302023}
   itemDropdown: {fileID: 103388349}
   quantityInput: {fileID: 786146476}
