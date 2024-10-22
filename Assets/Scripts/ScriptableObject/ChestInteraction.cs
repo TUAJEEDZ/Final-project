@@ -7,12 +7,15 @@ public class ChestInteraction : MonoBehaviour
 {
     private bool isNearChest = false;
     private Movement movement;
+    private Animator animator;
     private bool playerInTrigger = false;
     public Text interactionText; // UI Text for interaction
     public Image interactionImage; // UI Image for interaction
 
     void Start()
     {
+        animator = gameObject.GetComponentInChildren<Animator>();
+
         if (interactionText != null)
         {
             interactionText.gameObject.SetActive(false);
@@ -34,31 +37,57 @@ public class ChestInteraction : MonoBehaviour
     }
 
     void Update()
-    { 
-       if (!GameManager.instance.uiManager.chestPanel.activeSelf)
-       { 
-            movement.ChangeState(PlayerState.walk); 
-       }
-        if (isNearChest && Input.GetKeyDown(KeyCode.E))
+    {
+        /*if (!GameManager.instance.uiManager.chestPanel.activeSelf)
         {
-            if (movement != null)
+            movement.ChangeState(PlayerState.walk);
+        }
+*/
+        if (isNearChest)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!GameManager.instance.uiManager.chestPanel.activeSelf && !GameManager.instance.uiManager.inventoryPanel.activeSelf)
+                if (movement != null)
                 {
-                    movement.ChangeState(PlayerState.interact); 
-                    GameManager.instance.uiManager.ToggleChestUI();
-                    GameManager.instance.uiManager.ToggleInventoryUI();
+                    if (!GameManager.instance.uiManager.chestPanel.activeSelf && !GameManager.instance.uiManager.inventoryPanel.activeSelf)
+                    {
+                        StartCoroutine(OpenChestCoroutine());
+                    }
+                    else if (GameManager.instance.uiManager.chestPanel.activeSelf)
+                    {
+                        StartCoroutine(CloseChestCoroutine());
+                    }
                 }
-                else if (GameManager.instance.uiManager.chestPanel.activeSelf)
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (GameManager.instance.uiManager.chestPanel.activeSelf)
                 {
-                    GameManager.instance.uiManager.ToggleChestUI();
                     GameManager.instance.uiManager.ToggleInventoryUI();
-                    movement.ChangeState(PlayerState.walk); 
+                    StartCoroutine(CloseChestCoroutine());
                 }
-          
             }
         }
     }
+
+    private IEnumerator OpenChestCoroutine()
+    {
+        animator.SetTrigger("isOpen");
+        movement.ChangeState(PlayerState.interact);
+        yield return new WaitForSeconds(0.5f); // Wait for the animation to finish
+        GameManager.instance.uiManager.ToggleChestUI();
+        GameManager.instance.uiManager.ToggleInventoryUI();
+    }
+
+    private IEnumerator CloseChestCoroutine()
+    {
+        GameManager.instance.uiManager.ToggleChestUI();
+        GameManager.instance.uiManager.ToggleInventoryUI();
+        movement.ChangeState(PlayerState.walk);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetTrigger("isClosing");
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {

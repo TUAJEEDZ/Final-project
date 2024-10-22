@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 6674374276865289633}
   - component: {fileID: 8988718628745667845}
   - component: {fileID: 2994770542689000708}
+  - component: {fileID: 7351804342837446447}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -104,7 +105,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.18, y: 10.38, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3494580935378281966}
@@ -222,6 +223,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionText: {fileID: 4987816624293867643}
   interactionImage: {fileID: 4321301792917895121}
+--- !u!95 &7351804342837446447
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8473951191038128080}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ff0730434d70074f9a79e31f92ef25f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8533744727884154404
 GameObject:
   m_ObjectHideFlags: 0
