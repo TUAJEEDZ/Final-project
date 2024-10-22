@@ -9,9 +9,10 @@ public class ToolBar_UI : MonoBehaviour
     private Slot_UI selectedSlot;
     private int selectedIndex = 0; // Keep track of the selected index
 
+
     private void Start()
     {
-        //SelectSlot(0); // Already select first slot when starting the game
+     //   SelectSlot(0); // Select the first slot when no slot is selected yet
     }
 
     private void Update()
@@ -60,23 +61,23 @@ public class ToolBar_UI : MonoBehaviour
 
         if (scroll > 0f) // Scroll up
         {
-            SelectNextSlot();
+            SelectPreviousSlot();
         }
         else if (scroll < 0f) // Scroll down
         {
-            SelectPreviousSlot();
+            SelectNextSlot();
         }
     }
 
     private void SelectNextSlot()
     {
-        int nextIndex = (selectedIndex - 1) % toolbarSlots.Count; // Loop back to first slot if at the end
+        int nextIndex = (selectedIndex + 1) % toolbarSlots.Count; // Loop back to first slot if at the end
         SelectSlot(nextIndex);
     }
 
     private void SelectPreviousSlot()
     {
-        int previousIndex = (selectedIndex + 1 + toolbarSlots.Count) % toolbarSlots.Count; // Loop to last slot if at the beginning
+        int previousIndex = (selectedIndex - 1 + toolbarSlots.Count) % toolbarSlots.Count; // Loop to last slot if at the beginning
         SelectSlot(previousIndex);
     }
 }

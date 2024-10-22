@@ -4170,9 +4170,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemManager: {fileID: 0}
+  mapManager: {fileID: 0}
   tileManager: {fileID: 0}
+  plantManager: {fileID: 0}
   uiManager: {fileID: 0}
   player: {fileID: 0}
+  dayNightCycle: {fileID: 0}
+  sceneTransitionManager: {fileID: 0}
+  stamina: {fileID: 0}
+  dungeonManager: {fileID: 0}
+  tickmanager: {fileID: 0}
+  inventoryManager: {fileID: 0}
 --- !u!114 &573976950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4187,10 +4195,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableMap: {fileID: 92686254}
   plantMap: {fileID: 120533085}
+  cutMap: {fileID: 0}
+  fertilizedMap: {fileID: 0}
+  treeMap: {fileID: 0}
   hiddenInteractableTile: {fileID: 11400000, guid: 62c662bbe9cc46c47bb15f7b3c2a29dd, type: 2}
+  hiddenTreeTile: {fileID: 0}
   plowedTile: {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
   wetTile: {fileID: 11400000, guid: d979c5024197b314abb745f83f4bbddd, type: 2}
-  wheat: {fileID: 11400000, guid: 3c2b3400a9adf924ea67328094c22700, type: 2}
+  cutableTreeTile: {fileID: 0}
+  fertilizedTile: {fileID: 0}
+  wheatStages: []
+  tomatoStages: []
   plantableTile:
   - {fileID: 11400000, guid: d979c5024197b314abb745f83f4bbddd, type: 2}
   - {fileID: 11400000, guid: 1ac7dee5ce7a97d43a93b89015e8670f, type: 2}
@@ -4207,6 +4222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 768803190}
+  removePanel: {fileID: 1712357289}
+  chestPanel: {fileID: 0}
   inventoryUIs:
   - {fileID: 251369208}
   - {fileID: 621648411}
@@ -82432,7 +82449,7 @@ GameObject:
   - component: {fileID: 1496944482}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82552,6 +82569,7 @@ MonoBehaviour:
   knockBackThrustAmount: 10
   damageRecoveryTime: 1
   healthSlider: {fileID: 2098017134}
+  startingPosition: {fileID: 0}
 --- !u!114 &1496944475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82567,6 +82585,7 @@ MonoBehaviour:
   dropRange: 3
   inventoryManager: {fileID: 0}
   dropPoint: {fileID: 1841275211}
+  DropParent: {fileID: 0}
   itemManager: {fileID: 0}
 --- !u!114 &1496944476
 MonoBehaviour:
@@ -82580,6 +82599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8ab1c3b10b9414c86cdc3725e480c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingPosition: {fileID: 0}
   walkSpeed: 3
   runSpeed: 6
   animator: {fileID: 1496944478}
@@ -82702,6 +82722,14 @@ MonoBehaviour:
       maxAllowed: 99
       icon: {fileID: 0}
   toolbarSlotCount: 9
+  chest:
+    slots: []
+    selectedSlot:
+      itemName: 
+      count: 0
+      maxAllowed: 99
+      icon: {fileID: 0}
+  chestSlotCount: 0
 --- !u!114 &1496944481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82720,6 +82748,9 @@ MonoBehaviour:
     m_Bits: 64
   inventoryManager: {fileID: 0}
   knockbackForce: 5
+  attackCooldown: 1
+  actionCooldown: 0.4
+  lastAttackTime: 0
 --- !u!114 &1496944482
 MonoBehaviour:
   m_ObjectHideFlags: 0

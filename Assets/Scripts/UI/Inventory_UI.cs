@@ -14,7 +14,7 @@ public class Inventory_UI : MonoBehaviour
 
     private void Awake()
     {
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        canvas = GameObject.Find("UI").GetComponent<Canvas>();
     }
 
     void Start()
