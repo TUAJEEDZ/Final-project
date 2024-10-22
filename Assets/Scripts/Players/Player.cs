@@ -415,7 +415,7 @@ public class Player : MonoBehaviour
             case "Homeplayer":
                 DropParent = GameObject.Find("map").transform;
                 break;
-            case "Seedshop":
+            case "SeedShop":
                 DropParent = GameObject.Find("map").transform;
                 break;
             case "Sell":

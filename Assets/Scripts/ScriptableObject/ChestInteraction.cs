@@ -61,6 +61,8 @@ public class ChestInteraction : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Tab))
             {
+                animator.SetTrigger("isClosing");
+                movement.ChangeState(PlayerState.walk);
                 if (GameManager.instance.uiManager.chestPanel.activeSelf)
                 {
                     GameManager.instance.uiManager.ToggleInventoryUI();
