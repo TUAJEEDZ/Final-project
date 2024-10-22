@@ -70,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
         {
             // ไม่ต้องรีเซ็ตสุขภาพ แต่ตั้งค่าตำแหน่งใหม่เมื่อกลับเข้าสู่ฉาก
             transform.position = startingPosition.initialValue;
+            
         }
     }
 
@@ -113,8 +114,10 @@ public class PlayerHealth : MonoBehaviour
         // Reset triggers when reviving
         if (animator != null)
         {
-            animator.ResetTrigger(DEATH_TRIGGER_HASH);
-            animator.SetTrigger(IDLE_TRIGGER_HASH); // Trigger Idle state
+            animator.ResetTrigger("Death");
+            animator.SetTrigger("Idle"); // Trigger Idle state
+            Debug.Log("Player is idle!2");
+
         }
 
         // Enable movement and reset to walking animation
@@ -152,7 +155,7 @@ public class PlayerHealth : MonoBehaviour
 
             Debug.Log("Setting Death Trigger in Animator");
 
-            animator.SetTrigger(DEATH_TRIGGER_HASH);
+            animator.SetTrigger("Death");
 
             // Stop player movement when the player dies
             if (playerMovement != null)
@@ -190,7 +193,8 @@ public class PlayerHealth : MonoBehaviour
         // Trigger Idle animation only after everything is reset
         if (animator != null)
         {
-            animator.SetTrigger(IDLE_TRIGGER_HASH); // Trigger Idle state after reset
+            animator.SetTrigger("Idle"); // Trigger Idle state after reset
+            Debug.Log("Player is idle!1");
         }
 
         // Reload the scene after everything is reset
