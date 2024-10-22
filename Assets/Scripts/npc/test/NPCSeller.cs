@@ -10,15 +10,21 @@ public class NPCSeller : MonoBehaviour
     private Inventory backpackInventory;
     private Inventory toolbarInventory;
 
-    public List<ItemData> shopItems;  
+    public List<ItemData> shopItems;
     public List<int> itemPrices;
 
     public GameObject sellUI;
     public Dropdown itemDropdown;
+    public Text priceText;
     public InputField quantityInput;
     public Image itemIcon;
+    public Button increaseQuantityButton;
+    public Button decreaseQuantityButton;
+    public Button sellButton;
+    public GameObject warningPanel; // เปลี่ยนจาก Text เป็น Panel
+    public Text warningMessageText; // Text ภายใน Panel ที่จะแสดงข้อความ
 
-    private bool isPlayerNearby = false; // เช็คว่าผู้เล่นอยู่ใกล้ NPC หรือไม่
+    private bool isPlayerNearby = false;
 
     void Start()
     {
@@ -29,7 +35,14 @@ public class NPCSeller : MonoBehaviour
         toolbarInventory = playerInventoryManager.GetInventoryByName("Toolbar");
 
         sellUI.SetActive(false);
-        itemDropdown.onValueChanged.AddListener(delegate { UpdateItemIcon(); });
+        warningPanel.SetActive(false); // เริ่มต้นซ่อนไว้
+        itemDropdown.onValueChanged.AddListener(delegate { UpdateItemUI(); });
+        quantityInput.onValueChanged.AddListener(delegate { UpdatePrice(); });
+        increaseQuantityButton.onClick.AddListener(IncreaseQuantity);
+        decreaseQuantityButton.onClick.AddListener(DecreaseQuantity);
+        sellButton.onClick.AddListener(SellSelectedItem);
+
+        quantityInput.text = "1"; // กำหนดค่าเริ่มต้นของ InputField ให้เป็น 1
     }
 
     void Update()
@@ -50,12 +63,13 @@ public class NPCSeller : MonoBehaviour
         }
         itemDropdown.AddOptions(itemNames);
         sellUI.SetActive(true);
-        UpdateItemIcon();
+        UpdateItemUI();
     }
 
     public void CloseSellUI()
     {
         sellUI.SetActive(false);
+        warningPanel.SetActive(false); // ปิดข้อความแจ้งเตือนเมื่อปิด UI
     }
 
     public void SellSelectedItem()
@@ -72,11 +86,11 @@ public class NPCSeller : MonoBehaviour
         int itemIndex = shopItems.FindIndex(item => item.itemName == itemName);
         if (itemIndex != -1)
         {
-            int totalPrice = itemPrices[itemIndex] * quantity;
             Inventory.Slot itemSlot = GetItemSlotFromInventories(itemName, quantity);
 
             if (itemSlot != null)
             {
+                int totalPrice = itemPrices[itemIndex] * quantity;
                 int itemSlotIndex = GetInventoryForSlot(itemSlot).slots.IndexOf(itemSlot);
                 GetInventoryForSlot(itemSlot).Remove(itemSlotIndex, quantity);
                 playerMoney.AddMoney(totalPrice);
@@ -87,14 +101,21 @@ public class NPCSeller : MonoBehaviour
             else
             {
                 Debug.Log("ไอเท็มนี้ไม่มีใน Inventory หรือจำนวนไม่พอ!");
-            }
+                warningMessageText.text = "Not enough items to sell"; // แสดงข้อความใน Text ที่อยู่ใน Panel
+                warningPanel.SetActive(true); // เปิด Panel ขึ้นมา
+                StartCoroutine(HideWarningPanelAfterDelay(2));
+            } // Close the 'if' for itemSlot null check here
         }
         else
         {
             Debug.Log("NPC ไม่สามารถรับซื้อไอเท็มนี้ได้!");
         }
+    }
 
-        sellUI.SetActive(false);
+    private IEnumerator HideWarningPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        warningPanel.SetActive(false); // ซ่อน Panel หลังจากเวลาที่กำหนด
     }
 
     private void ResetUI()
@@ -134,18 +155,40 @@ public class NPCSeller : MonoBehaviour
         return null;
     }
 
-    private void UpdateItemIcon()
+    private void UpdateItemUI()
     {
         string selectedItem = itemDropdown.options[itemDropdown.value].text;
         int itemIndex = shopItems.FindIndex(item => item.itemName == selectedItem);
         if (itemIndex != -1)
         {
             itemIcon.sprite = shopItems[itemIndex].icon;
-            Debug.Log($"ไอคอนสำหรับ {selectedItem} ถูกโหลด: {itemIcon.sprite != null}");
+            UpdatePrice();
+            Debug.Log($"ไอคอนและราคาสำหรับ {selectedItem} ถูกโหลด: {itemIcon.sprite != null}");
         }
         else
         {
             Debug.Log("ไม่พบไอคอนสำหรับไอเท็มนี้!");
+        }
+    }
+
+    private void UpdatePrice()
+    {
+        int quantity;
+        if (!int.TryParse(quantityInput.text, out quantity) || quantity <= 0)
+        {
+            quantity = 1;
+        }
+
+        string selectedItem = itemDropdown.options[itemDropdown.value].text;
+        int itemIndex = shopItems.FindIndex(item => item.itemName == selectedItem);
+        if (itemIndex != -1)
+        {
+            int totalPrice = itemPrices[itemIndex] * quantity;
+            priceText.text = "ราคารวม: " + totalPrice.ToString();
+        }
+        else
+        {
+            priceText.text = "ไม่พบราคา";
         }
     }
 
@@ -158,6 +201,7 @@ public class NPCSeller : MonoBehaviour
         }
         currentQuantity++;
         quantityInput.text = currentQuantity.ToString();
+        UpdatePrice();
     }
 
     public void DecreaseQuantity()
@@ -165,16 +209,16 @@ public class NPCSeller : MonoBehaviour
         int currentQuantity;
         if (!int.TryParse(quantityInput.text, out currentQuantity))
         {
-            currentQuantity = 0;
+            currentQuantity = 1;
         }
-        if (currentQuantity > 0)
+        if (currentQuantity > 1)
         {
             currentQuantity--;
         }
         quantityInput.text = currentQuantity.ToString();
+        UpdatePrice();
     }
 
-    // ฟังก์ชันที่เรียกเมื่อผู้เล่นเข้ามาใกล้ NPC
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -184,13 +228,12 @@ public class NPCSeller : MonoBehaviour
         }
     }
 
-    // ฟังก์ชันที่เรียกเมื่อผู้เล่นออกห่างจาก NPC
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            sellUI.SetActive(false); // ปิด UI เมื่อผู้เล่นออกห่าง
+            sellUI.SetActive(false);
             Debug.Log("ผู้เล่นออกห่างจาก NPC");
         }
     }
