@@ -102,7 +102,7 @@ MonoBehaviour:
   particleOnHitPrefabVFX: {fileID: 383752543725269534, guid: 5c2568d096a68044a922ac7d6f0a03d0, type: 3}
   isEnemyProjectile: 1
   projectileRange: 50
-  damage: 0
+  damage: 3
 --- !u!70 &5713388684236539957
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

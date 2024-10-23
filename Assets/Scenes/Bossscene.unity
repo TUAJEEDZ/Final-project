@@ -14711,12 +14711,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: maxHealth
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: monsterPrefab
       value: 
-      objectReference: {fileID: 5003045802170818549, guid: be4ef0b569500344a96d9302866b1ab7, type: 3}
+      objectReference: {fileID: 6307202642552670421, guid: a2d975d811ecbf94bb99918f5057d5fe, type: 3}
     - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: deathVFXPrefab
       value: 

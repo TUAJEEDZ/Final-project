@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50077fdb244cf4c47ba934528aace502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 25
   deathVFXPrefab: {fileID: 383752543725269534, guid: 3599bb625c3f1bb45bc99e497231e6d2, type: 3}
 --- !u!114 &5097835789480918556
 MonoBehaviour:
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8626958e70222142843468ac7eb1d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 5
+  damageAmount: 10
 --- !u!114 &4152567279853650829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,8 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025c947e8f7c4c1449fcbc33db6d8780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItems:
-  - {fileID: 4780286050900154112, guid: 749366148c2040b48b7caebe03e99919, type: 3}
+  dropItems: []
   dropChance: 1
   minDropCount: 1
   maxDropCount: 3
@@ -286,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dade66b446e094299d2b65d176835c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
+  detectionRange: 20
   playerLayer:
     serializedVersion: 2
     m_Bits: 128

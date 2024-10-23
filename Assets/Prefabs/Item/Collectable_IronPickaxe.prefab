@@ -202,5 +202,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b203edcd3291464d9c1b6450c9678db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  Stamina: 2
+  damage: 10
+  Stamina: 5

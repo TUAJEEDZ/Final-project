@@ -51,15 +51,23 @@ public class PlayerAttack : MonoBehaviour
 
                         if (equippedSword != null)
                         {
-                            AttackWithSword(); // ����ͧ�� stamina ����Ѻ�Һ
+                            string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+
+                            if (!GameManager.instance.uiManager.inventoryPanel.activeSelf && currentSceneName != "Sell" && currentSceneName != "SeedShop" && currentSceneName != "ToolsShop" && currentSceneName != "Homeplayer")
+                            { AttackWithSword(); }// ����ͧ�� stamina ����Ѻ�Һ
                         }
                         else if (equippedPickaxe != null)
                         {
                             if (GameManager.instance.stamina.CurrentStamina >= equippedPickaxe.Stamina)
                             // ��Ǩ�ͺ stamina ����Ѻ pickaxe ��ҹ��
                             {
-                                AttackWithPickaxe(); // �� pickaxe
-                                GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina); // �� stamina ����Ѻ pickaxe
+                                string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
+                                if (!GameManager.instance.uiManager.inventoryPanel.activeSelf && currentSceneName != "Sell" && currentSceneName != "SeedShop" && currentSceneName != "ToolsShop" && currentSceneName != "Homeplayer")
+
+                                {
+                                    AttackWithPickaxe(); // �� pickaxe
+                                    GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina);
+                                } // �� stamina ����Ѻ pickaxe
                             }
                             else
                             {
@@ -71,6 +79,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+
 
     void AttackWithSword()
     {

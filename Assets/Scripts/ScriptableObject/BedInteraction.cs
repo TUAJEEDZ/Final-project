@@ -1,21 +1,26 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // ‡æ◊ËÕ„™È°—∫ Image „π Canvas
+using UnityEngine.UI; // ‡πÄ‡∏û‡∏∑‡πà‡∏≠‡πÉ‡∏ä‡πâ‡∏Å‡∏±‡∏ö Image ‡πÉ‡∏ô Canvas
 
 public class BedInteraction : MonoBehaviour
 {
     private bool isNearBed = false;
     private DayNightCycle dayNightCycle;
     private Movement movement;
-    public Image fadeImage; // Image ∑’Ë®–„™È ”À√—∫‡ø¥
+    public Image fadeImage; // Image ‡∏ó‡∏µ‡πà‡∏à‡∏∞‡πÉ‡∏ä‡πâ‡∏™‡∏≥‡∏´‡∏£‡∏±‡∏ö‡πÄ‡∏ü‡∏î
     public Text interactionText; // UI Text for interaction
     public Image interactionImage; // UI Image for interaction
     private bool playerInTrigger = false;
 
+    [SerializeField] private Stamina stamina; // ÔøΩÔøΩ“ßÔøΩ‘ßÔøΩÔøΩ“π Inspector
+    [SerializeField] private PlayerHealth playerHealth; // ÔøΩÔøΩ“ßÔøΩ‘ßÔøΩÔøΩ“π Inspector
+
     void Start()
     {
-        // §ÈπÀ“ DayNightCycle „π©“°
+        stamina = GetComponent<Stamina>(); // Get Stamina component
+
+        // ‡∏Ñ‡πâ‡∏ô‡∏´‡∏≤ DayNightCycle ‡πÉ‡∏ô‡∏â‡∏≤‡∏Å
         dayNightCycle = FindObjectOfType<DayNightCycle>();
 
         if (interactionText != null)
@@ -31,6 +36,7 @@ public class BedInteraction : MonoBehaviour
     private void Awake()
     {
         movement = FindObjectOfType<Movement>();
+        playerHealth = FindObjectOfType<PlayerHealth>(); // Get Stamina component
 
         if (movement == null)
         {
@@ -49,67 +55,69 @@ public class BedInteraction : MonoBehaviour
         {
             if (dayNightCycle != null && movement != null)
             {
-                movement.ChangeState(PlayerState.interact); // À¬ÿ¥ºŸÈ‡≈Ëπ¢¬—∫
-                StartCoroutine(FadeAndSleep()); // ‡√’¬°„™È Coroutine  ”À√—∫‡ø¥·≈–‡√Ëß‡«≈“
+                movement.ChangeState(PlayerState.interact); // ‡∏´‡∏¢‡∏∏‡∏î‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏Ç‡∏¢‡∏±‡∏ö
+                StartCoroutine(FadeAndSleep()); // ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ Coroutine ‡∏™‡∏≥‡∏´‡∏£‡∏±‡∏ö‡πÄ‡∏ü‡∏î‡πÅ‡∏•‡∏∞‡πÄ‡∏£‡πà‡∏á‡πÄ‡∏ß‡∏•‡∏≤
+                GameManager.instance.stamina.RecoverStamina(100); //  stamina 5 
+                playerHealth.HealPlayer(100);
             }
         }
     }
 
     private IEnumerator FadeAndSleep()
     {
-        // ‡ø¥®Õ‡ªÁπ ’¥”
+        // ‡πÄ‡∏ü‡∏î‡∏à‡∏≠‡πÄ‡∏õ‡πá‡∏ô‡∏™‡∏µ‡∏î‡∏≥
         yield return StartCoroutine(FadeToBlack());
 
-        // ‡√Ëß‡«≈“¢≥–πÕπÀ≈—∫
+        // ‡πÄ‡∏£‡πà‡∏á‡πÄ‡∏ß‡∏•‡∏≤‡∏Ç‡∏ì‡∏∞‡∏ô‡∏≠‡∏ô‡∏´‡∏•‡∏±‡∏ö
         yield return StartCoroutine(SpeedUpTime());
 
-        // ‡ø¥°≈—∫‰ª‡ªÁπ¿“æ‡¥‘¡
+        // ‡πÄ‡∏ü‡∏î‡∏Å‡∏•‡∏±‡∏ö‡πÑ‡∏õ‡πÄ‡∏õ‡πá‡∏ô‡∏†‡∏≤‡∏û‡πÄ‡∏î‡∏¥‡∏°
         yield return StartCoroutine(FadeToClear());
 
-        // ‡¡◊ËÕ∂÷ß‡«≈“ 6 ‚¡ß‡™È“·≈È« ºŸÈ‡≈Ëπ®– “¡“√∂¢¬—∫‰¥ÈÕ’°§√—Èß
+        // ‡πÄ‡∏°‡∏∑‡πà‡∏≠‡∏ñ‡∏∂‡∏á‡πÄ‡∏ß‡∏•‡∏≤ 6 ‡πÇ‡∏°‡∏á‡πÄ‡∏ä‡πâ‡∏≤‡πÅ‡∏•‡πâ‡∏ß ‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏à‡∏∞‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡∏Ç‡∏¢‡∏±‡∏ö‡πÑ‡∏î‡πâ‡∏≠‡∏µ‡∏Å‡∏Ñ‡∏£‡∏±‡πâ‡∏á
         movement.ChangeState(PlayerState.walk);
     }
 
     private IEnumerator FadeToBlack()
     {
-        float fadeDuration = 2f; // √–¬–‡«≈“„π°“√‡ø¥‡ªÁπ ’¥”
+        float fadeDuration = 2f; // ‡∏£‡∏∞‡∏¢‡∏∞‡πÄ‡∏ß‡∏•‡∏≤‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÄ‡∏ü‡∏î‡πÄ‡∏õ‡πá‡∏ô‡∏™‡∏µ‡∏î‡∏≥
         Color fadeColor = fadeImage.color;
 
         for (float t = 0; t <= fadeDuration; t += Time.deltaTime)
         {
             float normalizedTime = t / fadeDuration;
-            fadeColor.a = Mathf.Lerp(0, 1, normalizedTime); // ‡æ‘Ë¡ alpha ®“° 0 ∂÷ß 1
+            fadeColor.a = Mathf.Lerp(0, 1, normalizedTime); // ‡πÄ‡∏û‡∏¥‡πà‡∏° alpha ‡∏à‡∏≤‡∏Å 0 ‡∏ñ‡∏∂‡∏á 1
             fadeImage.color = fadeColor;
             yield return null;
         }
 
         fadeColor.a = 1;
-        fadeImage.color = fadeColor; // ∑”„ÀÈ¡—Ëπ„®«Ë“ alpha ‡ªÁπ 1
+        fadeImage.color = fadeColor; // ‡∏ó‡∏≥‡πÉ‡∏´‡πâ‡∏°‡∏±‡πà‡∏ô‡πÉ‡∏à‡∏ß‡πà‡∏≤ alpha ‡πÄ‡∏õ‡πá‡∏ô 1
     }
 
     private IEnumerator FadeToClear()
     {
-        float fadeDuration = 2f; // √–¬–‡«≈“„π°“√‡ø¥°≈—∫¡“‡ªÁπ¿“æª°µ‘
+        float fadeDuration = 2f; // ‡∏£‡∏∞‡∏¢‡∏∞‡πÄ‡∏ß‡∏•‡∏≤‡πÉ‡∏ô‡∏Å‡∏≤‡∏£‡πÄ‡∏ü‡∏î‡∏Å‡∏•‡∏±‡∏ö‡∏°‡∏≤‡πÄ‡∏õ‡πá‡∏ô‡∏†‡∏≤‡∏û‡∏õ‡∏Å‡∏ï‡∏¥
         Color fadeColor = fadeImage.color;
 
         for (float t = 0; t <= fadeDuration; t += Time.deltaTime)
         {
             float normalizedTime = t / fadeDuration;
-            fadeColor.a = Mathf.Lerp(1, 0, normalizedTime); // ≈¥ alpha ®“° 1 ‡ªÁπ 0
+            fadeColor.a = Mathf.Lerp(1, 0, normalizedTime); // ‡∏•‡∏î alpha ‡∏à‡∏≤‡∏Å 1 ‡πÄ‡∏õ‡πá‡∏ô 0
             fadeImage.color = fadeColor;
             yield return null;
         }
 
         fadeColor.a = 0;
-        fadeImage.color = fadeColor; // ∑”„ÀÈ¡—Ëπ„®«Ë“ alpha ‡ªÁπ 0
+        fadeImage.color = fadeColor; // ‡∏ó‡∏≥‡πÉ‡∏´‡πâ‡∏°‡∏±‡πà‡∏ô‡πÉ‡∏à‡∏ß‡πà‡∏≤ alpha ‡πÄ‡∏õ‡πá‡∏ô 0
     }
 
     private IEnumerator SpeedUpTime()
     {
         float originalDayDuration = dayNightCycle.dayDuration;
-        dayNightCycle.dayDuration = 5f; // ‡√Ëß‡«≈“„ÀÈ‡√Á«°«Ë“ª°µ‘
+        dayNightCycle.dayDuration = 5f; // ‡πÄ‡∏£‡πà‡∏á‡πÄ‡∏ß‡∏•‡∏≤‡πÉ‡∏´‡πâ‡πÄ‡∏£‡πá‡∏ß‡∏Å‡∏ß‡πà‡∏≤‡∏õ‡∏Å‡∏ï‡∏¥
 
-        // √Õ®π°«Ë“‡«≈“®–∂÷ß 6:00 AM
+        // ‡∏£‡∏≠‡∏à‡∏ô‡∏Å‡∏ß‡πà‡∏≤‡πÄ‡∏ß‡∏•‡∏≤‡∏à‡∏∞‡∏ñ‡∏∂‡∏á 6:00 AM
         yield return new WaitUntil(() => dayNightCycle.GetHours() == 6);
 
         dayNightCycle.dayDuration = originalDayDuration;

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BossHealth : MonoBehaviour
 {
@@ -11,10 +13,20 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private float spawnRadius = 5f; // ระยะห่างจากบอสในการ spawn มอนสเตอร์
     [SerializeField] private int numMonstersToSpawn = 3; // จำนวนมอนสเตอร์ที่จะ spawn
     private bool hasSpawnedMonsters = false; // เช็คว่าได้ spawn มอนสเตอร์หรือยัง
+    private InventoryManager inventoryManager;
+    private Player player;
+
 
     void Start()
     {
         currentHealth = maxHealth; // ตั้งค่าจำนวนสุขภาพปัจจุบันเป็นจำนวนสูงสุด
+
+    }
+    private void Awake()
+    {
+        inventoryManager = FindObjectOfType<InventoryManager>(); // ใช้ FindObjectOfType แทน GetComponent
+        player = FindObjectOfType<Player>(); // หรือกำหนดการเข้าถึงผู้เล่นโดยตรง
+
     }
 
     void Update()
@@ -83,7 +95,16 @@ public class BossHealth : MonoBehaviour
     // ฟังก์ชันสำหรับจัดการเมื่อบอสตาย
     private void Die()
     {
+
         Debug.Log("Boss died.");
         Destroy(gameObject); // ทำลายบอสเมื่อสุขภาพเป็น 0
+
+        // วาร์ป player กลับไปยังฉากที่ชื่อ "main"
+        SceneManager.LoadScene("main");
+        GameManager.instance.mapManager.SetFarmOn(true);
+        inventoryManager.Add("Backpack", "Fertilizer", 40);
+        inventoryManager.Add("Backpack", "Sword lnw", 1);
+
     }
+
 }
