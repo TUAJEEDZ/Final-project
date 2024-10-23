@@ -18,6 +18,7 @@ public class ShopUI : MonoBehaviour
     public Button increaseButton; // ปุ่มเพิ่มจำนวน
     public Button decreaseButton; // ปุ่มลดจำนวน
     public Image itemImage; // เพิ่มตัวแปรสำหรับเก็บ Image ของไอเทม
+    public Button closeButton; // เพิ่มปุ่มปิด shopPanel
 
     private Item selectedItem;
     private int selectedItemPrice;
@@ -27,7 +28,8 @@ public class ShopUI : MonoBehaviour
         if (!npcShop) npcShop = GetComponent<NPCShop>();
         quantityPanel.SetActive(false); // ซ่อน panel ตั้งแต่เริ่มต้น
 
-        closeQuantityPanelButton.onClick.AddListener(CloseQuantityPanel); // เพิ่ม listener
+        closeQuantityPanelButton.onClick.AddListener(CloseQuantityPanel); // เพิ่ม listener สำหรับปิด panel จำนวน
+        closeButton.onClick.AddListener(CloseShop); // เพิ่ม listener สำหรับปิด shopPanel
     }
 
     private void Start()
