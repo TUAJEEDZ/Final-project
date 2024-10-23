@@ -14711,7 +14711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: maxHealth
-      value: 150
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1803102806590229453, guid: 2c523706468432b4e98e6b00d25a7c78, type: 3}
       propertyPath: monsterPrefab

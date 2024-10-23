@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142bad6e06461054e801fa38e8ba8124, type: 3}
   m_Name: Sword2
   m_EditorClassIdentifier: 
-  itemName: Sword2
+  itemName: Sword lnw
   icon: {fileID: -1071910107, guid: 3d266f4ed68922d45ae72bd3d462695c, type: 3}

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 1890357052927155359}
   - component: {fileID: 6238027516467709529}
   - component: {fileID: 1586344696529244260}
+  - component: {fileID: 6348420658690792452}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -272,8 +273,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26dade66b446e094299d2b65d176835c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
+  detectionRange: 7
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
   attackCooldown: 0.5
+--- !u!114 &6348420658690792452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003045802170818549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8626958e70222142843468ac7eb1d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 15

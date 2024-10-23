@@ -103,6 +103,7 @@ public class BossHealth : MonoBehaviour
         SceneManager.LoadScene("main");
         GameManager.instance.mapManager.SetFarmOn(true);
         inventoryManager.Add("Backpack", "Fertilizer", 40);
+        inventoryManager.Add("Backpack", "Sword lnw", 1);
 
     }
 
