@@ -140,7 +140,7 @@ public class TileManager : MonoBehaviour
     {
         if (treeHealth.ContainsKey(position))
         {
-            treeHealth[position] -= 2; // Decrease tree health by 1
+            treeHealth[position] -= 1; // Decrease tree health by 1
 
             // Check if the tree health has reached zero
             if (treeHealth[position] <= 0)

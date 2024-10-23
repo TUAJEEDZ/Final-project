@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Toolbar", "Stone Pickaxe", 1);
         inventoryManager.Add("Toolbar", "Longsword", 1);
         inventoryManager.Add("Backpack", "Copper Axe", 1);
+        inventoryManager.Add("Backpack", "Iron Axe", 1);
+        inventoryManager.Add("Backpack", "Copper Hoe", 1);
+        inventoryManager.Add("Backpack", "Iron Hoe", 1);
+        inventoryManager.Add("Backpack", "Copper Watering Can", 1);
+        inventoryManager.Add("Backpack", "Iron Watering Can", 1);
+
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()
@@ -110,6 +116,84 @@ public class Player : MonoBehaviour
                         }
                     }
 
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Copper Hoe")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 2)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isPlowing");
+                            GameManager.instance.stamina.UseStamina(2);
+                            playerAttack.ActionCoolDown();
+                            if (tileManager != null && direction != Vector2.zero)
+                            {
+                                // Calculate the position in front of the player based on the direction
+                                Vector3Int position = new Vector3Int(
+                                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                    0
+                                );
+                                StartCoroutine(DelayedInteraction(position));
+                                IEnumerator DelayedInteraction(Vector3Int position)
+                                {
+                                    yield return new WaitForSeconds(0.4f);
+                                    movement.ChangeState(PlayerState.walk);
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Interactable")
+                                        {
+                                            tileManager.SetInteracted(position);
+                                        }
+                                        else if (tileManager.IsPlantableTile(tileName))
+                                        {
+                                            tileManager.SetFill(position);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Iron Hoe")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 1)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isPlowing");
+                            GameManager.instance.stamina.UseStamina(1);
+                            playerAttack.ActionCoolDown();
+                            if (tileManager != null && direction != Vector2.zero)
+                            {
+                                // Calculate the position in front of the player based on the direction
+                                Vector3Int position = new Vector3Int(
+                                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                    0
+                                );
+                                StartCoroutine(DelayedInteraction(position));
+                                IEnumerator DelayedInteraction(Vector3Int position)
+                                {
+                                    yield return new WaitForSeconds(0.4f);
+                                    movement.ChangeState(PlayerState.walk);
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Interactable")
+                                        {
+                                            tileManager.SetInteracted(position);
+                                        }
+                                        else if (tileManager.IsPlantableTile(tileName))
+                                        {
+                                            tileManager.SetFill(position);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if (inventoryManager.toolbar.selectedSlot.itemName == "Stone Watering Can")
                     {
                         if (GameManager.instance.stamina.CurrentStamina >= 3)
@@ -117,6 +201,80 @@ public class Player : MonoBehaviour
                             movement.ChangeState(PlayerState.interact);
                             animator.SetTrigger("isWatering");
                             GameManager.instance.stamina.UseStamina(3);
+                            playerAttack.ActionCoolDown();
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
+                            {
+                                yield return new WaitForSeconds(0.5f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
+                                {
+
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Summer_Plowed")
+                                        {
+                                            tileManager.SetWatered(position);
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Iron Watering Can")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 1)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isWatering");
+                            GameManager.instance.stamina.UseStamina(1);
+                            playerAttack.ActionCoolDown();
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
+                            {
+                                yield return new WaitForSeconds(0.5f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
+                                {
+
+                                    string tileName = tileManager.GetTileName(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "Summer_Plowed")
+                                        {
+                                            tileManager.SetWatered(position);
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Copper Watering Can")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 2)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isWatering");
+                            GameManager.instance.stamina.UseStamina(2);
                             playerAttack.ActionCoolDown();
                             // Calculate the position in front of the player based on the direction
                             Vector3Int position = new Vector3Int(
@@ -348,6 +506,7 @@ public class Player : MonoBehaviour
                                         if (tileName == "cutabletree1")
                                         {
                                             tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
                                             //inventoryManager.Add("Backpack", "Wood");
                                             DropItem("Wood", 1);
                                         }
@@ -388,9 +547,55 @@ public class Player : MonoBehaviour
                                         {
                                             tileManager.DamageTree(position);
                                             tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
                                             /*inventoryManager.Add("Backpack", "Wood");
                                             inventoryManager.Add("Backpack", "Wood");*/
                                             DropItem("Wood", 2);
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    if (inventoryManager.toolbar.selectedSlot.itemName == "Iron Axe")
+                    {
+                        if (GameManager.instance.stamina.CurrentStamina >= 1)
+                        {
+                            movement.ChangeState(PlayerState.interact);
+                            animator.SetTrigger("isCutting");
+                            GameManager.instance.stamina.UseStamina(1);
+                            playerAttack.ActionCoolDown();
+
+                            // Calculate the position in front of the player based on the direction
+                            Vector3Int position = new Vector3Int(
+                                Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                                0
+                            );
+                            StartCoroutine(DelayedInteraction(position));
+                            IEnumerator DelayedInteraction(Vector3Int position)
+                            {
+                                yield return new WaitForSeconds(0.4f);
+                                movement.ChangeState(PlayerState.walk);
+                                if (tileManager != null && direction != Vector2.zero)
+                                {
+
+                                    string tileName = tileManager.GetTileNameTree(position);
+
+                                    if (!string.IsNullOrWhiteSpace(tileName))
+                                    {
+                                        if (tileName == "cutabletree1")
+                                        {
+                                            tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
+                                            tileManager.DamageTree(position);
+                                            /*inventoryManager.Add("Backpack", "Wood");
+                                            inventoryManager.Add("Backpack", "Wood");*/
+                                            DropItem("Wood", 3);
                                         }
                                     }
 
