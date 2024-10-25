@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Backpack", "Iron Hoe", 1);
         inventoryManager.Add("Backpack", "Copper Watering Can", 1);
         inventoryManager.Add("Backpack", "Iron Watering Can", 1);
+        inventoryManager.Add("Backpack", "Wheat", 10);
 
         GameManager.instance.uiManager.RefreshAll();
     }
