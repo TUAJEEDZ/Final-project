@@ -84,7 +84,6 @@ public class DayNightCycle : MonoBehaviour
             dayCount++;
             GameManager.instance.tileManager.CheckPlantGrowth();
             GameManager.instance.tileManager.CheckTreeGrowth();
-            GameManager.instance.tileManager.CheckBushGrowth();
             GameManager.instance.OnNewDay();
             GameManager.instance.tickmanager.UpdatecurrentTick();
             if (dayCount > 30) // Assuming each month has 30 days

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Debug = UnityEngine.Debug;
 
 public class TileManager : MonoBehaviour
 {
@@ -234,7 +235,7 @@ public class TileManager : MonoBehaviour
             // Check if the tick count has reached the required number
             if (bushTicks[position] >= bushTickRequirement)
             {
-                bushTicks.SetTile(position, interactableBushTile); // Change to "cutabletree1"
+                bushMap.SetTile(position, interactableBushTile); // Change to "cutabletree1"
                 bushTicks.Remove(position); // Reset or remove the tick counter for this position
                 Debug.Log("Bush at " + position + " is now interactable.");
             }
