@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class Player : MonoBehaviour
 {
@@ -41,7 +43,6 @@ public class Player : MonoBehaviour
         inventoryManager.Add("Backpack", "Iron Hoe", 1);
         inventoryManager.Add("Backpack", "Copper Watering Can", 1);
         inventoryManager.Add("Backpack", "Iron Watering Can", 1);
-
         GameManager.instance.uiManager.RefreshAll();
     }
     private void Awake()
@@ -73,6 +74,29 @@ public class Player : MonoBehaviour
              currentSceneName != "ToolsShop" &&
              currentSceneName != "Homeplayer")
         {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (tileManager != null && direction != Vector2.zero)
+                {
+                    // Calculate the position in front of the player based on the direction
+                    Vector3Int position = new Vector3Int(
+                        Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                        Mathf.RoundToInt(transform.position.y - 1 + direction.y),
+                        0
+                    );
+                    string tileName = tileManager.GetTileNameBush(position);
+                    if (!string.IsNullOrWhiteSpace(tileName))
+                    {
+                        if (tileName == "bush2")
+                        {
+                            tileManager.SetPickupBush(position);
+                            inventoryManager.Add("Backpack", "Berry", 1);
+                            GameManager.instance.uiManager.RefreshAll();
+                        }
+                    }
+                }
+            }
+
             if (Time.time >= playerAttack.lastAttackTime + playerAttack.actionCooldown)
             {
                 if (Input.GetButtonDown("Fire1")) // set keybind

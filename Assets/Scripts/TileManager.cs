@@ -109,6 +109,11 @@ public class TileManager : MonoBehaviour
         fertilizedMap.SetTile(position, null);
     }
 
+    public void SetPickupBush(Vector3Int position)
+    {
+        bushMap.SetTile(position, bushTile);  // Setting the interacted tile
+    }
+
     public void SetPickup(Vector3Int position)
     {
         if (plantedTiles.TryGetValue(position, out var cropData))
@@ -122,10 +127,10 @@ public class TileManager : MonoBehaviour
                 int newStage = currentStage - 1;
 
                 // Update the tile based on the crop type
-               /* if (cropType == "wheat" && wheatStages.Length > 0)
-                {
-                    plantMap.SetTile(position, wheatStages[newStage]); // Set the previous stage of wheat
-                }*/
+                /* if (cropType == "wheat" && wheatStages.Length > 0)
+                 {
+                     plantMap.SetTile(position, wheatStages[newStage]); // Set the previous stage of wheat
+                 }*/
                 if (cropType == "tomato" && tomatoStages.Length > 0)
                 {
                     plantMap.SetTile(position, tomatoStages[newStage]); // Set the previous stage of tomato
@@ -220,7 +225,7 @@ public class TileManager : MonoBehaviour
 
     public void UpdateBushGrowth(Vector3Int position)
     {
-        if (treeMap.GetTile(position) == bushTile)
+        if (bushMap.GetTile(position) == bushTile)
         {
             // Increment tick count
             if (bushTicks.ContainsKey(position))
