@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +8,7 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private Tilemap interactableMap;
     [SerializeField] private Tilemap plantMap;
+    [SerializeField] private Tilemap bushMap;
     [SerializeField] private Tilemap cutMap;
     [SerializeField] private Tilemap fertilizedMap;
     [SerializeField] private Tilemap treeMap;
@@ -14,6 +16,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile hiddenTreeTile; // select tile to hide
     [SerializeField] private Tile plowedTile;  // select tile to replace hidden tile
     [SerializeField] private Tile wetTile;
+    [SerializeField] private Tile interactableBushTile;
+    [SerializeField] private Tile bushTile;
     [SerializeField] private Tile cutableTreeTile;
     [SerializeField] private Tile fertilizedTile;
     [SerializeField] private Tile[] wheatStages;  // Array to hold wheat growth stages
@@ -21,6 +25,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tile[] plantableTile;
 
     private Dictionary<Vector3Int, int> treeTicks = new Dictionary<Vector3Int, int>();
+    private Dictionary<Vector3Int, int> bushTicks = new Dictionary<Vector3Int, int>();
 
     private Dictionary<string, int> cropTickRequirements = new Dictionary<string, int>
     {
@@ -37,6 +42,7 @@ public class TileManager : MonoBehaviour
     // Default tree health value
     private int defaultTreeHealth = 10; // Number of hits required to cut down the tree
     private int treeTickRequirement = 3; // Number of ticks to change from hidden to cutable tree
+    private int bushTickRequirement = 3;
 
     void Start()
     {
@@ -211,7 +217,31 @@ public class TileManager : MonoBehaviour
         }
     }
 
-        public string GetTileName(Vector3Int position)
+    public void UpdateBushGrowth(Vector3Int position)
+    {
+        if (treeMap.GetTile(position) == bushTile)
+        {
+            // Increment tick count
+            if (bushTicks.ContainsKey(position))
+            {
+                bushTicks[position]++;
+            }
+            else
+            {
+                bushTicks[position] = 1; // Initialize with 1 tick on first update
+            }
+
+            // Check if the tick count has reached the required number
+            if (bushTicks[position] >= bushTickRequirement)
+            {
+                bushTicks.SetTile(position, interactableBushTile); // Change to "cutabletree1"
+                bushTicks.Remove(position); // Reset or remove the tick counter for this position
+                Debug.Log("Bush at " + position + " is now interactable.");
+            }
+        }
+    }
+
+    public string GetTileName(Vector3Int position)
     {
         if (interactableMap != null)
         {
@@ -282,6 +312,20 @@ public class TileManager : MonoBehaviour
         return "";
     }
 
+    public string GetTileNameBush(Vector3Int position)
+    {
+        if (bushMap != null)
+        {
+            TileBase bush_tile = bushMap.GetTile(position);
+
+            if (bush_tile != null)
+            {
+                return bush_tile.name;
+            }
+        }
+        return "";
+    }
+
     public void CheckPlantGrowth()
     {
         List<Vector3Int> positionsToGrow = new List<Vector3Int>();
@@ -347,6 +391,17 @@ public class TileManager : MonoBehaviour
             if (treeMap.HasTile(position) && treeMap.GetTile(position) == hiddenTreeTile)
             {
                 UpdateTreeGrowth(position); // Update tick count for each hidden tree tile
+            }
+        }
+    }
+
+    public void CheckBushGrowth()
+    {
+        foreach (var position in bushMap.cellBounds.allPositionsWithin)
+        {
+            if (bushMap.HasTile(position) && bushMap.GetTile(position) == bushTile)
+            {
+                UpdateBushGrowth(position); // Update tick count for each hidden tree tile
             }
         }
     }
