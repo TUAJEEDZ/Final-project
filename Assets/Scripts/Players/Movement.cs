@@ -22,6 +22,12 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Knockback knockback;
 
+    public AudioSource audioSource; // ตัวแปรสำหรับ AudioSource
+    public AudioClip walkingSound; // เสียงเดิน
+    public AudioClip runningSound; // เสียงวิ่ง
+    private bool isSoundPlaying = false; // ตรวจสอบว่าเสียงกำลังเล่นอยู่หรือไม่
+    private bool isRunning = false; // ตรวจสอบว่ากำลังวิ่งหรือเดิน
+
     public PlayerState currentState { get; private set; } = PlayerState.walk;
 
     private void Start()
@@ -57,10 +63,12 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             currentSpeed = runSpeed; // Run
+            isRunning = true; // กำลังวิ่ง
         }
         else
         {
             currentSpeed = walkSpeed; // Walk
+            isRunning = false; // กำลังเดิน
         }
 
         direction = new Vector3(horizontal, vertical, 0).normalized;
@@ -78,10 +86,44 @@ public class Movement : MonoBehaviour
                 animator.SetBool("IsMoving", true);
                 animator.SetFloat("Horizontal", direction.x);
                 animator.SetFloat("Vertical", direction.y);
+
+                // เล่นเสียงเดินหรือวิ่งตามสถานะ
+                AudioClip currentClip = walkingSound;
+                float pitch = 1.0f; // ค่าความเร็วเสียงปกติ
+
+                if (isRunning)
+                {
+                    currentClip = runningSound;
+                    pitch = 1.4f; // ปรับความเร็วเสียงวิ่งให้เร็วขึ้น
+                }
+
+                if (!isSoundPlaying && currentClip != null)
+                {
+                    audioSource.clip = currentClip;
+                    audioSource.loop = true; // ให้เสียงวนซ้ำ
+                    audioSource.pitch = pitch; // ตั้งค่าความเร็วเสียง
+                    audioSource.Play();
+                    isSoundPlaying = true;
+                }
+                else if (audioSource.clip != currentClip || audioSource.pitch != pitch)
+                {
+                    // เปลี่ยนเสียงหรือความเร็วเมื่อสถานะเปลี่ยน
+                    audioSource.Stop();
+                    audioSource.clip = currentClip;
+                    audioSource.pitch = pitch; // ตั้งค่าความเร็วเสียง
+                    audioSource.Play();
+                }
             }
             else
             {
                 animator.SetBool("IsMoving", false);
+
+                // หยุดเสียงเมื่อหยุดเดิน/วิ่ง
+                if (isSoundPlaying)
+                {
+                    audioSource.Stop();
+                    isSoundPlaying = false;
+                }
             }
         }
     }
