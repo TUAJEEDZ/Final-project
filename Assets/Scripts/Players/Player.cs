@@ -77,6 +77,10 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (tileManager != null && direction != Vector2.zero)
+                {     
+                    Vector3Int position = new Vector3Int(
+                                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                    Mathf.RoundToInt(transform.position.y - 1 + direction.y),
                         0
                     );
                     string tileName = tileManager.GetTileNameBush(position);
