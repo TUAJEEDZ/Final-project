@@ -145,6 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7a742a60b0f274a938eb34de257847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interact: {fileID: 8300000, guid: 1d18bd7d19b8edf4987001c965e56efa, type: 3}
+  source: {fileID: 0}
   hoverSpeed: 2
   hoverHeight: 0.25
 --- !u!114 &8946516007685280542
@@ -161,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: c0b16ba016e09e04eb625a75c3fc9666, type: 2}
   rb2d: {fileID: 0}
+  isCollected: 0
 --- !u!50 &4826525626401126074
 Rigidbody2D:
   serializedVersion: 4

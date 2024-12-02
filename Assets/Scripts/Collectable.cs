@@ -14,16 +14,15 @@ public class Collectable : MonoBehaviour
 
     private void Awake()
     {
-     /*   if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject); // Ensure the Collectable persists across scenes
-        }*/
-
+        /*   if (instance != null && instance != this)
+           {
+               Destroy(this.gameObject);
+           }
+           else
+           {
+               instance = this;
+               DontDestroyOnLoad(this.gameObject); // Ensure the Collectable persists across scenes
+           }*/
         coll = GetComponent<Collider2D>();
         coll.enabled = false; // Disable the collider at the start
         StartCoroutine(EnableColliderAfterDelay(0.3f)); // Enable the collider after delay

@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Collectable_wheat
       objectReference: {fileID: 0}
+    - target: {fileID: 1813832371826185605, guid: e90f0f99ce19f78479dacc751bc75738, type: 3}
+      propertyPath: interact
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d18bd7d19b8edf4987001c965e56efa, type: 3}
     - target: {fileID: 2121064020088268189, guid: e90f0f99ce19f78479dacc751bc75738, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.875

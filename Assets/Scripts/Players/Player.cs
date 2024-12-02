@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public Transform dropPoint;
 
     public Transform DropParent;
+    public AudioClip interact,cutting,plow,watering;
+    public AudioSource source;
 
     private PlayerAttack playerAttack;
     private Stamina stamina;
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
                         {
                             tileManager.SetPickupBush(position);
                             inventoryManager.Add("Backpack", "Berry", 1);
+                            source.PlayOneShot(interact);
                         }
                     }
                 }
@@ -127,10 +130,13 @@ public class Player : MonoBehaviour
                                         if (tileName == "Interactable")
                                         {
                                             tileManager.SetInteracted(position);
+                                            source.PlayOneShot(plow);
+
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
                                             tileManager.SetFill(position);
+                                            source.PlayOneShot(plow);
                                         }
                                     }
                                 }
@@ -166,10 +172,12 @@ public class Player : MonoBehaviour
                                         if (tileName == "Interactable")
                                         {
                                             tileManager.SetInteracted(position);
+                                            source.PlayOneShot(plow);
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
                                             tileManager.SetFill(position);
+                                            source.PlayOneShot(plow);
                                         }
                                     }
                                 }
@@ -205,10 +213,12 @@ public class Player : MonoBehaviour
                                         if (tileName == "Interactable")
                                         {
                                             tileManager.SetInteracted(position);
+                                            source.PlayOneShot(plow);
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
                                             tileManager.SetFill(position);
+                                            source.PlayOneShot(plow);
                                         }
                                     }
                                 }
@@ -245,6 +255,7 @@ public class Player : MonoBehaviour
                                         if (tileName == "Summer_Plowed")
                                         {
                                             tileManager.SetWatered(position);
+                                            source.PlayOneShot(watering);
                                         }
                                     }
 
@@ -282,6 +293,7 @@ public class Player : MonoBehaviour
                                         if (tileName == "Summer_Plowed")
                                         {
                                             tileManager.SetWatered(position);
+                                            source.PlayOneShot(watering);
                                         }
                                     }
 
@@ -319,6 +331,8 @@ public class Player : MonoBehaviour
                                         if (tileName == "Summer_Plowed")
                                         {
                                             tileManager.SetWatered(position);
+                                            source.PlayOneShot(watering);
+
                                         }
                                     }
 
@@ -531,6 +545,7 @@ public class Player : MonoBehaviour
                                             tileManager.DamageTree(position);
                                             //inventoryManager.Add("Backpack", "Wood");
                                             DropItem("Wood", 1);
+                                            source.PlayOneShot(cutting);
                                         }
                                     }
 
@@ -573,6 +588,7 @@ public class Player : MonoBehaviour
                                             /*inventoryManager.Add("Backpack", "Wood");
                                             inventoryManager.Add("Backpack", "Wood");*/
                                             DropItem("Wood", 2);
+                                            source.PlayOneShot(cutting);
                                         }
                                     }
 
@@ -618,6 +634,7 @@ public class Player : MonoBehaviour
                                             /*inventoryManager.Add("Backpack", "Wood");
                                             inventoryManager.Add("Backpack", "Wood");*/
                                             DropItem("Wood", 3);
+                                            source.PlayOneShot(cutting);
                                         }
                                     }
 
