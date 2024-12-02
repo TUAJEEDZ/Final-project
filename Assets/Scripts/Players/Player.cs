@@ -90,7 +90,6 @@ public class Player : MonoBehaviour
                         {
                             tileManager.SetPickupBush(position);
                             inventoryManager.Add("Backpack", "Berry", 1);
-                            GameManager.instance.uiManager.RefreshAll();
                         }
                     }
                 }
