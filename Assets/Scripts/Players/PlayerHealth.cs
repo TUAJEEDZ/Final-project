@@ -20,7 +20,9 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private MapManager mapManager;
 
-    public VectorValue startingPosition; // กำหนดตำแหน่งเกิดใหม่
+    public VectorValue startingPosition; // ๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
+    public AudioClip takedamage;
+    public AudioSource source;
 
     const string TOWN_TEXT = "main";
     readonly int DEATH_TRIGGER_HASH = Animator.StringToHash("Death");
@@ -68,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (scene.name == TOWN_TEXT)
         {
-            // ไม่ต้องรีเซ็ตสุขภาพ แต่ตั้งค่าตำแหน่งใหม่เมื่อกลับเข้าสู่ฉาก
+            // ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝุข๏ฟฝาพ ๏ฟฝ๏ฟฝ๏ฟฝ้งค๏ฟฝาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝาก
             transform.position = startingPosition.initialValue;
             
         }
@@ -108,7 +110,7 @@ public class PlayerHealth : MonoBehaviour
         isdead = false;
         canTakeDamage = true;
 
-        // ตั้งค่าตำแหน่งเกิดใหม่
+        // ๏ฟฝ๏ฟฝ้งค๏ฟฝาต๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
         transform.position = startingPosition.initialValue;
 
         // Reset triggers when reviving
@@ -144,6 +146,7 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(DamageRecoveryRoutine());
         UpdateHealthSlider();
         CheckIfPlayerDeath();
+        source.PlayOneShot(takedamage);
     }
 
     private void CheckIfPlayerDeath()

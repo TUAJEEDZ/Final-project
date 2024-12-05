@@ -30,22 +30,15 @@ public class Player : MonoBehaviour
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         tileManager = GameManager.instance.tileManager;
-        inventoryManager.Add("Toolbar", "Stone Axe", 1);
-        inventoryManager.Add("Toolbar", "Stone Hoe", 1);
-        inventoryManager.Add("Toolbar", "Stone Sickle", 1);
-        inventoryManager.Add("Toolbar", "Stone Watering Can", 1);
-        inventoryManager.Add("Toolbar", "Wheat Seed", 10);
-        inventoryManager.Add("Toolbar", "Tomato Seed", 10);
-        inventoryManager.Add("Toolbar", "Fertilizer", 10);
-        inventoryManager.Add("Toolbar", "Stone Pickaxe", 1);
-        inventoryManager.Add("Toolbar", "Longsword", 1);
-        inventoryManager.Add("Backpack", "Copper Axe", 1);
-        inventoryManager.Add("Backpack", "Iron Axe", 1);
-        inventoryManager.Add("Backpack", "Copper Hoe", 1);
-        inventoryManager.Add("Backpack", "Iron Hoe", 1);
-        inventoryManager.Add("Backpack", "Copper Watering Can", 1);
-        inventoryManager.Add("Backpack", "Iron Watering Can", 1);
-        GameManager.instance.uiManager.RefreshAll();
+        inventoryManager.Add("Chest", "Stone Axe", 1);
+        inventoryManager.Add("Chest", "Stone Hoe", 1);
+        inventoryManager.Add("Chest", "Stone Sickle", 1);
+        inventoryManager.Add("Chest", "Stone Watering Can", 1);
+        inventoryManager.Add("Chest", "Wheat Seed", 10);
+        inventoryManager.Add("Chest", "Tomato Seed", 10);
+        inventoryManager.Add("Chest", "Fertilizer", 10);
+        inventoryManager.Add("Chest", "Stone Pickaxe", 1);
+        inventoryManager.Add("Chest", "Ironsword", 1);
     }
     private void Awake()
     {
@@ -114,7 +107,7 @@ public class Player : MonoBehaviour
                             {
                                 // Calculate the position in front of the player based on the direction
                                 Vector3Int position = new Vector3Int(
-                                    Mathf.RoundToInt(transform.position.x - 1 + direction.x),
+                                    Mathf.RoundToInt(transform.position.x  + direction.x),
                                     Mathf.RoundToInt(transform.position.y - 1 + direction.y),
                                     0
                                 );
@@ -129,14 +122,14 @@ public class Player : MonoBehaviour
                                     {
                                         if (tileName == "Interactable")
                                         {
-                                            tileManager.SetInteracted(position);
                                             source.PlayOneShot(plow);
+                                            tileManager.SetInteracted(position);
 
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
-                                            tileManager.SetFill(position);
                                             source.PlayOneShot(plow);
+                                            tileManager.SetFill(position);
                                         }
                                     }
                                 }
@@ -171,13 +164,14 @@ public class Player : MonoBehaviour
                                     {
                                         if (tileName == "Interactable")
                                         {
+                                            source.PlayOneShot(plow);
                                             tileManager.SetInteracted(position);
                                             source.PlayOneShot(plow);
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
-                                            tileManager.SetFill(position);
                                             source.PlayOneShot(plow);
+                                            tileManager.SetFill(position);
                                         }
                                     }
                                 }
@@ -212,13 +206,13 @@ public class Player : MonoBehaviour
                                     {
                                         if (tileName == "Interactable")
                                         {
-                                            tileManager.SetInteracted(position);
                                             source.PlayOneShot(plow);
+                                            tileManager.SetInteracted(position);
                                         }
                                         else if (tileManager.IsPlantableTile(tileName))
                                         {
-                                            tileManager.SetFill(position);
                                             source.PlayOneShot(plow);
+                                            tileManager.SetFill(position);
                                         }
                                     }
                                 }

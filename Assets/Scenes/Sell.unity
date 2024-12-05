@@ -4967,7 +4967,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e11ed7cd205e994aa8618d8226049be, type: 2}
   - {fileID: 11400000, guid: 12ce956fd084b9a4e9936496ffb1e5ec, type: 2}
   - {fileID: 11400000, guid: eace6c6eeba63dc4881ec86c8217097f, type: 2}
-  itemPrices: 3200000032000000320000002d000000
+  - {fileID: 11400000, guid: 25831486e397cd64f95a7bef352457e0, type: 2}
+  itemPrices: 32000000320000004b0000000700000019000000
   sellUI: {fileID: 1496302023}
   itemDropdown: {fileID: 103388349}
   priceText: {fileID: 1326102329}
@@ -6909,19 +6910,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1663385292}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1098996380}
-        m_TargetAssemblyTypeName: NPCSeller, Assembly-CSharp
-        m_MethodName: SellSelectedItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1663385292
 MonoBehaviour:
   m_ObjectHideFlags: 0

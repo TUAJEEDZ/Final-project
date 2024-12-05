@@ -9,6 +9,8 @@ public class PlayerAttack : MonoBehaviour
     public float knockbackForce = 5f; // Knockback force for enemies
     public float attackCooldown = 1f; // Cooldown duration between attacks
     public float actionCooldown = 0.4f;
+    public AudioClip slash, mining;
+    public AudioSource source;
 
     private Animator animator; // Reference to character's Animator
     private Vector2 attackDirection; // Attack direction
@@ -54,7 +56,11 @@ public class PlayerAttack : MonoBehaviour
                             string currentSceneName = GameManager.instance.sceneTransitionManager.GetActiveSceneName();
 
                             if (!GameManager.instance.uiManager.inventoryPanel.activeSelf && currentSceneName != "Sell" && currentSceneName != "SeedShop" && currentSceneName != "ToolsShop" && currentSceneName != "Homeplayer")
-                            { AttackWithSword(); }// ����ͧ�� stamina ����Ѻ�Һ
+                            { 
+                                AttackWithSword();
+                                source.PlayOneShot(slash);
+                            }// ����ͧ�� stamina ����Ѻ�Һ
+                            
                         }
                         else if (equippedPickaxe != null)
                         {
@@ -67,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
                                 {
                                     AttackWithPickaxe(); // �� pickaxe
                                     GameManager.instance.stamina.UseStamina(equippedPickaxe.Stamina);
+                                    source.PlayOneShot(mining);
                                 } // �� stamina ����Ѻ pickaxe
                             }
                             else
