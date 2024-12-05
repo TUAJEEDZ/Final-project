@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
                             {
                                 // Calculate the position in front of the player based on the direction
                                 Vector3Int position = new Vector3Int(
-                                    Mathf.RoundToInt(transform.position.x  + direction.x),
+                                    Mathf.RoundToInt(transform.position.x -1 + direction.x),
                                     Mathf.RoundToInt(transform.position.y - 1 + direction.y),
                                     0
                                 );
