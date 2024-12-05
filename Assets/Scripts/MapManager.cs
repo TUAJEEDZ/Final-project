@@ -9,9 +9,12 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject door;
     [SerializeField] private GameObject houseMap;
     [SerializeField] private GameObject dungeon;
+    [SerializeField] private GameObject UI;
+
 
     private bool isFarmOn = false;
     private bool isDoorOn = false;
+    private bool isUiOn = false;
 
 
     private void Awake()
@@ -26,6 +29,13 @@ public class MapManager : MonoBehaviour
         farmMap.SetActive(isOn);
         isDoorOn = isOn;
         door.SetActive(isOn);
+
+    }
+
+    public void SetUiOn(bool isOn)
+    {
+        isUiOn = isOn;
+        UI.SetActive(isOn);
 
     }
 

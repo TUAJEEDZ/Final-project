@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     // อ้างอิงถึงปุ่ม
     public Button startButton;
+    public Button exitButton; // เพิ่มปุ่ม Exit
 
     // อ้างอิงถึงหน้าโหลดและ UI ที่เกี่ยวข้อง
     public GameObject loadingScreen; // หน้าโหลด (Panel)
@@ -19,10 +20,21 @@ public class MainMenuManager : MonoBehaviour
         if (startButton != null)
         {
             startButton.onClick.AddListener(StartGame);
+
         }
         else
         {
             Debug.LogError("Start Button is not assigned in the Inspector!");
+        }
+
+        // เชื่อมฟังก์ชัน ExitGame กับปุ่ม exitButton
+        if (exitButton != null)
+        {
+            exitButton.onClick.AddListener(ExitGame);
+        }
+        else
+        {
+            Debug.LogError("Exit Button is not assigned in the Inspector!");
         }
     }
 
@@ -35,10 +47,20 @@ public class MainMenuManager : MonoBehaviour
         if (loadingScreen != null)
         {
             loadingScreen.SetActive(true);
+
         }
 
         // โหลด Scene ที่ต้องการ
         StartCoroutine(LoadSceneAsync("main"));
+        GameManager.instance.mapManager.SetUiOn(true);
+
+    }
+
+    public void ExitGame()
+    {
+        // ฟังก์ชันสำหรับออกจากเกม
+        Debug.Log("Exiting the game...");
+        Application.Quit(); // คำสั่งนี้ใช้ได้เมื่อ Build ออกมาเป็นแอปพลิเคชันจริง
     }
 
     // Coroutine สำหรับการโหลด Scene แบบ Async
