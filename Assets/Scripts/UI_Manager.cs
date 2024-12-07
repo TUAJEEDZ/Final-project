@@ -11,6 +11,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject removePanel;
     public GameObject chestPanel;
     public GameObject ExitPanel;
+    public GameObject tipPanel;
 
 
     public List<Inventory_UI> inventoryUIs;
@@ -25,6 +26,7 @@ public class UI_Manager : MonoBehaviour
         removePanel.SetActive(false);
         chestPanel.SetActive(false);
         ExitPanel.SetActive(false);
+        tipPanel.SetActive(false);
         Initialize();
     }
 
@@ -65,6 +67,21 @@ public class UI_Manager : MonoBehaviour
                 chestPanel.SetActive(false);
                 inventoryPanel.SetActive(false);
                 removePanel.SetActive(false);
+            }
+        }
+    }
+
+    public void ToggleTipUI()
+    {
+        if (inventtipPaneloryPanel != null)
+        {
+            if (!tipPanel.activeSelf)
+            {
+                tipPanel.SetActive(true);
+            }
+            else
+            {
+                tipPanel.SetActive(false);
             }
         }
     }
