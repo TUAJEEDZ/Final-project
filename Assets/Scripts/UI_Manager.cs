@@ -10,6 +10,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject removePanel;
     public GameObject chestPanel;
+    public GameObject ExitPanel;
+
 
     public List<Inventory_UI> inventoryUIs;
 
@@ -22,6 +24,7 @@ public class UI_Manager : MonoBehaviour
         inventoryPanel.SetActive(false);
         removePanel.SetActive(false);
         chestPanel.SetActive(false);
+        ExitPanel.SetActive(false);
         Initialize();
     }
 
@@ -39,6 +42,11 @@ public class UI_Manager : MonoBehaviour
         else
         {
             dragSingle = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleExitUI();
         }
     }
 
@@ -74,6 +82,23 @@ public class UI_Manager : MonoBehaviour
             else
             {
                 chestPanel.SetActive(false);
+                removePanel.SetActive(false);
+            }
+        }
+    }
+
+    public void ToggleExitUI()
+    {
+        if( ExitPanel != null)
+        {
+            if (!ExitPanel.activeSelf)
+            {
+                ExitPanel.SetActive(true);
+                removePanel.SetActive(true);
+            }
+            else
+            {
+                ExitPanel.SetActive(false);
                 removePanel.SetActive(false);
             }
         }

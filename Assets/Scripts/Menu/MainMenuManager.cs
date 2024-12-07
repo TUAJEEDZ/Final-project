@@ -59,8 +59,9 @@ public class MainMenuManager : MonoBehaviour
     public void ExitGame()
     {
         // ฟังก์ชันสำหรับออกจากเกม
-        Debug.Log("Exiting the game...");
+        
         Application.Quit(); // คำสั่งนี้ใช้ได้เมื่อ Build ออกมาเป็นแอปพลิเคชันจริง
+        Debug.Log("Exiting the game...");
     }
 
     // Coroutine สำหรับการโหลด Scene แบบ Async
