@@ -48,7 +48,7 @@ public class UI_Manager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (tipPanel != null)
+            if (ExitPanel != null)
             { 
                 ToggleExitUI(); 
             }

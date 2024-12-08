@@ -52,7 +52,7 @@ public class MainMenuManager : MonoBehaviour
 
         // โหลด Scene ที่ต้องการ
         StartCoroutine(LoadSceneAsync("main"));
-        GameManager.instance.mapManager.SetUiOn(true);
+        //GameManager.instance.mapManager.SetUiOn(true);
 
     }
 
