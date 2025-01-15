@@ -218,6 +218,7 @@ public class TileManager : MonoBehaviour
             {
                 treeMap.SetTile(position, cutableTreeTile); // Change to "cutabletree1"
                 treeTicks.Remove(position); // Reset or remove the tick counter for this position
+                treeHealth[position] = 10;
                 Debug.Log("Tree at " + position + " is now cutable.");
             }
         }
